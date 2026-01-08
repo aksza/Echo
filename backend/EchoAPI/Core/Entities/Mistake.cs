@@ -1,21 +1,41 @@
-﻿namespace EchoAPI.Core.Entities
+﻿using EchoAPI.Core.Enums;
+using EchoAPI.Core.Interfaces.Entities;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace EchoAPI.Core.Entities
 {
-    public class Mistake
+    public class Mistake : ISoftDeletable
     {
+        [Key]
         public Guid Id { get; set; }
 
+        [Required]
         public Guid UserId { get; set; }
-        public Guid MessageId { get; set; }
+        
+        public bool IsDeleted { get; set; } = false;
 
+        [Required]
+        [MaxLength(500)]
         public string OriginalText { get; set; } = null!;
-        public string CorrectedText { get; set; } = null!;
-        public string Explanation { get; set; } = null!;
-        public string Category { get; set; } = null!; // grammar, vocab, etc
 
-        public DateTime CreatedAt { get; set; }
+        [Required]
+        [MaxLength(500)]
+        public string CorrectedText { get; set; } = null!;
+
+        public string? Explanation { get; set; }
+
+        [Required]
+        public Guid MistakeCategoryId { get; set; }
+
+        [Required]
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+
+        public ImprovementLevel Improvement { get; set; } // e.g., 1-5 scale indicating improvement
 
         // Navigation
         public User User { get; set; } = null!;
-        public Message Message { get; set; } = null!;
+        public MistakeCategory MistakeCategory { get; set; } = null!;
     }
+
 }
