@@ -21,11 +21,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Api\Controllers\" />
     <Folder Include="Api\DTOs\" />
     <Folder Include="Core\Models\Responses\" />
     <Folder Include="Core\Models\Requests\" />
-    <Folder Include="Infrastructure\Data\" />
-    <Folder Include="Infrastructure\Migrations\" />
     <Folder Include="Infrastructure\Repositories\" />
   </ItemGroup>
 
