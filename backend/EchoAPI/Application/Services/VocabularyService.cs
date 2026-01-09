@@ -27,5 +27,11 @@ namespace EchoAPI.Application.Services
 
             return _mapper.Map<VocabularyResponse>(vocabulary);
         }
+
+        public async Task<IEnumerable<VocabularyResponse>> GetUserVocabulariesAsync(Guid userId)
+        {
+            var vocabularies = await _vocabularyRepository.GetByUserIdAsync(userId);
+            return _mapper.Map<IEnumerable<VocabularyResponse>>(vocabularies);
+        }
     }
 }

@@ -7,13 +7,15 @@ namespace EchoAPI.Infrastructure.Repositories
 {
     public class VocabularyRepository : BaseRepository<Vocabulary>, IVocabularyRepository
     {
+        private readonly EchoDbContext _context;
         public VocabularyRepository(EchoDbContext context) : base(context)
         {
+            _context = context;
         }
         public async Task<IEnumerable<Vocabulary>> GetByUserIdAsync(Guid userId)
         {
-            return await _dbSet
-                .Where(u => u.UserId == userId && !u.IsDeleted).ToListAsync();
+            return await _context.Vocabulary
+                .Where(v => v.UserId == userId && !v.IsDeleted).ToListAsync();
         }
     }
 }
