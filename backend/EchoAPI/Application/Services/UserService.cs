@@ -34,7 +34,7 @@ namespace EchoAPI.Application.Services
 
             //ezt valtsuk at imapperre
             var user = _mapper.Map<User>(request);
-            
+
             user.Id = Guid.NewGuid();
             user.CreatedAt = DateTime.UtcNow;
             user.PasswordHash = _passwordHasher.HashPassword(request.Password);
@@ -59,13 +59,26 @@ namespace EchoAPI.Application.Services
 
             await _userRepository.SaveChangesAsync();
 
-            var token = _jwtTokenService.GenerateToken(user,out var expiresAt);
+            var token = _jwtTokenService.GenerateToken(user, out var expiresAt);
 
             return new LoginResponse
             {
                 AccessToken = token,
                 ExpiresAt = expiresAt
             };
+        }
+
+        public async Task<UserResponse?> GetByIdAsync(Guid userId)
+        {
+            var user = await _userRepository.GetByIdAsync(userId);
+
+            if (user == null || user.IsDeleted)
+            {
+                throw new InvalidOperationException("User not found.");
+            }
+
+            var userResponse = _mapper.Map<UserResponse>(user);
+            return userResponse;
         }
     }
 }
