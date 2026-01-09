@@ -2,7 +2,6 @@
 using EchoAPI.Api.DTOs.Requests;
 using EchoAPI.Api.DTOs.Response;
 using EchoAPI.Core.Entities;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace EchoAPI.Api.Mappings
 {
