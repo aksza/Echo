@@ -32,7 +32,9 @@ namespace EchoAPI.Infrastructure.Utils
             var claims = new[]
             {
                 new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
-                new Claim(JwtRegisteredClaimNames.Email, user.Email)
+                new Claim(JwtRegisteredClaimNames.Email, user.Email),
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()), // Add this
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()) // And this for token uniqueness
             };
 
             var token = new JwtSecurityToken(

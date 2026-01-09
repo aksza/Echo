@@ -15,5 +15,10 @@ namespace EchoAPI.Infrastructure.Repositories
         {
             return _dbSet.FirstOrDefaultAsync(u => u.Email == email && !u.IsDeleted);
         }
+
+        public new Task<User?> GetByIdAsync(Guid id)
+        {
+            return _dbSet.FirstOrDefaultAsync(u => u.Id == id && !u.IsDeleted);
+        }
     }
 }
