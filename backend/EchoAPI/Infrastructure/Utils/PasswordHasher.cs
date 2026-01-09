@@ -7,7 +7,7 @@ namespace EchoAPI.Infrastructure.Utils
         public string HashPassword(string password)
         => BCrypt.Net.BCrypt.HashPassword(password);
 
-        public bool VerifyPassword(string hashedPassword, string providedPassword)
+        public bool VerifyPassword(string providedPassword, string hashedPassword)
         => BCrypt.Net.BCrypt.Verify(providedPassword, hashedPassword);
     }
 }

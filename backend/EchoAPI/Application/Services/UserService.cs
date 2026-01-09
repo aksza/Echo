@@ -12,12 +12,14 @@ namespace EchoAPI.Application.Services
     {
         private readonly IUserRepository _userRepository;
         private readonly IPasswordHasher _passwordHasher;
+        private readonly IJwtTokenService _jwtTokenService;
         private readonly IMapper _mapper;
 
-        public UserService(IUserRepository userRepository, IPasswordHasher passwordHasher, IMapper mapper)
+        public UserService(IUserRepository userRepository, IPasswordHasher passwordHasher, IMapper mapper, IJwtTokenService jwtTokenService)
         {
             _userRepository = userRepository;
             _passwordHasher = passwordHasher;
+            _jwtTokenService = jwtTokenService;
             _mapper = mapper;
         }
 
@@ -42,6 +44,28 @@ namespace EchoAPI.Application.Services
             await _userRepository.SaveChangesAsync();
 
             return _mapper.Map<UserResponse>(user);
+        }
+
+        public async Task<LoginResponse> LoginAsync(LoginRequest request)
+        {
+            var user = await _userRepository.GetByEmailAsync(request.Email);
+            if (user == null || !_passwordHasher.VerifyPassword(request.Password, user.PasswordHash))
+            {
+                throw new UnauthorizedAccessException("Invalid email or password.");
+            }
+
+            user.LastLogin = DateTime.UtcNow;
+            _userRepository.Update(user);
+
+            await _userRepository.SaveChangesAsync();
+
+            var token = _jwtTokenService.GenerateToken(user,out var expiresAt);
+
+            return new LoginResponse
+            {
+                AccessToken = token,
+                ExpiresAt = expiresAt
+            };
         }
     }
 }
