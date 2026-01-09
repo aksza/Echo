@@ -80,5 +80,50 @@ namespace EchoAPI.Application.Services
             var userResponse = _mapper.Map<UserResponse>(user);
             return userResponse;
         }
+
+        public async Task<UserResponse> EditUserAsync(Guid usderId, EditUserRequest request)
+        {
+            var user = await _userRepository.GetByIdAsync(usderId);
+            if (user == null || user.IsDeleted)
+            {
+                throw new InvalidOperationException("User not found.");
+            }
+            // Update fields
+            if (!string.IsNullOrEmpty(request.NativeLanguage))
+            {
+                user.NativeLanguage = request.NativeLanguage;
+            }
+            if (!string.IsNullOrEmpty(request.TargetLanguage))
+            {
+                user.TargetLanguage = request.TargetLanguage;
+            }
+            if (!string.IsNullOrEmpty(request.LearningGoals))
+            {
+                user.LearningGoals = request.LearningGoals;
+            }
+            if (request.AllowLearningDataSharing.HasValue)
+            {
+                user.AllowLearningDataSharing = request.AllowLearningDataSharing.Value;
+            }
+
+            _userRepository.Update(user);
+            await _userRepository.SaveChangesAsync();
+
+            return _mapper.Map<UserResponse>(user);
+        }
+
+        public async Task DeleteUserAsync(Guid userId)
+        {
+            var user = await _userRepository.GetByIdAsync(userId);
+
+            if(user == null || user.IsDeleted)
+            {
+                throw new InvalidOperationException("User not found");
+            }
+
+            user.IsDeleted = true;
+            _userRepository.Update(user);
+            await _userRepository.SaveChangesAsync();
+        }
     }
 }
