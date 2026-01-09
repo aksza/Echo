@@ -46,5 +46,33 @@ namespace EchoAPI.Api.Controllers
             var userResponse = await _userService.GetByIdAsync(userId);
             return Ok(userResponse);
         }
+
+        [Authorize]
+        [HttpPut("me")]
+        public async Task<IActionResult> EditUser([FromBody] EditUserRequest request)
+        {
+            var userIdClaim = User.FindFirst("sub")?.Value
+                              ?? User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (userIdClaim == null) return Unauthorized();
+
+            var userId = Guid.Parse(userIdClaim);
+
+            var updatedUser = await _userService.EditUserAsync(userId, request);
+            return Ok(updatedUser);
+        }
+
+        [Authorize]
+        [HttpDelete("me")]
+        public async Task<IActionResult> DeleteUser()
+        {
+            var userIdClaim = User.FindFirst("sub")?.Value
+                              ?? User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (userIdClaim == null) return Unauthorized();
+
+            var userId = Guid.Parse(userIdClaim);
+
+            await _userService.DeleteUserAsync(userId);
+            return NoContent();
+        }
     }
 }
