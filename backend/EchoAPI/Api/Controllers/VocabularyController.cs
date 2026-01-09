@@ -49,5 +49,37 @@ namespace EchoAPI.Api.Controllers
             
             return Ok(vocabularies);
         }
+
+        [HttpPut("{vocabularyId}")]
+        [Authorize]
+        public async Task<IActionResult> UpdateVocabulary(Guid vocabularyId, [FromBody] EditVocabularyRequest request)
+        {
+            var userIdClaim = User.FindFirst("sub")?.Value
+                              ?? User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            
+            if (userIdClaim == null)
+                return Unauthorized();
+
+            var userId = Guid.Parse(userIdClaim);
+
+            var updatedVocabulary = await _vocabularyService.EditVocabularyAsync(vocabularyId, request);
+            return Ok(updatedVocabulary);
+        }
+
+        [HttpDelete("{vocabularyId}")]
+        [Authorize]
+        public async Task<IActionResult> DeleteVocabulary(Guid vocabularyId)
+        {
+            var userIdClaim = User.FindFirst("sub")?.Value
+                              ?? User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            
+            if (userIdClaim == null)
+                return Unauthorized();
+
+            var userId = Guid.Parse(userIdClaim);
+
+            await _vocabularyService.DeleteVocabularyAsync(vocabularyId);
+            return NoContent();
+        }
     }
 }

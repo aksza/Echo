@@ -33,5 +33,35 @@ namespace EchoAPI.Application.Services
             var vocabularies = await _vocabularyRepository.GetByUserIdAsync(userId);
             return _mapper.Map<IEnumerable<VocabularyResponse>>(vocabularies);
         }
+
+        public async Task<VocabularyResponse?> EditVocabularyAsync(Guid vocabularyId, EditVocabularyRequest request)
+        {
+            var vocabulary = await _vocabularyRepository.GetByIdAsync(vocabularyId);
+            if (vocabulary == null || vocabulary.IsDeleted) throw new InvalidOperationException("Vocabulary not found or unauthorized");
+
+            if (!string.IsNullOrEmpty(request.Expression) || !string.IsNullOrEmpty(request.Translation) || request.ExampleSentence != null)
+            {
+                vocabulary.Expression = request.Expression;
+                vocabulary.Translation = request.Translation;
+            }
+            
+            _vocabularyRepository.Update(vocabulary);
+            await _vocabularyRepository.SaveChangesAsync();
+
+            return _mapper.Map<VocabularyResponse>(vocabulary);
+        }
+
+        public async Task<bool> DeleteVocabularyAsync(Guid vocabularyId)
+        {
+            var vocabulary = await _vocabularyRepository.GetByIdAsync(vocabularyId);
+            if (vocabulary == null || vocabulary.IsDeleted) 
+                throw new InvalidOperationException("Vocabulary not found or unauthorized");
+            
+            vocabulary.IsDeleted = true;
+            _vocabularyRepository.Update(vocabulary);
+            await _vocabularyRepository.SaveChangesAsync();
+
+            return true;
+        }
     }
 }
