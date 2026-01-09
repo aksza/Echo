@@ -23,5 +23,12 @@ namespace EchoAPI.Api.Controllers
 
             return CreatedAtAction(nameof(Register), new { id = user.Id }, user);
         }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LoginRequest request)
+        {
+            var response = await _userService.LoginAsync(request);
+            return Ok(response);
+        }
     }
 }
