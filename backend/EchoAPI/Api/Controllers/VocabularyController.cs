@@ -33,5 +33,21 @@ namespace EchoAPI.Api.Controllers
 
             return CreatedAtAction(nameof(AddVocabulary), vocabularyResponse);
         }
+
+        [HttpGet("vocabularies")]
+        [Authorize]
+        public async Task<IActionResult> GetUserVocabularies()
+        {
+            var userIdClaim = User.FindFirst("sub")?.Value
+                              ?? User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            
+            if (userIdClaim == null)
+                return Unauthorized();
+            
+            var userId = Guid.Parse(userIdClaim);
+            var vocabularies = await _vocabularyService.GetUserVocabulariesAsync(userId);
+            
+            return Ok(vocabularies);
+        }
     }
 }
