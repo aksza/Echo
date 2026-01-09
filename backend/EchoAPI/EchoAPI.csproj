@@ -7,6 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Core\Models\**" />
+    <Content Remove="Core\Models\**" />
+    <EmbeddedResource Remove="Core\Models\**" />
+    <None Remove="Core\Models\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.11" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.11">
       <PrivateAssets>all</PrivateAssets>
@@ -22,10 +31,8 @@
 
   <ItemGroup>
     <Folder Include="Api\Controllers\" />
-    <Folder Include="Api\DTOs\" />
-    <Folder Include="Core\Models\Responses\" />
-    <Folder Include="Core\Models\Requests\" />
     <Folder Include="Infrastructure\Repositories\" />
+    <Folder Include="Infrastructure\Services\" />
   </ItemGroup>
 
 </Project>
