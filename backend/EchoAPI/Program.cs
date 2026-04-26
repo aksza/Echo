@@ -1,9 +1,13 @@
 using EchoAPI.Api.Middleware;
 using EchoAPI.Application.Services;
+using EchoAPI.Core.Config;
 using EchoAPI.Core.Interfaces.Repositories;
+using EchoAPI.Core.Interfaces.Services;
 using EchoAPI.Core.Interfaces.Utils;
 using EchoAPI.Infrastructure.Data;
 using EchoAPI.Infrastructure.Repositories;
+using EchoAPI.Infrastructure.Services;
+using EchoAPI.Infrastructure.Services.AiServices;
 using EchoAPI.Infrastructure.Utils;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +16,12 @@ using Microsoft.OpenApi.Models;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Configuration Settings
+builder.Services.Configure<AiServicesSettings>(
+    builder.Configuration.GetSection(AiServicesSettings.SectionName));
+builder.Services.Configure<StorageSettings>(
+    builder.Configuration.GetSection(StorageSettings.SectionName));
 
 // Database
 builder.Services.AddDbContext<EchoDbContext>(options =>
@@ -66,7 +76,33 @@ builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<VocabularyService>();
 builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
+builder.Services.AddScoped<ConversationOrchestrator>();
+builder.Services.AddScoped<IAudioStorageService, AudioStorageService>();
 builder.Services.AddAutoMapper(typeof(Program));
+
+// AI Services - HttpClient configuration
+var aiSettings = builder.Configuration.GetSection(AiServicesSettings.SectionName).Get<AiServicesSettings>();
+
+builder.Services.AddHttpClient<IPhi3ServiceClient, Phi3ServiceClient>(client =>
+{
+    client.BaseAddress = new Uri(aiSettings?.Phi3Service?.BaseUrl ?? "http://localhost:8003/api/v1/llm/");
+    client.Timeout = TimeSpan.FromSeconds(aiSettings?.Phi3Service?.TimeoutSeconds ?? 120);
+    client.DefaultRequestHeaders.Add("Accept", "application/json");
+});
+
+builder.Services.AddHttpClient<IWhisperServiceClient, WhisperServiceClient>(client =>
+{
+    client.BaseAddress = new Uri(aiSettings?.WhisperService?.BaseUrl ?? "http://localhost:8002/api/v1/stt/");
+    client.Timeout = TimeSpan.FromSeconds(aiSettings?.WhisperService?.TimeoutSeconds ?? 300);
+    client.DefaultRequestHeaders.Add("Accept", "application/json");
+});
+
+builder.Services.AddHttpClient<IPiperServiceClient, PiperServiceClient>(client =>
+{
+    client.BaseAddress = new Uri(aiSettings?.PiperService?.BaseUrl ?? "http://localhost:8001/api/v1/tts/");
+    client.Timeout = TimeSpan.FromSeconds(aiSettings?.PiperService?.TimeoutSeconds ?? 30);
+    client.DefaultRequestHeaders.Add("Accept", "application/json");
+});
 
 // JWT Authentication
 var jwtSettings = builder.Configuration.GetSection("Jwt");
