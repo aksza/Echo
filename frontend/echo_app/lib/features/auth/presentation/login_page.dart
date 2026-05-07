@@ -12,6 +12,38 @@ class LoginPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(authControllerProvider);
+    final lastAction = ref.watch(lastAuthActionProvider);
+
+    // Listen for state changes and show popups
+    ref.listen(authControllerProvider, (previous, next) {
+      next.when(
+        data: (token) {
+          if (token != null && (previous?.asData?.value == null)) {
+            final actionType = ref.read(lastAuthActionProvider);
+            final message = actionType == 'register' 
+              ? 'Registration successful!' 
+              : 'Login successful!';
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(message),
+                backgroundColor: Colors.green,
+                duration: const Duration(seconds: 2),
+              ),
+            );
+          }
+        },
+        error: (error, stackTrace) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Error: $error'),
+              backgroundColor: Colors.red,
+              duration: const Duration(seconds: 3),
+            ),
+          );
+        },
+        loading: () {},
+      );
+    });
 
     return Scaffold(
       body: Padding(
