@@ -140,7 +140,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 // JWT authentication must be **before** UseAuthorization
 app.UseAuthentication();
