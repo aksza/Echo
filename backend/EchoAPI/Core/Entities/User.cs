@@ -39,6 +39,14 @@ namespace EchoAPI.Core.Entities
 
         public bool AllowLearningDataSharing { get; set; } = false;
 
+        public int PlacementScore { get; set; } = 0;
+
+        public float PlacementConfidence { get; set; } = 0.0f;
+
+        public DateTime? LevelAssessedAt { get; set; }
+
+        public bool PlacementCompleted { get; set; } = false;
+
         // Navigation
         public UserSettings? Settings { get; set; }
         public ICollection<Session> Sessions { get; set; } = new List<Session>();
