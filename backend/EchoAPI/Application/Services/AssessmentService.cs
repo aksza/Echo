@@ -1,6 +1,8 @@
-﻿using EchoAPI.Api.DTOs.Response;
+﻿using EchoAPI.Api.DTOs;
+using EchoAPI.Api.DTOs.Response;
 using EchoAPI.Core.Enums;
 using EchoAPI.Core.Interfaces.Services;
+using System.Text.Json;
 
 namespace EchoAPI.Application.Services
 {
@@ -15,39 +17,110 @@ namespace EchoAPI.Application.Services
 
         public async Task<AssessmentResponse> AssessTextAsync(string text)
         {
-            var prompt = $"""
-            You are a language proficiency evaluator.
+            var prompt = """
+            You are a professional CEFR language evaluator.
 
-            Evaluate the following English text and estimate the CEFR level.
+            Evaluate the user's WRITING skill only.
 
-            Return:
-            - CEFR level
-            - score from 0 to 100
-            - confidence from 0 to 1
-            - short feedback
+            Important:
+            - This app is mainly focused on speaking practice.
+            - This writing assessment is only a supporting signal.
+            - Do not evaluate pronunciation or speaking fluency here.
 
-            User text:
-            {text}
+            Respond ONLY with a raw JSON object.
+            Do NOT use markdown.
+            Do NOT wrap the response in ```json.
+            Do NOT add explanations outside the JSON.
+
+            Format:
+            {
+              "level": "A1",
+              "score": 0,
+              "confidence": 0.0,
+              "feedback": "short feedback"
+            }
+
+            Rules:
+            - level must be one of: A1, A2, B1, B2, C1, C2
+            - score must be between 0 and 100
+            - confidence must be between 0 and 1
+            - feedback should be short and useful
             """;
 
             var aiResponse = await _phi3Client.ChatAsync(
                 message: text,
                 conversationId: null,
                 systemPrompt: prompt,
-                temperature: 2,
-                maxTokens: 300
+                temperature: 0.1,
+                maxTokens: 250
             );
 
-            // egyelore mock parse
-            // kesobb structured parsing
+            var cleanJson = ExtractJson(aiResponse.Response);
+
+            var parsedResponse = JsonSerializer.Deserialize<AssessmentAiResult>(
+                cleanJson,
+                new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                });
+
+            if (parsedResponse == null)
+            {
+                throw new InvalidOperationException("Failed to parse AI response.");
+            }
 
             return new AssessmentResponse
             {
-                EstimatedLevel = LanguageLevel.B1,
-                Score = 75,
-                Confidence = 0.85f,
-                Feedback = aiResponse.Response
+                EstimatedLevel = ParseLevel(parsedResponse.Level),
+                Score = Clamp(parsedResponse.Score, 0, 100),
+                Confidence = Clamp(parsedResponse.Confidence, 0f, 1f),
+                Feedback = parsedResponse.Feedback
             };
+        }
+
+        private static string ExtractJson(string response)
+        {
+            if (string.IsNullOrWhiteSpace(response))
+            {
+                throw new InvalidOperationException("AI response was empty.");
+            }
+
+            var cleaned = response.Trim();
+
+            cleaned = cleaned
+                .Replace("```json", "", StringComparison.OrdinalIgnoreCase)
+                .Replace("```", "")
+                .Trim();
+
+            var start = cleaned.IndexOf('{');
+            var end = cleaned.LastIndexOf('}');
+
+            if (start < 0 || end < 0 || end <= start)
+            {
+                throw new InvalidOperationException($"AI response did not contain valid JSON. Response: {response}");
+            }
+
+            return cleaned.Substring(start, end - start + 1);
+        }
+
+        private LanguageLevel ParseLevel(string level)
+        {
+            return Enum.TryParse<LanguageLevel>(
+                level,
+                ignoreCase: true,
+                out var parsedLevel)
+                    ? parsedLevel
+                    : LanguageLevel.A1;
+        }
+
+        private static int Clamp(int value, int min, int max)
+        {
+            return Math.Min(Math.Max(value, min), max);
+        }
+
+        private static float Clamp(float value, float min, float max)
+        {
+            return Math.Min(Math.Max(value, min), max);
         }
     }
 }

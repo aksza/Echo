@@ -8,10 +8,16 @@ namespace EchoAPI.Api.DTOs.Response
         public string Email { get; set; } = null!;
         public DateTime CreatedAt { get; set; }
 
-        public LanguageLevel Level { get; set; }
+        public LanguageLevel Level { get; set; } //overall level
 
-        public int PlacementScore { get; set; }
-        public float PlacementConfidence { get; set; }
+        public LanguageLevel WritingLevel { get; set; } = LanguageLevel.A1;
+        public int WritingScore { get; set; } = 0;
+        public float WritingConfidence { get; set; } = 0;
+
+        public LanguageLevel SpeakingLevel { get; set; } = LanguageLevel.A1;
+        public int SpeakingScore { get; set; } = 0;
+        public float SpeakingConfidence { get; set; } = 0;
+
         public DateTime? LevelAssessedAt { get; set; }
         public bool PlacementCompleted { get; set; } = false;
         public string? LearningGoals { get; set; }

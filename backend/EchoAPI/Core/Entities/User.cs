@@ -24,7 +24,7 @@ namespace EchoAPI.Core.Entities
         public DateTime? LastLogin { get; set; }
 
         [Required]
-        public LanguageLevel Level { get; set; }
+        public LanguageLevel Level { get; set; } //overall level
 
         [Required]
         [MaxLength(2)]
@@ -39,9 +39,17 @@ namespace EchoAPI.Core.Entities
 
         public bool AllowLearningDataSharing { get; set; } = false;
 
-        public int PlacementScore { get; set; } = 0;
+        public LanguageLevel WritingLevel { get; set; } = LanguageLevel.A1;
 
-        public float PlacementConfidence { get; set; } = 0.0f;
+        public int WritingScore { get; set; } = 0;
+
+        public float WritingConfidence { get; set; } = 0;
+
+        public LanguageLevel SpeakingLevel { get; set; } = LanguageLevel.A1;
+
+        public int SpeakingScore { get; set; } = 0;
+
+        public float SpeakingConfidence { get; set; } = 0;
 
         public DateTime? LevelAssessedAt { get; set; }
 
