@@ -4,6 +4,7 @@ using EchoAPI.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EchoAPI.Migrations
 {
     [DbContext(typeof(EchoDbContext))]
-    partial class EchoDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260509164948_AddUserPlacementFields")]
+    partial class AddUserPlacementFields
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -158,28 +161,16 @@ namespace EchoAPI.Migrations
                     b.Property<bool>("PlacementCompleted")
                         .HasColumnType("bit");
 
-                    b.Property<float>("SpeakingConfidence")
+                    b.Property<float>("PlacementConfidence")
                         .HasColumnType("real");
 
-                    b.Property<int>("SpeakingLevel")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SpeakingScore")
+                    b.Property<int>("PlacementScore")
                         .HasColumnType("int");
 
                     b.Property<string>("TargetLanguage")
                         .IsRequired()
                         .HasMaxLength(2)
                         .HasColumnType("nvarchar(2)");
-
-                    b.Property<float>("WritingConfidence")
-                        .HasColumnType("real");
-
-                    b.Property<int>("WritingLevel")
-                        .HasColumnType("int");
-
-                    b.Property<int>("WritingScore")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

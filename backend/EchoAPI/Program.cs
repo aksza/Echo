@@ -77,6 +77,7 @@ builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<VocabularyService>();
 builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
 builder.Services.AddScoped<ConversationOrchestrator>();
+builder.Services.AddScoped<AssessmentService>();
 builder.Services.AddScoped<IAudioStorageService, AudioStorageService>();
 builder.Services.AddAutoMapper(typeof(Program));
 
