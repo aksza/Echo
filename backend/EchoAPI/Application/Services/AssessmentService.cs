@@ -2,6 +2,8 @@
 using EchoAPI.Api.DTOs.Response;
 using EchoAPI.Core.Enums;
 using EchoAPI.Core.Interfaces.Services;
+using EchoAPI.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
 
 namespace EchoAPI.Application.Services
@@ -9,10 +11,39 @@ namespace EchoAPI.Application.Services
     public class AssessmentService
     {
         private readonly IPhi3ServiceClient _phi3Client;
+        private readonly EchoDbContext _dbContext;
 
-        public AssessmentService(IPhi3ServiceClient phi3Client)
+        public AssessmentService(IPhi3ServiceClient phi3Client, EchoDbContext dbContext)
         {
             _phi3Client = phi3Client;
+            _dbContext = dbContext;
+        }
+
+        public async Task<AssessmentResponse> AssessTextAndSaveAsync(Guid userId, string text)
+        {
+            var assessment = await AssessTextAsync(text);
+
+            var user = await _dbContext.Users
+                .FirstOrDefaultAsync(u => u.Id == userId 
+                && !u.IsDeleted);
+
+            if (user == null)
+            {
+                throw new InvalidOperationException("User not found.");
+            }
+
+            user.WritingLevel = assessment.EstimatedLevel;
+            user.WritingScore = assessment.Score;
+            user.WritingConfidence = assessment.Confidence;
+
+            user.Level = assessment.EstimatedLevel;
+
+            user.LevelAssessedAt = DateTime.UtcNow;
+            user.PlacementCompleted = true;
+
+            await _dbContext.SaveChangesAsync();
+
+            return assessment;
         }
 
         public async Task<AssessmentResponse> AssessTextAsync(string text)
