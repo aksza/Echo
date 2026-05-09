@@ -28,20 +28,49 @@ namespace EchoAPI.Api.Controllers
                 return BadRequest("Text cannot be empty.");
             }
 
-            var userIdClaims = User.FindFirst("sub")?
-                .Value
-                ?? User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-
-            if (userIdClaims == null) {
-                return Unauthorized("User ID claim is missing.");
-            }
-
-            var userId = Guid.Parse(userIdClaims);
+            var userId = GetCurrentUserId();
 
 
             var result = await _assessmentService.AssessTextAndSaveAsync(userId, request.Text);
 
             return Ok(result);
+        }
+
+        [HttpPost("speaking")]
+        [Consumes("multipart/form-data")]
+        [RequestSizeLimit(26_214_400)] // 25MB
+        public async Task<ActionResult<AssessmentResponse>> AssessSpeaking(
+            [FromForm] SpeakingAssessmentRequest request)
+        {
+            if(request.AudioFile == null || request.AudioFile.Length == 0)
+            {
+                return BadRequest("Audio file is required.");
+            }
+
+            var userId = GetCurrentUserId();
+
+            using var audioStream = request.AudioFile.OpenReadStream();
+
+            var result = await _assessmentService.AssessSpeakingAndSaveAsync(
+                userId,
+                audioStream,
+                request.AudioFile.FileName,
+                request.TargetLanguage);
+
+            return Ok(result);
+        }
+
+        private Guid GetCurrentUserId()
+        {
+            var userIdClaim = User.FindFirst("sub")?.Value
+                              ?? User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            
+            if (userIdClaim == null)
+            {
+                throw new UnauthorizedAccessException("User ID claim not found.");
+            }
+
+            return Guid.Parse(userIdClaim);
         }
     }
 }
