@@ -5,6 +5,8 @@ import '../../../core/network/dio_client.dart';
 
 final dioProvider = Provider((ref) => DioClient().dio);
 
+final authTokenProvider = StateProvider<String?>((ref) => null);
+
 final authApiProvider = Provider((ref) {
   return AuthApi(ref.read(dioProvider));
 });
@@ -13,7 +15,6 @@ final authRepositoryProvider = Provider((ref) {
   return AuthRepository(ref.read(authApiProvider));
 });
 
-// Track the last auth action (login or register)
 final lastAuthActionProvider = StateProvider<String?>((ref) => null);
 
 final authControllerProvider =
@@ -29,9 +30,13 @@ class AuthController extends StateNotifier<AsyncValue<String?>> {
 
   Future<void> login(String email, String password) async {
     state = const AsyncValue.loading();
+
     try {
       final token = await repo.login(email, password);
+
+      ref.read(authTokenProvider.notifier).state = token;
       ref.read(lastAuthActionProvider.notifier).state = 'login';
+
       state = AsyncValue.data(token);
     } catch (e) {
       state = AsyncValue.error(e, StackTrace.current);
@@ -39,22 +44,25 @@ class AuthController extends StateNotifier<AsyncValue<String?>> {
   }
 
   Future<void> register(String email, String password) async {
-  state = const AsyncValue.loading();
-  try {
-    final token = await repo.register(
-      email: email,
-      password: password,
-      level: 1,
-      nativeLanguage: "hu",
-      targetLanguage: "en",
-      learningGoals: "general",
-      allowLearningDataSharing: true,
-    );
+    state = const AsyncValue.loading();
 
-    ref.read(lastAuthActionProvider.notifier).state = 'register';
-    state = AsyncValue.data(token);
-  } catch (e) {
-    state = AsyncValue.error(e, StackTrace.current);
+    try {
+      final token = await repo.register(
+        email: email,
+        password: password,
+        level: 1,
+        nativeLanguage: "hu",
+        targetLanguage: "en",
+        learningGoals: "general",
+        allowLearningDataSharing: true,
+      );
+
+      ref.read(authTokenProvider.notifier).state = token;
+      ref.read(lastAuthActionProvider.notifier).state = 'register';
+
+      state = AsyncValue.data(token);
+    } catch (e) {
+      state = AsyncValue.error(e, StackTrace.current);
+    }
   }
-}
 }
