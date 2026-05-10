@@ -12,7 +12,7 @@ class LoginPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(authControllerProvider);
-    final lastAction = ref.watch(lastAuthActionProvider);
+    // final lastAction = ref.watch(lastAuthActionProvider);
 
     // Listen for state changes and show popups
     ref.listen(authControllerProvider, (previous, next) {
