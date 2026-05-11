@@ -1,4 +1,5 @@
 import 'package:echo_app/features/auth/presentation/register_page.dart';
+import 'package:echo_app/shared/app_shell.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../presentation/auth_controller.dart';
@@ -30,6 +31,17 @@ class LoginPage extends ConsumerWidget {
                 duration: const Duration(seconds: 2),
               ),
             );
+            // Navigate to AppShell after successful login
+            Future.delayed(const Duration(seconds: 1), () {
+              if (context.mounted) {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const AppShell(),
+                  ),
+                );
+              }
+            });
           }
         },
         error: (error, stackTrace) {

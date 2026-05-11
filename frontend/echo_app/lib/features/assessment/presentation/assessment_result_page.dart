@@ -1,4 +1,5 @@
 import 'package:echo_app/features/assessment/data/assessment_result.dart';
+import 'package:echo_app/shared/app_shell.dart';
 import 'package:flutter/material.dart';
 
 class AssessmentResultPage extends StatelessWidget {
@@ -63,7 +64,14 @@ class AssessmentResultPage extends StatelessWidget {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.popUntil(context, (route) => route.isFirst);
+                  // Navigate to AppShell (home) after assessment
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const AppShell(),
+                    ),
+                    (route) => false,
+                  );
                 },
                 child: const Text("Continue"),
               ),
