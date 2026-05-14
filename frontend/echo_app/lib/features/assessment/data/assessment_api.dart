@@ -11,6 +11,7 @@ class AssessmentApi {
     required String token,
     required String text,
   }) async {
+    print('[AssessmentAPI] assessWriting called with text: "$text"');
     final response = await dio.post(
       '/assessment/text',
       data: {
@@ -23,6 +24,7 @@ class AssessmentApi {
       ),
     );
 
+    print('[AssessmentAPI] assessWriting response: ${response.data}');
     return AssessmentResult.fromJson(response.data);
   }
 
@@ -31,6 +33,7 @@ class AssessmentApi {
     required File audioFile,
     String targetLanguage = "en",
   }) async {
+    print('[AssessmentAPI] assessSpeaking called with file: ${audioFile.path}');
     final formData = FormData.fromMap({
       "audioFile": await MultipartFile.fromFile(
         audioFile.path,
@@ -50,6 +53,7 @@ class AssessmentApi {
       ),
     );
 
+    print('[AssessmentAPI] assessSpeaking response: ${response.data}');
     return AssessmentResult.fromJson(response.data);
   }
 }

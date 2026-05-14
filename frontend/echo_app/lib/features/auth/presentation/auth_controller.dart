@@ -26,7 +26,8 @@ class AuthController extends StateNotifier<AsyncValue<String?>> {
   final AuthRepository repo;
   final Ref ref;
 
-  AuthController(this.repo, this.ref) : super(const AsyncValue.data(null));
+  AuthController(this.repo, this.ref)
+      : super(const AsyncValue.data(null));
 
   Future<void> login(String email, String password) async {
     state = const AsyncValue.loading();
@@ -40,29 +41,38 @@ class AuthController extends StateNotifier<AsyncValue<String?>> {
       state = AsyncValue.data(token);
     } catch (e) {
       state = AsyncValue.error(e, StackTrace.current);
+      rethrow;
     }
   }
 
-  Future<void> register(String email, String password) async {
+  Future<void> register({
+    required String email,
+    required String password,
+    required String nativeLanguage,
+    required String targetLanguage,
+    required String learningGoals,
+    required bool allowLearningDataSharing,
+    int level = 1,
+  }) async {
     state = const AsyncValue.loading();
 
     try {
-      final token = await repo.register(
+      await repo.register(
         email: email,
         password: password,
-        level: 1,
-        nativeLanguage: "hu",
-        targetLanguage: "en",
-        learningGoals: "general",
-        allowLearningDataSharing: true,
+        level: level,
+        nativeLanguage: nativeLanguage,
+        targetLanguage: targetLanguage,
+        learningGoals: learningGoals,
+        allowLearningDataSharing: allowLearningDataSharing,
       );
 
-      ref.read(authTokenProvider.notifier).state = token;
       ref.read(lastAuthActionProvider.notifier).state = 'register';
 
-      state = AsyncValue.data(token);
+      state = const AsyncValue.data(null);
     } catch (e) {
       state = AsyncValue.error(e, StackTrace.current);
+      rethrow;
     }
   }
 }

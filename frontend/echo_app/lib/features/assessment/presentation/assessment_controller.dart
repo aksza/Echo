@@ -24,6 +24,11 @@ class WritingAssessmentController
 
   WritingAssessmentController(this.ref) : super(const AsyncValue.data(null));
 
+  void reset() {
+    print('[WritingAssessmentController] Resetting to null');
+    state = const AsyncValue.data(null);
+  }
+
   Future<void> assessWriting(String text) async {
     final token = ref.read(authTokenProvider);
 
@@ -49,6 +54,11 @@ class SpeakingAssessmentController
   final Ref ref;
 
   SpeakingAssessmentController(this.ref) : super(const AsyncValue.data(null));
+
+  void reset() {
+    print('[SpeakingAssessmentController] Resetting to null');
+    state = const AsyncValue.data(null);
+  }
 
   Future<void> assessSpeaking(File audioFile) async {
     final token = ref.read(authTokenProvider);

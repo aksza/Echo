@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'assessment_controller.dart';
+import 'package:echo_app/features/assessment/presentation/assessment_data_provider.dart';
 import 'speaking_assessment_page.dart';
 
-class WritingAssessmentPage extends ConsumerWidget {
+class WritingAssessmentPage extends ConsumerStatefulWidget {
   WritingAssessmentPage({super.key});
 
-  final answerController = TextEditingController();
+  @override
+  ConsumerState<WritingAssessmentPage> createState() => _WritingAssessmentPageState();
+}
+
+class _WritingAssessmentPageState extends ConsumerState<WritingAssessmentPage> {
+  late TextEditingController answerController;
 
   final helperQuestions = const [
     "Introduce yourself.",
@@ -16,30 +21,22 @@ class WritingAssessmentPage extends ConsumerWidget {
   ];
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(writingAssessmentProvider);
+  void initState() {
+    super.initState();
+    answerController = TextEditingController();
+    print('[WritingAssessment] initState - page loaded');
+  }
 
-    ref.listen(writingAssessmentProvider, (previous, next) {
-      next.whenOrNull(
-        data: (result) {
-          if (result != null) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (_) => SpeakingAssessmentPage(
-                  writingResult: result,
-                ),
-              ),
-            );
-          }
-        },
-        error: (error, _) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text("Writing assessment failed: $error")),
-          );
-        },
-      );
-    });
+  @override
+  void dispose() {
+    answerController.dispose();
+    print('[WritingAssessment] dispose');
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    print('[WritingAssessment] BUILD() called');
 
     return Scaffold(
       appBar: AppBar(title: const Text("Writing assessment")),
@@ -74,21 +71,42 @@ class WritingAssessmentPage extends ConsumerWidget {
               ),
             ),
             const SizedBox(height: 16),
-            state.isLoading
-                ? const Center(child: CircularProgressIndicator())
-                : SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        ref
-                            .read(writingAssessmentProvider.notifier)
-                            .assessWriting(answerController.text);
-                      },
-                      child: const Text("Continue to speaking"),
-                    ),
-                  ),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: _submitWriting,
+                child: const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 12),
+                  child: Text("Continue"),
+                ),
+              ),
+            ),
           ],
         ),
+      ),
+    );
+  }
+
+  Future<void> _submitWriting() async {
+    print('[WritingAssessment] Submit button pressed');
+
+    if (answerController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Please write something")),
+      );
+      return;
+    }
+
+    // Save writing text
+    ref.read(assessmentDataProvider.notifier).setWritingText(answerController.text);
+    print('[WritingAssessment] ✅ Writing text saved');
+
+    // Navigate to speaking assessment
+    if (!mounted) return;
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (_) => const SpeakingAssessmentPage(),
       ),
     );
   }
