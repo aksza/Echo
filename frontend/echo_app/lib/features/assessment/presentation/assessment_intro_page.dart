@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:echo_app/features/auth/presentation/registration_data_provider.dart';
+import 'assessment_controller.dart';
 import 'writing_assessment_page.dart';
 
-class AssessmentIntroPage extends StatelessWidget {
+class AssessmentIntroPage extends ConsumerWidget {
   const AssessmentIntroPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final helperQuestions = [
       "What do you usually talk about in English?",
       "Why do you want to improve your speaking?",
@@ -45,6 +48,12 @@ class AssessmentIntroPage extends StatelessWidget {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
+                  print('[AssessmentIntro] Starting assessment - resetting controllers');
+                  // Reset assessment state before starting fresh assessment
+                  ref.read(writingAssessmentProvider.notifier).reset();
+                  ref.read(speakingAssessmentProvider.notifier).reset();
+                  
+                  print('[AssessmentIntro] Navigating to writing assessment');
                   Navigator.push(
                     context,
                     MaterialPageRoute(

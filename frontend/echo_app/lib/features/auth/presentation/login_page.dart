@@ -13,43 +13,15 @@ class LoginPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(authControllerProvider);
-    // final lastAction = ref.watch(lastAuthActionProvider);
 
-    // Listen for state changes and show popups
     ref.listen(authControllerProvider, (previous, next) {
       next.when(
-        data: (token) {
-          if (token != null && (previous?.asData?.value == null)) {
-            final actionType = ref.read(lastAuthActionProvider);
-            final message = actionType == 'register' 
-              ? 'Registration successful!' 
-              : 'Login successful!';
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(message),
-                backgroundColor: Colors.green,
-                duration: const Duration(seconds: 2),
-              ),
-            );
-            // Navigate to AppShell after successful login
-            Future.delayed(const Duration(seconds: 1), () {
-              if (context.mounted) {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => const AppShell(),
-                  ),
-                );
-              }
-            });
-          }
-        },
+        data: (_) {},
         error: (error, stackTrace) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text('Error: $error'),
               backgroundColor: Colors.red,
-              duration: const Duration(seconds: 3),
             ),
           );
         },
@@ -63,19 +35,28 @@ class LoginPage extends ConsumerWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text("Login", style: TextStyle(fontSize: 28)),
+            const Text(
+              "Login",
+              style: TextStyle(fontSize: 28),
+            ),
+
             const SizedBox(height: 32),
 
             TextField(
               controller: email,
-              decoration: const InputDecoration(hintText: "Email"),
+              decoration: const InputDecoration(
+                hintText: "Email",
+              ),
             ),
+
             const SizedBox(height: 12),
 
             TextField(
               controller: password,
               obscureText: true,
-              decoration: const InputDecoration(hintText: "Password"),
+              decoration: const InputDecoration(
+                hintText: "Password",
+              ),
             ),
 
             const SizedBox(height: 24),
@@ -83,10 +64,24 @@ class LoginPage extends ConsumerWidget {
             state.isLoading
                 ? const CircularProgressIndicator()
                 : ElevatedButton(
-                    onPressed: () {
-                      ref
-                          .read(authControllerProvider.notifier)
-                          .login(email.text, password.text);
+                    onPressed: () async {
+                      try {
+                        await ref
+                            .read(authControllerProvider.notifier)
+                            .login(
+                              email.text,
+                              password.text,
+                            );
+
+                        if (!context.mounted) return;
+
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const AppShell(),
+                          ),
+                        );
+                      } catch (_) {}
                     },
                     child: const Text("Login"),
                   ),
@@ -95,11 +90,13 @@ class LoginPage extends ConsumerWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (_) => RegisterPage()),
+                  MaterialPageRoute(
+                    builder: (_) => RegisterPage(),
+                  ),
                 );
               },
               child: const Text("Create account"),
-            )
+            ),
           ],
         ),
       ),

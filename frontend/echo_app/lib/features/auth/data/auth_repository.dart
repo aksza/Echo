@@ -1,4 +1,4 @@
-import '../data/auth_api.dart';
+import 'auth_api.dart';
 
 class AuthRepository {
   final AuthApi api;
@@ -9,7 +9,7 @@ class AuthRepository {
     return api.login(email, password);
   }
 
-  Future<String> register({
+  Future<void> register({
     required String email,
     required String password,
     required int level,

@@ -14,20 +14,26 @@ namespace EchoAPI.Application.Services
         private readonly IWhisperServiceClient _whisperClient;
         private readonly EchoDbContext _dbContext;
 
-        public AssessmentService(IPhi3ServiceClient phi3Client, IWhisperServiceClient whisperClient, EchoDbContext dbContext)
+        public AssessmentService(
+            IPhi3ServiceClient phi3Client,
+            IWhisperServiceClient whisperClient,
+            EchoDbContext dbContext)
         {
             _phi3Client = phi3Client;
             _whisperClient = whisperClient;
             _dbContext = dbContext;
         }
 
-        public async Task<AssessmentResponse> AssessTextAndSaveAsync(Guid userId, string text)
+        public async Task<AssessmentResponse> AssessTextAndSaveAsync(
+            Guid userId,
+            string text)
         {
             var assessment = await AssessTextAsync(text);
 
             var user = await _dbContext.Users
-                .FirstOrDefaultAsync(u => u.Id == userId 
-                && !u.IsDeleted);
+                .FirstOrDefaultAsync(u =>
+                    u.Id == userId &&
+                    !u.IsDeleted);
 
             if (user == null)
             {
@@ -61,17 +67,35 @@ namespace EchoAPI.Application.Services
                 fileName,
                 targetLanguage);
 
-            var result = await AssessSpeakingTextAsync(
-                transcription.Text,
-                transcription.Duration);
-
             var user = await _dbContext.Users
-                .FirstOrDefaultAsync(u => u.Id == userId 
-                && !u.IsDeleted);
+                .FirstOrDefaultAsync(u =>
+                    u.Id == userId &&
+                    !u.IsDeleted);
 
             if (user == null)
             {
-                 throw new InvalidOperationException("User not found.");
+                throw new InvalidOperationException("User not found.");
+            }
+
+            AssessmentResponse result;
+
+            // If speech was not detected, fallback to writing result
+            if (string.IsNullOrWhiteSpace(transcription.Text))
+            {
+                result = new AssessmentResponse
+                {
+                    EstimatedLevel = user.WritingLevel,
+                    Score = user.WritingScore,
+                    Confidence = user.WritingConfidence,
+                    Feedback =
+                        "Speech could not be detected clearly from the recording. The speaking result was estimated from the writing assessment."
+                };
+            }
+            else
+            {
+                result = await AssessSpeakingTextAsync(
+                    transcription.Text,
+                    transcription.Duration);
             }
 
             user.SpeakingLevel = result.EstimatedLevel;
@@ -112,12 +136,12 @@ namespace EchoAPI.Application.Services
             Do NOT add explanations outside the JSON.
 
             Format:
-            {{
+            {
               "level": "A1",
               "score": 0,
               "confidence": 0.0,
               "feedback": "short feedback"
-            }}
+            }
 
             Rules:
             - level must be one of: A1, A2, B1, B2, C1, C2
@@ -137,9 +161,14 @@ namespace EchoAPI.Application.Services
             return ParseAssessmentResponse(aiResponse.Response);
         }
 
-
         public async Task<AssessmentResponse> AssessTextAsync(string text)
         {
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                throw new InvalidOperationException(
+                    "Assessment text cannot be empty.");
+            }
+
             var prompt = """
             You are a professional CEFR language evaluator.
 
@@ -178,27 +207,7 @@ namespace EchoAPI.Application.Services
                 maxTokens: 250
             );
 
-            var cleanJson = ExtractJson(aiResponse.Response);
-
-            var parsedResponse = JsonSerializer.Deserialize<AssessmentAiResult>(
-                cleanJson,
-                new JsonSerializerOptions
-                {
-                    PropertyNameCaseInsensitive = true
-                });
-
-            if (parsedResponse == null)
-            {
-                throw new InvalidOperationException("Failed to parse AI response.");
-            }
-
-            return new AssessmentResponse
-            {
-                EstimatedLevel = ParseLevel(parsedResponse.Level),
-                Score = Clamp(parsedResponse.Score, 0, 100),
-                Confidence = Clamp(parsedResponse.Confidence, 0f, 1f),
-                Feedback = parsedResponse.Feedback
-            };
+            return ParseAssessmentResponse(aiResponse.Response);
         }
 
         private AssessmentResponse ParseAssessmentResponse(string aiText)
@@ -214,7 +223,8 @@ namespace EchoAPI.Application.Services
 
             if (parsedResponse == null)
             {
-                throw new InvalidOperationException("Failed to parse AI response.");
+                throw new InvalidOperationException(
+                    "Failed to parse AI response.");
             }
 
             return new AssessmentResponse
@@ -226,13 +236,12 @@ namespace EchoAPI.Application.Services
             };
         }
 
-
-
         private static string ExtractJson(string response)
         {
             if (string.IsNullOrWhiteSpace(response))
             {
-                throw new InvalidOperationException("AI response was empty.");
+                throw new InvalidOperationException(
+                    "AI response was empty.");
             }
 
             var cleaned = response.Trim();
@@ -247,16 +256,20 @@ namespace EchoAPI.Application.Services
 
             if (start < 0 || end < 0 || end <= start)
             {
-                throw new InvalidOperationException($"AI response did not contain valid JSON. Response: {response}");
+                throw new InvalidOperationException(
+                    $"AI response did not contain valid JSON. Response: {response}");
             }
 
             return cleaned.Substring(start, end - start + 1);
         }
 
-        private LanguageLevel CalculateOverallLevel(int speakingScore, int writingScore)
+        private LanguageLevel CalculateOverallLevel(
+            int speakingScore,
+            int writingScore)
         {
             var overallScore = (int)Math.Round(
-                speakingScore * 0.7 + writingScore * 0.3);
+                speakingScore * 0.7 +
+                writingScore * 0.3);
 
             return ScoreToLevel(overallScore);
         }
