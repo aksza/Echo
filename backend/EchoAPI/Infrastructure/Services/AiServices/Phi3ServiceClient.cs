@@ -41,13 +41,33 @@ namespace EchoAPI.Infrastructure.Services.AiServices
             if (!_settings.Enabled)
                 throw new InvalidOperationException("Phi3 service is disabled");
 
+            // Force short conversational responses
+            var shortResponseRules = """
+                IMPORTANT RESPONSE RULES:
+                - Keep responses VERY short.
+                - Maximum 1-2 sentences.
+                - Prefer natural conversational replies.
+                - Do not give long explanations.
+                - Do not teach grammar unless explicitly asked.
+                - Keep answers under 30 words whenever possible.
+                - Sound like a real conversation partner.
+                """;
+
+            var finalPrompt = string.IsNullOrWhiteSpace(systemPrompt)
+                ? shortResponseRules
+                : $"{systemPrompt}\n\n{shortResponseRules}";
+
             var request = new ChatRequest
             {
                 Message = message,
                 ConversationId = conversationId,
-                SystemPrompt = systemPrompt,
-                Temperature = temperature ?? _settings.Temperature,
-                MaxTokens = maxTokens ?? _settings.MaxTokens
+                SystemPrompt = finalPrompt,
+
+                //  Better defaults for conversation
+                Temperature = temperature ?? 0.7,
+
+                // Prevent giant responses
+                MaxTokens = maxTokens ?? 60
             };
 
             _logger.LogInformation(
@@ -60,10 +80,12 @@ namespace EchoAPI.Infrastructure.Services.AiServices
                 var response = await _httpClient.PostAsJsonAsync("chat", request);
                 response.EnsureSuccessStatusCode();
 
-                var chatResponse = await response.Content.ReadFromJsonAsync<ChatResponse>();
+                var chatResponse =
+                    await response.Content.ReadFromJsonAsync<ChatResponse>();
 
                 if (chatResponse == null)
-                    throw new InvalidOperationException("Failed to deserialize chat response");
+                    throw new InvalidOperationException(
+                        "Failed to deserialize chat response");
 
                 _logger.LogInformation(
                     "Chat response received. ConversationId: {ConversationId}, Tokens: {Tokens}",
@@ -75,12 +97,18 @@ namespace EchoAPI.Infrastructure.Services.AiServices
             catch (HttpRequestException ex)
             {
                 _logger.LogError(ex, "HTTP error calling Phi3 service");
-                throw new InvalidOperationException("Failed to communicate with Phi3 service", ex);
+
+                throw new InvalidOperationException(
+                    "Failed to communicate with Phi3 service",
+                    ex);
             }
             catch (JsonException ex)
             {
                 _logger.LogError(ex, "Failed to deserialize Phi3 response");
-                throw new InvalidOperationException("Invalid response from Phi3 service", ex);
+
+                throw new InvalidOperationException(
+                    "Invalid response from Phi3 service",
+                    ex);
             }
         }
 
@@ -110,13 +138,17 @@ namespace EchoAPI.Infrastructure.Services.AiServices
 
             try
             {
-                var response = await _httpClient.PostAsJsonAsync("correct", request);
+                var response =
+                    await _httpClient.PostAsJsonAsync("correct", request);
+
                 response.EnsureSuccessStatusCode();
 
-                var correctionResponse = await response.Content.ReadFromJsonAsync<CorrectionResponse>();
+                var correctionResponse =
+                    await response.Content.ReadFromJsonAsync<CorrectionResponse>();
 
                 if (correctionResponse == null)
-                    throw new InvalidOperationException("Failed to deserialize correction response");
+                    throw new InvalidOperationException(
+                        "Failed to deserialize correction response");
 
                 _logger.LogInformation(
                     "Correction response received. Corrections count: {Count}",
@@ -126,13 +158,23 @@ namespace EchoAPI.Infrastructure.Services.AiServices
             }
             catch (HttpRequestException ex)
             {
-                _logger.LogError(ex, "HTTP error calling Phi3 correction endpoint");
-                throw new InvalidOperationException("Failed to communicate with Phi3 service", ex);
+                _logger.LogError(
+                    ex,
+                    "HTTP error calling Phi3 correction endpoint");
+
+                throw new InvalidOperationException(
+                    "Failed to communicate with Phi3 service",
+                    ex);
             }
             catch (JsonException ex)
             {
-                _logger.LogError(ex, "Failed to deserialize correction response");
-                throw new InvalidOperationException("Invalid response from Phi3 service", ex);
+                _logger.LogError(
+                    ex,
+                    "Failed to deserialize correction response");
+
+                throw new InvalidOperationException(
+                    "Invalid response from Phi3 service",
+                    ex);
             }
         }
 
@@ -140,27 +182,42 @@ namespace EchoAPI.Infrastructure.Services.AiServices
         public async Task DeleteConversationAsync(string conversationId)
         {
             if (string.IsNullOrWhiteSpace(conversationId))
-                throw new ArgumentException("ConversationId cannot be empty", nameof(conversationId));
+                throw new ArgumentException(
+                    "ConversationId cannot be empty",
+                    nameof(conversationId));
 
             if (!_settings.Enabled)
             {
-                _logger.LogWarning("Phi3 service is disabled, skipping conversation deletion");
+                _logger.LogWarning(
+                    "Phi3 service is disabled, skipping conversation deletion");
+
                 return;
             }
 
-            _logger.LogInformation("Deleting conversation: {ConversationId}", conversationId);
+            _logger.LogInformation(
+                "Deleting conversation: {ConversationId}",
+                conversationId);
 
             try
             {
-                var response = await _httpClient.DeleteAsync($"conversation/{conversationId}");
+                var response =
+                    await _httpClient.DeleteAsync(
+                        $"conversation/{conversationId}");
+
                 response.EnsureSuccessStatusCode();
 
-                _logger.LogInformation("Conversation deleted: {ConversationId}", conversationId);
+                _logger.LogInformation(
+                    "Conversation deleted: {ConversationId}",
+                    conversationId);
             }
             catch (HttpRequestException ex)
             {
-                _logger.LogError(ex, "HTTP error deleting conversation: {ConversationId}", conversationId);
-                // Don't throw - deletion is best-effort during cleanup
+                _logger.LogError(
+                    ex,
+                    "HTTP error deleting conversation: {ConversationId}",
+                    conversationId);
+
+                // Best-effort cleanup
             }
         }
 
@@ -170,18 +227,22 @@ namespace EchoAPI.Infrastructure.Services.AiServices
             try
             {
                 var response = await _httpClient.GetAsync("health");
+
                 response.EnsureSuccessStatusCode();
 
-                var healthResponse = await response.Content.ReadFromJsonAsync<Phi3HealthResponse>();
+                var healthResponse =
+                    await response.Content.ReadFromJsonAsync<Phi3HealthResponse>();
 
                 if (healthResponse == null)
-                    throw new InvalidOperationException("Failed to deserialize health response");
+                    throw new InvalidOperationException(
+                        "Failed to deserialize health response");
 
                 return healthResponse;
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Health check failed for Phi3 service");
+
                 return new Phi3HealthResponse
                 {
                     Status = "unhealthy",
