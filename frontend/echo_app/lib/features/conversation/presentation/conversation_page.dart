@@ -58,25 +58,36 @@ class _ConversationPageState
   }
 
   Future<void> stopRecording() async {
-    final path = await recorder.stop();
+  final path = await recorder.stop();
 
-    setState(() {
-      isRecording = false;
-      recordedFile = path == null ? null : File(path);
-    });
+  setState(() {
+    isRecording = false;
+    recordedFile = path == null ? null : File(path);
+  });
 
-    if (recordedFile != null) {
-      await ref
-          .read(conversationProvider.notifier)
-          .sendVoiceMessage(recordedFile!);
-    }
+  if (recordedFile == null) return;
+
+  final response = await ref
+      .read(conversationProvider.notifier)
+      .sendVoiceMessage(recordedFile!);
+
+  if (response == null) return;
+
+  print("AI TEXT: ${response.aiResponse}");
+  print("AI AUDIO URL: ${response.audioUrl}");
+
+  if (response.audioUrl.isNotEmpty) {
+    await player.play(
+      UrlSource(response.audioUrl),
+    );
   }
+}
 
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(conversationProvider);
 
-    final messages = state.value ?? [];
+    final messages = state.messages;
 
     return Scaffold(
       appBar: AppBar(

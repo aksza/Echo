@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:echo_app/core/network/dio_client.dart';
-import 'package:echo_app/features/conversation/data/voice_conversation_response.dart';
+import 'voice_conversation_response.dart';
 
 class ConversationApi {
   final Dio dio = DioClient().dio;
@@ -21,7 +21,7 @@ class ConversationApi {
     });
 
     final response = await dio.post(
-      '/conversation/voice-message',
+      "/conversation/voice-message",
       data: formData,
       options: Options(
         headers: {
@@ -30,6 +30,8 @@ class ConversationApi {
         contentType: "multipart/form-data",
       ),
     );
+
+    print("VOICE RESPONSE: ${response.data}");
 
     return VoiceConversationResponse.fromJson(response.data);
   }

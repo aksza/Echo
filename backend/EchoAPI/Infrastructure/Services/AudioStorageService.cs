@@ -185,7 +185,7 @@ namespace EchoAPI.Infrastructure.Services
                 throw new ArgumentException("File path cannot be empty", nameof(filePath));
 
             var fileName = Path.GetFileName(filePath);
-            return $"{baseUrl.TrimEnd('/')}/audio/{fileName}";
+            return $"{baseUrl.TrimEnd('/')}/api/conversation/audio/{fileName}";
         }
     }
 }

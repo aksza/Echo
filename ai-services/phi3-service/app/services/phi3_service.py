@@ -1,3 +1,5 @@
+from urllib import response
+
 import httpx
 import logging
 from typing import List, Dict, Optional, Any
@@ -149,6 +151,12 @@ class Phi3Service:
                 f"{self.ollama_base_url}/api/chat",
                 json=payload
             )
+
+            if response.status_code >= 400:
+                logger.error(f"Ollama error status: {response.status_code}")
+                logger.error(f"Ollama error body: {response.text}")
+                logger.error(f"Payload sent to Ollama: {json.dumps(payload, ensure_ascii=False)}")
+
             response.raise_for_status()
             
             result = response.json()
