@@ -1,3 +1,4 @@
+import 'package:echo_app/features/conversation/presentation/conversation_page.dart';
 import 'package:flutter/material.dart';
 
 class AppShell extends StatefulWidget {
@@ -128,7 +129,12 @@ class HomePage extends StatelessWidget {
               width: double.infinity,
               child: ElevatedButton.icon(
                 onPressed: () {
-                  // TODO: Navigate to Conversation page
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const ConversationPage(),
+                    ),
+                  );
                 },
                 icon: const Icon(Icons.mic),
                 label: const Text('Start Conversation with AI'),
