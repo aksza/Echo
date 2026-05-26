@@ -106,4 +106,13 @@ namespace EchoAPI.Infrastructure.Services.AiServices.Models
         [JsonPropertyName("model_name")]
         public string ModelName { get; set; } = string.Empty;
     }
+
+    public class ConversationAiResponse
+    {
+        [JsonPropertyName("reply")]
+        public string Reply { get; set; } = string.Empty;
+
+        [JsonPropertyName("mistakes")]
+        public List<CorrectionDetail> Mistakes { get; set; } = new();
+    }
 }

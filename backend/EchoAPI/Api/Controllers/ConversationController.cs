@@ -3,6 +3,7 @@ using EchoAPI.Application.Services;
 using EchoAPI.Core.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace EchoAPI.Api.Controllers
 {
@@ -45,7 +46,7 @@ namespace EchoAPI.Api.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status413PayloadTooLarge)]
         [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status503ServiceUnavailable)]
-        [RequestSizeLimit(26_214_400)] // 25MB
+        [RequestSizeLimit(26_214_400)]
         public async Task<ActionResult<ApiResponse<VoiceConversationResponse>>> SendVoiceMessage(
             [FromForm] VoiceConversationRequest request)
         {
@@ -54,27 +55,30 @@ namespace EchoAPI.Api.Controllers
                 return BadRequest(ApiResponse<object>.ErrorResponse("Audio file is required"));
             }
 
+            var userIdClaim = User.FindFirst("sub")?.Value
+                              ?? User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (userIdClaim == null)
+            {
+                return Unauthorized();
+            }
+
+            var userId = Guid.Parse(userIdClaim);
+
             try
             {
-                _logger.LogInformation(
-                    "Processing voice message. File: {FileName}, Size: {SizeMB:F2}MB, ConversationId: {ConversationId}",
-                    request.AudioFile.FileName,
-                    request.AudioFile.Length / (1024.0 * 1024.0),
-                    request.ConversationId ?? "new");
-
-                // Get base URL for audio URLs
                 var baseUrl = $"{Request.Scheme}://{Request.Host}";
 
-                // Process voice message
                 using var audioStream = request.AudioFile.OpenReadStream();
+
                 var result = await _orchestrator.ProcessVoiceMessageAsync(
+                    userId,
                     audioStream,
                     request.AudioFile.FileName,
                     request.ConversationId,
                     request.Language,
                     request.SystemPrompt);
 
-                // Build response
                 var response = new VoiceConversationResponse
                 {
                     UserTranscription = result.UserTranscription,
