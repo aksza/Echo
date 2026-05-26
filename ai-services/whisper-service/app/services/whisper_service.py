@@ -80,7 +80,7 @@ class WhisperService:
                 audio_path,
                 language=language,
                 task=task,
-                vad_filter=True,  # Voice activity detection
+                vad_filter=False,  # Voice activity detection
                 beam_size=5
             )
             
