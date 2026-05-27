@@ -1,4 +1,5 @@
 ﻿using EchoAPI.Api.DTOs.Requests;
+using EchoAPI.Api.DTOs.Response;
 using EchoAPI.Application.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -8,6 +9,7 @@ namespace EchoAPI.Api.Controllers
 {
     [ApiController]
     [Route("api/vocabulary")]
+    [Authorize]
     public class VocabularyController : ControllerBase
     {
         private readonly VocabularyService _vocabularyService;
@@ -18,68 +20,78 @@ namespace EchoAPI.Api.Controllers
         }
 
         [HttpPost("add")]
-        [Authorize]
-        public async Task<IActionResult> AddVocabulary([FromBody] AddVocabularyRequest request)
+        public async Task<ActionResult<VocabularyResponse>> AddVocabulary(
+            [FromBody] AddVocabularyRequest request)
         {
-            //jwt-bol userid
-            var userIdClaim = User.FindFirst("sub")?.Value
-                              ?? User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var userId = GetCurrentUserId();
 
-            if(userIdClaim == null) 
-                return Unauthorized();
+            var vocabularyResponse = await _vocabularyService.AddVocabularyAsync(
+                userId,
+                request);
 
-            var userId = Guid.Parse(userIdClaim);
-            var vocabularyResponse = await _vocabularyService.AddVocabularyAsync(userId,request);
-
-            return CreatedAtAction(nameof(AddVocabulary), vocabularyResponse);
+            return CreatedAtAction(
+                nameof(GetUserVocabularies),
+                new { id = vocabularyResponse.Id },
+                vocabularyResponse);
         }
 
         [HttpGet("vocabularies")]
-        [Authorize]
-        public async Task<IActionResult> GetUserVocabularies()
+        public async Task<ActionResult<IEnumerable<VocabularyResponse>>> GetUserVocabularies()
         {
-            var userIdClaim = User.FindFirst("sub")?.Value
-                              ?? User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            
-            if (userIdClaim == null)
-                return Unauthorized();
-            
-            var userId = Guid.Parse(userIdClaim);
+            var userId = GetCurrentUserId();
+
             var vocabularies = await _vocabularyService.GetUserVocabulariesAsync(userId);
-            
+
             return Ok(vocabularies);
         }
 
         [HttpPut("{vocabularyId}")]
-        [Authorize]
-        public async Task<IActionResult> UpdateVocabulary(Guid vocabularyId, [FromBody] EditVocabularyRequest request)
+        public async Task<ActionResult<VocabularyResponse>> UpdateVocabulary(
+            Guid vocabularyId,
+            [FromBody] EditVocabularyRequest request)
         {
-            var userIdClaim = User.FindFirst("sub")?.Value
-                              ?? User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            
-            if (userIdClaim == null)
-                return Unauthorized();
+            var userId = GetCurrentUserId();
 
-            var userId = Guid.Parse(userIdClaim);
+            var updatedVocabulary = await _vocabularyService.EditVocabularyAsync(
+                userId,
+                vocabularyId,
+                request);
 
-            var updatedVocabulary = await _vocabularyService.EditVocabularyAsync(vocabularyId, request);
             return Ok(updatedVocabulary);
         }
 
         [HttpDelete("{vocabularyId}")]
-        [Authorize]
         public async Task<IActionResult> DeleteVocabulary(Guid vocabularyId)
+        {
+            var userId = GetCurrentUserId();
+
+            await _vocabularyService.DeleteVocabularyAsync(
+                userId,
+                vocabularyId);
+
+            return NoContent();
+        }
+
+        [HttpPost("translate")]
+        public async Task<ActionResult<TranslateTextResponse>> TranslateText(
+            [FromBody] TranslateTextRequest request)
+        {
+            var response = await _vocabularyService.TranslateTextAsync(request);
+
+            return Ok(response);
+        }
+
+        private Guid GetCurrentUserId()
         {
             var userIdClaim = User.FindFirst("sub")?.Value
                               ?? User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            
+
             if (userIdClaim == null)
-                return Unauthorized();
+            {
+                throw new UnauthorizedAccessException("User id claim is missing.");
+            }
 
-            var userId = Guid.Parse(userIdClaim);
-
-            await _vocabularyService.DeleteVocabularyAsync(vocabularyId);
-            return NoContent();
+            return Guid.Parse(userIdClaim);
         }
     }
 }

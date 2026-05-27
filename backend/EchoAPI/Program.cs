@@ -77,6 +77,9 @@ builder.Services.AddScoped<MistakeService>();
 builder.Services.AddScoped<IPracticeRepository, PracticeRepository>();
 builder.Services.AddScoped<PracticeService>();
 
+builder.Services.AddScoped<VocabularyService>();
+builder.Services.AddScoped<IAudioStorageService, AudioStorageService>();
+
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<VocabularyService>();
 builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
