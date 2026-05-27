@@ -74,6 +74,8 @@ builder.Services.AddScoped<IVocabularyRepository, VocabularyRepository>();
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 builder.Services.AddScoped<IMistakeRepository, MistakeRepository>();
 builder.Services.AddScoped<MistakeService>();
+builder.Services.AddScoped<IPracticeRepository, PracticeRepository>();
+builder.Services.AddScoped<PracticeService>();
 
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<VocabularyService>();
