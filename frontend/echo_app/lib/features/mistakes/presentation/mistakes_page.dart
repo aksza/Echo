@@ -1,6 +1,7 @@
 import 'package:echo_app/features/mistakes/data/mistake_model.dart';
 import 'package:echo_app/features/mistakes/presentation/mistake_controller.dart';
 import 'package:echo_app/features/mistakes/presentation/mistake_detail_page.dart';
+import 'package:echo_app/features/practice/presentation/practice_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -14,8 +15,21 @@ class MistakesPage extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('My Mistakes'),
-        actions: [
+       actions: [
           IconButton(
+            tooltip: 'Practice',
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => const PracticePage(count: 5),
+                ),
+              );
+            },
+            icon: const Icon(Icons.fitness_center),
+          ),
+          IconButton(
+            tooltip: 'Refresh',
             onPressed: () {
               ref.read(mistakesProvider.notifier).loadMistakes();
             },
