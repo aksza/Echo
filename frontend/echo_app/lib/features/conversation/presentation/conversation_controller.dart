@@ -57,12 +57,14 @@ class ConversationController extends StateNotifier<ConversationState> {
 
       if (token == null || token.isEmpty) {
         print("Missing auth token");
+        state = state.copyWith(isLoading: false);
         return null;
       }
 
       final response = await api.sendVoiceMessage(
         audioFile: audioFile,
         token: token,
+        conversationId: conversationId,
       );
 
       conversationId = response.conversationId;

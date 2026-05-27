@@ -17,7 +17,8 @@ class ConversationApi {
         audioFile.path,
         filename: "recording.wav",
       ),
-      "conversationId": conversationId,
+      if (conversationId != null && conversationId.isNotEmpty)
+        "conversationId": conversationId,
     });
 
     final response = await dio.post(
