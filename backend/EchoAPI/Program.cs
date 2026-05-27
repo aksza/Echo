@@ -72,6 +72,8 @@ builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IVocabularyRepository, VocabularyRepository>();
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
+builder.Services.AddScoped<IMistakeRepository, MistakeRepository>();
+builder.Services.AddScoped<MistakeService>();
 
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<VocabularyService>();
