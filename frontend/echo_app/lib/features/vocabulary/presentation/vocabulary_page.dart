@@ -1,5 +1,6 @@
 import 'package:echo_app/features/vocabulary/data/vocabulary_model.dart';
 import 'package:echo_app/features/vocabulary/presentation/add_vocabulary_sheet.dart';
+import 'package:echo_app/features/vocabulary/presentation/flashcard_practice_page.dart';
 import 'package:echo_app/features/vocabulary/presentation/vocabulary_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -15,6 +16,33 @@ class VocabularyPage extends ConsumerWidget {
       appBar: AppBar(
         title: const Text('Vocabulary'),
         actions: [
+          vocabularyState.maybeWhen(
+            data: (items) {
+              return IconButton(
+                tooltip: 'Practice with flashcards',
+                onPressed: items.isEmpty
+                    ? null
+                    : () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => FlashcardPracticePage(
+                              vocabularyItems: items,
+                            ),
+                          ),
+                        );
+                      },
+                icon: const Icon(Icons.style),
+              );
+            },
+            orElse: () {
+              return IconButton(
+                tooltip: 'Practice with flashcards',
+                onPressed: null,
+                icon: const Icon(Icons.style),
+              );
+            },
+          ),
           IconButton(
             tooltip: 'Refresh',
             onPressed: () {
@@ -54,39 +82,58 @@ class VocabularyPage extends ConsumerWidget {
             return const _EmptyVocabularyView();
           }
 
-          return RefreshIndicator(
-            onRefresh: () async {
-              await ref.read(vocabularyProvider.notifier).loadVocabulary();
-            },
-            child: ListView.separated(
-              padding: const EdgeInsets.fromLTRB(16, 16, 16, 90),
-              itemCount: items.length,
-              separatorBuilder: (_, __) => const SizedBox(height: 12),
-              itemBuilder: (context, index) {
-                final item = items[index];
-
-                return _VocabularyCard(
-                  item: item,
-                  onDelete: () async {
-                    final shouldDelete = await _showDeleteDialog(context);
-
-                    if (shouldDelete != true) return;
-
-                    await ref
-                        .read(vocabularyProvider.notifier)
-                        .deleteVocabulary(item.id);
-
-                    if (!context.mounted) return;
-
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Vocabulary deleted.'),
+          return Column(
+            children: [
+              _FlashcardBanner(
+                count: items.length,
+                onStart: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => FlashcardPracticePage(
+                        vocabularyItems: items,
                       ),
-                    );
+                    ),
+                  );
+                },
+              ),
+              Expanded(
+                child: RefreshIndicator(
+                  onRefresh: () async {
+                    await ref.read(vocabularyProvider.notifier).loadVocabulary();
                   },
-                );
-              },
-            ),
+                  child: ListView.separated(
+                    padding: const EdgeInsets.fromLTRB(16, 8, 16, 90),
+                    itemCount: items.length,
+                    separatorBuilder: (_, __) => const SizedBox(height: 12),
+                    itemBuilder: (context, index) {
+                      final item = items[index];
+
+                      return _VocabularyCard(
+                        item: item,
+                        onDelete: () async {
+                          final shouldDelete = await _showDeleteDialog(context);
+
+                          if (shouldDelete != true) return;
+
+                          await ref
+                              .read(vocabularyProvider.notifier)
+                              .deleteVocabulary(item.id);
+
+                          if (!context.mounted) return;
+
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Vocabulary deleted.'),
+                            ),
+                          );
+                        },
+                      );
+                    },
+                  ),
+                ),
+              ),
+            ],
           );
         },
       ),
@@ -122,14 +169,64 @@ class VocabularyPage extends ConsumerWidget {
   }
 }
 
-String _formatAddedFrom(String value) {
-  return switch (value.toLowerCase()) {
-    '0' => 'Manual',
-    '1' => 'Conversation',
-    'manual' => 'Manual',
-    'conversation' => 'Conversation',
-    _ => value,
-  };
+class _FlashcardBanner extends StatelessWidget {
+  final int count;
+  final VoidCallback onStart;
+
+  const _FlashcardBanner({
+    required this.count,
+    required this.onStart,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.blueAccent.withOpacity(0.14),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(
+          color: Colors.blueAccent.withOpacity(0.4),
+        ),
+      ),
+      child: Row(
+        children: [
+          const Icon(
+            Icons.style,
+            size: 40,
+            color: Colors.blueAccent,
+          ),
+          const SizedBox(width: 14),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'Practice with flashcards',
+                  style: TextStyle(
+                    fontSize: 17,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  '$count saved words available',
+                  style: const TextStyle(
+                    color: Colors.grey,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          FilledButton(
+            onPressed: onStart,
+            child: const Text('Start'),
+          ),
+        ],
+      ),
+    );
+  }
 }
 
 class _VocabularyCard extends StatelessWidget {
@@ -143,6 +240,8 @@ class _VocabularyCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final sourceLabel = _formatAddedFrom(item.addedFrom);
+
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -197,9 +296,7 @@ class _VocabularyCard extends StatelessWidget {
               children: [
                 Chip(
                   avatar: const Icon(Icons.bookmark, size: 18),
-                  label: Text(
-                    _formatAddedFrom(item.addedFrom),
-                  ),
+                  label: Text(sourceLabel),
                 ),
                 const Spacer(),
                 Text(
@@ -215,6 +312,16 @@ class _VocabularyCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  static String _formatAddedFrom(String value) {
+    return switch (value.toLowerCase()) {
+      '0' => 'Manual',
+      '1' => 'Conversation',
+      'manual' => 'Manual',
+      'conversation' => 'Conversation',
+      _ => value.isEmpty ? 'Manual' : value,
+    };
   }
 
   static String _formatDate(DateTime date) {
