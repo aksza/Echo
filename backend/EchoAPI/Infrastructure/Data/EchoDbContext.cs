@@ -19,55 +19,66 @@ namespace EchoAPI.Infrastructure.Data
         public DbSet<Vocabulary> Vocabulary { get; set; }
         public DbSet<VocabularyPracticeHistory> VocabularyPracticeHistories { get; set; }
 
+        public DbSet<PracticeSession> PracticeSessions { get; set; }
+        public DbSet<PracticeSessionItem> PracticeSessionItems { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            
-            // Fluent API kapcsolatok
 
-            // UserSettings -> User (1:1)
             modelBuilder.Entity<UserSettings>()
                 .HasOne(us => us.User)
                 .WithOne(u => u.Settings)
                 .HasForeignKey<UserSettings>(us => us.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            // Session -> User (many:1)
             modelBuilder.Entity<Session>()
                 .HasOne(s => s.User)
                 .WithMany(u => u.Sessions)
                 .HasForeignKey(s => s.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            // Mistake -> User (many:1)
             modelBuilder.Entity<Mistake>()
                 .HasOne(m => m.User)
                 .WithMany(u => u.Mistakes)
                 .HasForeignKey(m => m.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            // Mistake -> MistakeCategory (many:1)
             modelBuilder.Entity<Mistake>()
                 .HasOne(m => m.MistakeCategory)
                 .WithMany(c => c.Mistakes)
                 .HasForeignKey(m => m.MistakeCategoryId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            // Vocabulary -> User (many:1)
             modelBuilder.Entity<Vocabulary>()
                 .HasOne(v => v.User)
                 .WithMany(u => u.Vocabulary)
                 .HasForeignKey(v => v.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            // VocabularyPracticeHistory -> Vocabulary (many:1)
             modelBuilder.Entity<VocabularyPracticeHistory>()
                 .HasOne(p => p.Vocabulary)
                 .WithMany(v => v.PracticeHistory)
                 .HasForeignKey(p => p.VocabularyId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            // Soft delete global filter
+            modelBuilder.Entity<PracticeSession>()
+                .HasOne(ps => ps.User)
+                .WithMany()
+                .HasForeignKey(ps => ps.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<PracticeSessionItem>()
+                .HasOne(item => item.PracticeSession)
+                .WithMany(session => session.Items)
+                .HasForeignKey(item => item.PracticeSessionId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<PracticeSessionItem>()
+                .HasOne(item => item.Mistake)
+                .WithMany()
+                .HasForeignKey(item => item.MistakeId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             foreach (var entityType in modelBuilder.Model.GetEntityTypes())
             {
@@ -78,14 +89,11 @@ namespace EchoAPI.Infrastructure.Data
                 }
             }
 
-            // Indexek és egyéb konfigurációk
-
             modelBuilder.Entity<User>()
                 .HasIndex(u => u.Email)
                 .IsUnique();
         }
 
-        // LambdaExpression készítése a soft delete filterhez
         private static LambdaExpression CreateIsDeletedFilter(Type type)
         {
             var param = Expression.Parameter(type, "e");
