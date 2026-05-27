@@ -1,4 +1,5 @@
 import 'package:echo_app/features/conversation/presentation/conversation_page.dart';
+import 'package:echo_app/features/mistakes/presentation/mistakes_page.dart';
 import 'package:flutter/material.dart';
 
 class AppShell extends StatefulWidget {
@@ -141,6 +142,24 @@ class HomePage extends StatelessWidget {
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 16),
                 ),
+              ),
+            ),
+
+            const SizedBox(height: 16),
+
+            // My Mistakes Button
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const MistakesPage(),
+                    ),
+                  );
+                },
+                child: const Text('My Mistakes'),
               ),
             ),
 
