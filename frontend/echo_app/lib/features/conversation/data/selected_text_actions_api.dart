@@ -60,7 +60,12 @@ class SelectedTextActionsApi {
         'expression': expression,
         'translation': translation,
         'exampleSentence': exampleSentence,
-        'addedFrom': 'conversation',
+
+        // 1 = conversation, ha nálad az enum így van.
+        // Ha nálad más sorrend van, ezt az enum alapján javítsuk.
+        'addedFrom': 1,
+
+        'knowledgeLevel': 0,
       },
       options: Options(
         headers: {
