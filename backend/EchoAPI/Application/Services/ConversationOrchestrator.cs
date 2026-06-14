@@ -68,36 +68,40 @@ namespace EchoAPI.Application.Services
                   "reply": "short natural answer",
                   "mistakes": [
                     {
-                      "original": "wrong part",
-                      "corrected": "correct version",
+                      "original": "full original sentence containing the mistake",
+                      "corrected": "full corrected sentence",
                       "type": "grammar",
                       "explanation": "short explanation"
                     }
                   ]
                 }
 
-                Rules:
+                Rules for reply:
                 - reply must be maximum 1-2 short sentences.
                 - reply should sound natural and conversational.
                 - Do not give long grammar explanations in reply.
-                - Detect grammar mistakes, vocabulary mistakes, and unnatural phrasing.
+                - Do not teach grammar unless explicitly asked.
+                - Keep the reply under 30 words whenever possible.
+                - Sound like a real conversation partner.
+
+                Rules for mistakes:
+                - Detect grammar mistakes, vocabulary mistakes, unnatural phrasing, and sentence structure mistakes.
                 - If there are no mistakes, return "mistakes": [].
-                - Mistake type can be: grammar, vocabulary, phrasing, sentence_structure.
                 - Return maximum 2 mistakes.
-                - Each explanation must be maximum 8 words.
-                - Keep the JSON very short.
+                - Mistake type can be: grammar, vocabulary, phrasing, sentence_structure.
+
+                Very important mistake format rules:
+                - "original" must contain the FULL sentence where the mistake appears.
+                - "corrected" must contain the FULL corrected sentence.
+                - Do NOT return only the wrong word or short phrase.
+                - Do NOT return fragments like "I go" or "don't like".
+                - Keep the sentence context.
+                - If the user says: "Yesterday I go to the shop", original must be "Yesterday I go to the shop."
+                - The corrected value must be "Yesterday I went to the shop."
+                - Each explanation must be maximum 10 words.
                 - Always close the JSON correctly.
                 - Never cut the JSON response.
                 - Do not add extra text outside JSON.
-
-                IMPORTANT RESPONSE RULES:
-                - Keep responses VERY short.
-                - Maximum 1-2 sentences.
-                - Prefer natural conversational replies.
-                - Do not give long explanations.
-                - Do not teach grammar unless explicitly asked.
-                - Keep answers under 30 words whenever possible.
-                - Sound like a real conversation partner. sentence_structure.
                 """;
 
                 if (!string.IsNullOrWhiteSpace(systemPrompt))
