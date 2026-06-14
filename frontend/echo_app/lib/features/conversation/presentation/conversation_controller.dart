@@ -39,6 +39,9 @@ class ConversationController extends StateNotifier<ConversationState> {
   final Ref ref;
 
   String? conversationId;
+  String? sessionId;
+  String? sessionType;
+  String? sessionTitle;
   String? systemPrompt;
 
   ConversationController(this.ref)
@@ -51,9 +54,14 @@ class ConversationController extends StateNotifier<ConversationState> {
 
   void startNewConversation({
     String? systemPrompt,
+    String? sessionType,
+    String? sessionTitle,
   }) {
     conversationId = null;
+    sessionId = null;
     this.systemPrompt = systemPrompt;
+    this.sessionType = sessionType;
+    this.sessionTitle = sessionTitle;
 
     state = ConversationState(
       messages: [],
@@ -78,10 +86,14 @@ class ConversationController extends StateNotifier<ConversationState> {
         audioFile: audioFile,
         token: token,
         conversationId: conversationId,
+        sessionId: sessionId,
+        sessionType: sessionType,
+        sessionTitle: sessionTitle,
         systemPrompt: systemPrompt,
       );
 
       conversationId = response.conversationId;
+      sessionId = response.sessionId;
 
       final updatedMessages = [
         ...state.messages,

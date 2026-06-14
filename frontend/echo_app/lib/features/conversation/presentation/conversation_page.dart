@@ -39,8 +39,16 @@ class _ConversationPageState
     super.initState();
 
     Future.microtask(() {
+      final isLessonConversation =
+          widget.initialSystemPrompt != null &&
+          widget.initialSystemPrompt!.trim().isNotEmpty;
+
       ref.read(conversationProvider.notifier).startNewConversation(
             systemPrompt: widget.initialSystemPrompt,
+            sessionType: 'Conversation',
+            sessionTitle: isLessonConversation
+                ? widget.lessonTitle ?? 'Lesson Conversation'
+                : 'AI Conversation',
           );
     });
   }

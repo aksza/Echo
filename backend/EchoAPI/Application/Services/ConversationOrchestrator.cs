@@ -1,4 +1,5 @@
 using EchoAPI.Core.Entities;
+using EchoAPI.Core.Enums;
 using EchoAPI.Core.Interfaces.Services;
 using EchoAPI.Infrastructure.Data;
 using EchoAPI.Infrastructure.Services.AiServices.Models;
@@ -37,6 +38,9 @@ namespace EchoAPI.Application.Services
             Stream audioStream,
             string fileName,
             string? conversationId = null,
+            Guid? sessionId = null,
+            string? sessionType = null,
+            string? sessionTitle = null,
             string? language = null,
             string? systemPrompt = null)
         {
@@ -53,6 +57,16 @@ namespace EchoAPI.Application.Services
                 {
                     throw new InvalidOperationException("Speech could not be detected.");
                 }
+
+                var session = await GetOrCreateConversationSessionAsync(
+                    userId,
+                    sessionId,
+                    sessionType,
+                    sessionTitle);
+
+                _logger.LogInformation(
+                    "Conversation session active. SessionId: {SessionId}",
+                    session.Id);
 
                 _logger.LogInformation("Step 2/3: Generating AI response and mistakes...");
 
@@ -123,6 +137,9 @@ namespace EchoAPI.Application.Services
 
                 await SaveMistakesAsync(userId, aiData.Mistakes);
 
+                session.EndedAt = DateTime.UtcNow;
+                await _dbContext.SaveChangesAsync();
+
                 _logger.LogInformation("Step 3/3: Synthesizing AI reply...");
 
                 var audioResponseStream = await _piperClient.SynthesizeToStreamAsync(
@@ -141,6 +158,7 @@ namespace EchoAPI.Application.Services
                     DetectedLanguage = transcription.Language,
                     AiResponse = aiData.Reply,
                     ConversationId = chatResponse.ConversationId,
+                    SessionId = session.Id,
                     AudioFilePath = savedAudioPath,
                     TokensUsed = chatResponse.TokensUsed,
                     AudioDuration = transcription.Duration
@@ -195,6 +213,66 @@ namespace EchoAPI.Application.Services
                 _logger.LogError(ex, "Error processing voice for correction");
                 throw;
             }
+        }
+
+        private async Task<Session> GetOrCreateConversationSessionAsync(
+            Guid userId,
+            Guid? sessionId,
+            string? sessionType,
+            string? sessionTitle)
+        {
+            if (sessionId.HasValue)
+            {
+                var existingSession = await _dbContext.Sessions
+                    .FirstOrDefaultAsync(s =>
+                        s.Id == sessionId.Value &&
+                        s.UserId == userId &&
+                        !s.IsDeleted);
+
+                if (existingSession != null)
+                {
+                    existingSession.EndedAt = DateTime.UtcNow;
+
+                    if (!string.IsNullOrWhiteSpace(sessionTitle) &&
+                        string.IsNullOrWhiteSpace(existingSession.Title))
+                    {
+                        existingSession.Title = Truncate(sessionTitle.Trim(), 100);
+                    }
+
+                    return existingSession;
+                }
+            }
+
+            var newSession = new Session
+            {
+                Id = Guid.NewGuid(),
+                UserId = userId,
+                StartedAt = DateTime.UtcNow,
+                EndedAt = DateTime.UtcNow,
+                SessionType = ParseSessionType(sessionType),
+                Title = string.IsNullOrWhiteSpace(sessionTitle)
+                    ? "AI Conversation"
+                    : Truncate(sessionTitle.Trim(), 100)
+            };
+
+            _dbContext.Sessions.Add(newSession);
+            await _dbContext.SaveChangesAsync();
+
+            return newSession;
+        }
+
+        private static SessionType ParseSessionType(string? sessionType)
+        {
+            if (!string.IsNullOrWhiteSpace(sessionType) &&
+                Enum.TryParse<SessionType>(
+                    sessionType,
+                    ignoreCase: true,
+                    out var parsedSessionType))
+            {
+                return parsedSessionType;
+            }
+
+            return SessionType.Conversation;
         }
 
         private ConversationAiResponse ParseConversationAiResponse(string aiResponse)
@@ -336,6 +414,7 @@ namespace EchoAPI.Application.Services
         public string DetectedLanguage { get; set; } = string.Empty;
         public string AiResponse { get; set; } = string.Empty;
         public string ConversationId { get; set; } = string.Empty;
+        public Guid SessionId { get; set; }
         public string AudioFilePath { get; set; } = string.Empty;
         public int? TokensUsed { get; set; }
         public double? AudioDuration { get; set; }
