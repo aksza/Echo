@@ -11,6 +11,7 @@ class ConversationApi {
     required String token,
     required File audioFile,
     String? conversationId,
+    String? systemPrompt,
   }) async {
     final formData = FormData.fromMap({
       "audioFile": await MultipartFile.fromFile(
@@ -19,6 +20,8 @@ class ConversationApi {
       ),
       if (conversationId != null && conversationId.isNotEmpty)
         "conversationId": conversationId,
+      if (systemPrompt != null && systemPrompt.trim().isNotEmpty)
+        "systemPrompt": systemPrompt.trim(),
     });
 
     final response = await dio.post(

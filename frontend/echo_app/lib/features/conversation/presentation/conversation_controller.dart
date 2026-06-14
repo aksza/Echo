@@ -39,6 +39,7 @@ class ConversationController extends StateNotifier<ConversationState> {
   final Ref ref;
 
   String? conversationId;
+  String? systemPrompt;
 
   ConversationController(this.ref)
       : super(
@@ -47,6 +48,18 @@ class ConversationController extends StateNotifier<ConversationState> {
             isLoading: false,
           ),
         );
+
+  void startNewConversation({
+    String? systemPrompt,
+  }) {
+    conversationId = null;
+    this.systemPrompt = systemPrompt;
+
+    state = ConversationState(
+      messages: [],
+      isLoading: false,
+    );
+  }
 
   Future<VoiceConversationResponse?> sendVoiceMessage(File audioFile) async {
     state = state.copyWith(isLoading: true);
@@ -65,6 +78,7 @@ class ConversationController extends StateNotifier<ConversationState> {
         audioFile: audioFile,
         token: token,
         conversationId: conversationId,
+        systemPrompt: systemPrompt,
       );
 
       conversationId = response.conversationId;
