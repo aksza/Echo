@@ -14,9 +14,24 @@ namespace EchoAPI.Api.DTOs
         public IFormFile AudioFile { get; set; } = null!;
 
         /// <summary>
-        /// Optional conversation ID to continue conversation
+        /// Optional AI conversation ID to continue Phi3 conversation
         /// </summary>
         public string? ConversationId { get; set; }
+
+        /// <summary>
+        /// Optional app session ID to continue stored learning session
+        /// </summary>
+        public Guid? SessionId { get; set; }
+
+        /// <summary>
+        /// Optional session type, for example Conversation or LessonConversation
+        /// </summary>
+        public string? SessionType { get; set; }
+
+        /// <summary>
+        /// Optional session title
+        /// </summary>
+        public string? SessionTitle { get; set; }
 
         /// <summary>
         /// Optional language code (e.g., "en", "hu")
@@ -72,9 +87,14 @@ namespace EchoAPI.Api.DTOs
         public string AiResponse { get; set; } = string.Empty;
 
         /// <summary>
-        /// Conversation ID for continuing this conversation
+        /// Conversation ID for continuing the Phi3 conversation
         /// </summary>
         public string ConversationId { get; set; } = string.Empty;
+
+        /// <summary>
+        /// App session ID stored in the Sessions table
+        /// </summary>
+        public Guid SessionId { get; set; }
 
         /// <summary>
         /// URL to the AI's audio response

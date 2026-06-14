@@ -39,6 +39,10 @@ class ConversationController extends StateNotifier<ConversationState> {
   final Ref ref;
 
   String? conversationId;
+  String? sessionId;
+  String? sessionType;
+  String? sessionTitle;
+  String? systemPrompt;
 
   ConversationController(this.ref)
       : super(
@@ -47,6 +51,23 @@ class ConversationController extends StateNotifier<ConversationState> {
             isLoading: false,
           ),
         );
+
+  void startNewConversation({
+    String? systemPrompt,
+    String? sessionType,
+    String? sessionTitle,
+  }) {
+    conversationId = null;
+    sessionId = null;
+    this.systemPrompt = systemPrompt;
+    this.sessionType = sessionType;
+    this.sessionTitle = sessionTitle;
+
+    state = ConversationState(
+      messages: [],
+      isLoading: false,
+    );
+  }
 
   Future<VoiceConversationResponse?> sendVoiceMessage(File audioFile) async {
     state = state.copyWith(isLoading: true);
@@ -65,9 +86,14 @@ class ConversationController extends StateNotifier<ConversationState> {
         audioFile: audioFile,
         token: token,
         conversationId: conversationId,
+        sessionId: sessionId,
+        sessionType: sessionType,
+        sessionTitle: sessionTitle,
+        systemPrompt: systemPrompt,
       );
 
       conversationId = response.conversationId;
+      sessionId = response.sessionId;
 
       final updatedMessages = [
         ...state.messages,

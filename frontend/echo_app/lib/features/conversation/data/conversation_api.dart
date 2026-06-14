@@ -11,6 +11,10 @@ class ConversationApi {
     required String token,
     required File audioFile,
     String? conversationId,
+    String? sessionId,
+    String? sessionType,
+    String? sessionTitle,
+    String? systemPrompt,
   }) async {
     final formData = FormData.fromMap({
       "audioFile": await MultipartFile.fromFile(
@@ -19,6 +23,14 @@ class ConversationApi {
       ),
       if (conversationId != null && conversationId.isNotEmpty)
         "conversationId": conversationId,
+      if (sessionId != null && sessionId.isNotEmpty)
+        "sessionId": sessionId,
+      if (sessionType != null && sessionType.trim().isNotEmpty)
+        "sessionType": sessionType.trim(),
+      if (sessionTitle != null && sessionTitle.trim().isNotEmpty)
+        "sessionTitle": sessionTitle.trim(),
+      if (systemPrompt != null && systemPrompt.trim().isNotEmpty)
+        "systemPrompt": systemPrompt.trim(),
     });
 
     final response = await dio.post(

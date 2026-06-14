@@ -11,7 +11,14 @@ import 'package:path_provider/path_provider.dart';
 import 'package:record/record.dart';
 
 class ConversationPage extends ConsumerStatefulWidget {
-  const ConversationPage({super.key});
+  final String? lessonTitle;
+  final String? initialSystemPrompt;
+
+  const ConversationPage({
+    super.key,
+    this.lessonTitle,
+    this.initialSystemPrompt,
+  });
 
   @override
   ConsumerState<ConversationPage> createState() =>
@@ -26,6 +33,25 @@ class _ConversationPageState
 
   bool isRecording = false;
   File? recordedFile;
+
+  @override
+  void initState() {
+    super.initState();
+
+    Future.microtask(() {
+      final isLessonConversation =
+          widget.initialSystemPrompt != null &&
+          widget.initialSystemPrompt!.trim().isNotEmpty;
+
+      ref.read(conversationProvider.notifier).startNewConversation(
+            systemPrompt: widget.initialSystemPrompt,
+            sessionType: 'Conversation',
+            sessionTitle: isLessonConversation
+                ? widget.lessonTitle ?? 'Lesson Conversation'
+                : 'AI Conversation',
+          );
+    });
+  }
 
   @override
   void dispose() {
@@ -130,12 +156,47 @@ class _ConversationPageState
 
     final messages = state.messages;
 
+    final isLessonConversation =
+        widget.initialSystemPrompt != null &&
+        widget.initialSystemPrompt!.trim().isNotEmpty;
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text("AI Conversation"),
+        title: Text(
+          isLessonConversation
+              ? widget.lessonTitle ?? 'Lesson Conversation'
+              : 'AI Conversation',
+        ),
+        bottom: isLessonConversation
+            ? const PreferredSize(
+                preferredSize: Size.fromHeight(36),
+                child: Padding(
+                  padding: EdgeInsets.only(bottom: 10),
+                  child: Text(
+                    'Topic-locked conversation',
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 13,
+                    ),
+                  ),
+                ),
+              )
+            : null,
       ),
       body: Column(
         children: [
+          if (isLessonConversation)
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(12),
+              color: Colors.blueAccent.withOpacity(0.12),
+              child: const Text(
+                'Talk only about online safety, malware, passwords, suspicious links and personal information.',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 13),
+              ),
+            ),
+
           Expanded(
             child: ListView.builder(
               controller: scrollController,

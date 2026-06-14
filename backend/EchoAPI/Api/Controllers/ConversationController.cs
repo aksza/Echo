@@ -76,6 +76,9 @@ namespace EchoAPI.Api.Controllers
                     audioStream,
                     request.AudioFile.FileName,
                     request.ConversationId,
+                    request.SessionId,
+                    request.SessionType,
+                    request.SessionTitle,
                     request.Language,
                     request.SystemPrompt);
 
@@ -85,6 +88,7 @@ namespace EchoAPI.Api.Controllers
                     DetectedLanguage = result.DetectedLanguage,
                     AiResponse = result.AiResponse,
                     ConversationId = result.ConversationId,
+                    SessionId = result.SessionId,
                     AudioUrl = _audioStorage.GetAudioUrl(result.AudioFilePath, baseUrl),
                     TokensUsed = result.TokensUsed,
                     AudioDuration = result.AudioDuration,

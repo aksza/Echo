@@ -81,6 +81,19 @@ namespace EchoAPI.Api.Controllers
             return Ok(response);
         }
 
+        [HttpPost("practice-history")]
+        public async Task<IActionResult> AddPracticeHistory(
+            [FromBody] AddVocabularyPracticeHistoryRequest request)
+        {
+            var userId = GetCurrentUserId();
+
+            await _vocabularyService.AddPracticeHistoryAsync(
+                userId,
+                request);
+
+            return NoContent();
+        }
+
         private Guid GetCurrentUserId()
         {
             var userIdClaim = User.FindFirst("sub")?.Value

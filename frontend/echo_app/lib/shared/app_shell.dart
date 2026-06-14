@@ -2,7 +2,9 @@ import 'package:echo_app/features/conversation/presentation/conversation_page.da
 import 'package:echo_app/features/mistakes/presentation/mistakes_page.dart';
 import 'package:echo_app/features/practice/presentation/practice_page.dart';
 import 'package:echo_app/features/vocabulary/presentation/vocabulary_page.dart';
+import 'package:echo_app/features/lesson/presentation/lesson_page.dart';
 import 'package:flutter/material.dart';
+import 'package:echo_app/features/summary/presentation/learning_summary_page.dart';
 
 class AppShell extends StatefulWidget {
   const AppShell({super.key});
@@ -21,6 +23,11 @@ class _AppShellState extends State<AppShell> {
       page: const HomePage(),
     ),
     _NavigationItem(
+      label: 'Lesson',
+      icon: Icons.school,
+      page: const LessonPage(),
+    ),
+    _NavigationItem(
       label: 'Practice',
       icon: Icons.play_circle,
       page: const PracticePage(),
@@ -33,7 +40,7 @@ class _AppShellState extends State<AppShell> {
     _NavigationItem(
       label: 'Profile',
       icon: Icons.person,
-      page: const ProfilePage(),
+      page: const LearningSummaryPage(),
     ),
   ];
 
@@ -344,23 +351,6 @@ class _ProgressCard extends StatelessWidget {
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class ProfilePage extends StatelessWidget {
-  const ProfilePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Profile'),
-        elevation: 0,
-      ),
-      body: const Center(
-        child: Text('Profile Page'),
       ),
     );
   }
