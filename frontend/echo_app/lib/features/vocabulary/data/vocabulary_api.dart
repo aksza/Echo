@@ -64,4 +64,25 @@ class VocabularyApi {
       ),
     );
   }
+
+  Future<void> addPracticeHistory({
+    required String token,
+    required String vocabularyId,
+    required bool success,
+    int? responseTimeMs,
+  }) async {
+    await dio.post(
+      '/vocabulary/practice-history',
+      data: {
+        'vocabularyId': vocabularyId,
+        'responseTimeMs': responseTimeMs,
+        'success': success,
+      },
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+      ),
+    );
+  }
 }

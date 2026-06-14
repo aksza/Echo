@@ -5,6 +5,7 @@ using EchoAPI.Core.Entities;
 using EchoAPI.Core.Interfaces.Repositories;
 using EchoAPI.Core.Interfaces.Services;
 using System.Text.Json;
+using EchoAPI.Infrastructure.Data;
 
 namespace EchoAPI.Application.Services
 {
@@ -13,15 +14,18 @@ namespace EchoAPI.Application.Services
         private readonly IVocabularyRepository _vocabularyRepository;
         private readonly IPhi3ServiceClient _phi3Client;
         private readonly IMapper _mapper;
+        private readonly EchoDbContext _dbContext;
 
         public VocabularyService(
             IVocabularyRepository vocabularyRepository,
             IPhi3ServiceClient phi3Client,
-            IMapper mapper)
+            IMapper mapper,
+            EchoDbContext dbContext)
         {
             _vocabularyRepository = vocabularyRepository;
             _phi3Client = phi3Client;
             _mapper = mapper;
+            _dbContext = dbContext;
         }
 
         public async Task<VocabularyResponse> AddVocabularyAsync(
@@ -112,6 +116,41 @@ namespace EchoAPI.Application.Services
             return true;
         }
 
+        public async Task AddPracticeHistoryAsync(
+            Guid userId,
+            AddVocabularyPracticeHistoryRequest request)
+        {
+            if (request.VocabularyId == Guid.Empty)
+            {
+                throw new ArgumentException("VocabularyId is required.");
+            }
+
+            if (request.ResponseTimeMs.HasValue && request.ResponseTimeMs.Value < 0)
+            {
+                throw new ArgumentException("ResponseTimeMs cannot be negative.");
+            }
+
+            var vocabulary = await _vocabularyRepository.GetByIdAsync(request.VocabularyId);
+
+            if (vocabulary == null ||
+                vocabulary.IsDeleted ||
+                vocabulary.UserId != userId)
+            {
+                throw new InvalidOperationException("Vocabulary not found or unauthorized.");
+            }
+
+            var history = new VocabularyPracticeHistory
+            {
+                Id = Guid.NewGuid(),
+                VocabularyId = request.VocabularyId,
+                PracticedAt = DateTime.UtcNow,
+                ResponseTimeMs = request.ResponseTimeMs,
+                Success = request.Success
+            };
+
+            _dbContext.VocabularyPracticeHistories.Add(history);
+            await _dbContext.SaveChangesAsync();
+        }
         public async Task<TranslateTextResponse> TranslateTextAsync(
             TranslateTextRequest request)
         {

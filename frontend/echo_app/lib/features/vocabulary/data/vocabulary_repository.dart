@@ -39,4 +39,18 @@ class VocabularyRepository {
       vocabularyId: vocabularyId,
     );
   }
+
+  Future<void> addPracticeHistory({
+    required String token,
+    required String vocabularyId,
+    required bool success,
+    int? responseTimeMs,
+  }) {
+    return api.addPracticeHistory(
+      token: token,
+      vocabularyId: vocabularyId,
+      success: success,
+      responseTimeMs: responseTimeMs,
+    );
+  }
 }

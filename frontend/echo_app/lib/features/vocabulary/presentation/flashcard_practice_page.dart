@@ -1,8 +1,11 @@
 import 'package:echo_app/features/vocabulary/data/vocabulary_model.dart';
 import 'package:echo_app/features/vocabulary/presentation/flashcard_summary_page.dart';
 import 'package:flutter/material.dart';
+import 'package:echo_app/features/auth/presentation/auth_controller.dart';
+import 'package:echo_app/features/vocabulary/data/vocabulary_api.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class FlashcardPracticePage extends StatefulWidget {
+class FlashcardPracticePage extends ConsumerStatefulWidget {
   final List<VocabularyModel> vocabularyItems;
 
   const FlashcardPracticePage({
@@ -11,11 +14,15 @@ class FlashcardPracticePage extends StatefulWidget {
   });
 
   @override
-  State<FlashcardPracticePage> createState() => _FlashcardPracticePageState();
-}
+ConsumerState<FlashcardPracticePage> createState() =>
+    _FlashcardPracticePageState();}
 
-class _FlashcardPracticePageState extends State<FlashcardPracticePage> {
+class _FlashcardPracticePageState
+    extends ConsumerState<FlashcardPracticePage> {
   final TextEditingController answerController = TextEditingController();
+  final VocabularyApi vocabularyApi = VocabularyApi();
+
+  DateTime cardStartedAt = DateTime.now();
 
   int currentIndex = 0;
   int correctCount = 0;
@@ -38,7 +45,7 @@ class _FlashcardPracticePageState extends State<FlashcardPracticePage> {
     super.dispose();
   }
 
-  void submitAnswer() {
+  Future<void> submitAnswer() async {
     final answer = answerController.text.trim();
 
     if (answer.isEmpty) {
@@ -49,6 +56,9 @@ class _FlashcardPracticePageState extends State<FlashcardPracticePage> {
       );
       return;
     }
+
+    final responseTimeMs =
+        DateTime.now().difference(cardStartedAt).inMilliseconds;
 
     final correct = _normalize(answer) == _normalize(currentItem.translation);
 
@@ -63,6 +73,39 @@ class _FlashcardPracticePageState extends State<FlashcardPracticePage> {
         incorrectCount++;
       }
     });
+
+    await savePracticeHistory(
+      success: correct,
+      responseTimeMs: responseTimeMs,
+    );
+  }
+
+  Future<void> savePracticeHistory({
+    required bool success,
+    required int responseTimeMs,
+  }) async {
+    final token = ref.read(authTokenProvider);
+
+    if (token == null || token.isEmpty) {
+      return;
+    }
+
+    try {
+      await vocabularyApi.addPracticeHistory(
+        token: token,
+        vocabularyId: currentItem.id,
+        success: success,
+        responseTimeMs: responseTimeMs,
+      );
+    } catch (e) {
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Could not save practice history: $e'),
+        ),
+      );
+    }
   }
 
   void skipCurrentCard() {
@@ -89,6 +132,7 @@ class _FlashcardPracticePageState extends State<FlashcardPracticePage> {
       isCurrentAnswerCorrect = null;
       submittedAnswer = null;
       answerController.clear();
+      cardStartedAt = DateTime.now();
     });
   }
 
@@ -190,7 +234,9 @@ class _FlashcardPracticePageState extends State<FlashcardPracticePage> {
             if (!isFlipped)
               _AnswerInput(
                 controller: answerController,
-                onSubmit: submitAnswer,
+                onSubmit: () {
+                  submitAnswer();
+                },
                 onSkip: skipCurrentCard,
               )
             else
