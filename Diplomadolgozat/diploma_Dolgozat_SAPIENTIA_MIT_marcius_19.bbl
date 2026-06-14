@@ -1,0 +1,268 @@
+\newcommand{\etalchar}[1]{$^{#1}$}
+\begin{thebibliography}{{OWA}26}
+
+\bibitem[AJA{\etalchar{+}}24]{phi3}
+Marah Abdin, Sam~Ade Jacobs, Ammar~Ahmad Awan, Jyoti Aneja, Ahmed Awadallah,
+  Hany Awadalla, Nguyen Bach, Amit Bahree, Arash Bakhtiari, Harkirat Behl,
+  et~al.
+\newblock Phi-3 technical report: A highly capable language model locally on
+  your phone.
+\newblock {\em arXiv preprint arXiv:2404.14219}, 2024.
+
+\bibitem[{Aut}26]{automapper}
+{AutoMapper}.
+\newblock Automapper documentation.
+\newblock \url{https://docs.automapper.io/}, 2026.
+\newblock Látogatás dátuma: 2026-06-13.
+
+\bibitem[{Blu}26]{audioplayers}
+{Blue Fire}.
+\newblock audioplayers package.
+\newblock \url{https://pub.dev/packages/audioplayers}, 2026.
+\newblock Látogatás dátuma: 2026-06-13.
+
+\bibitem[Coh88]{cohen1988statistical}
+Jacob Cohen.
+\newblock {\em Statistical Power Analysis for the Behavioral Sciences}.
+\newblock Lawrence Erlbaum Associates, Hillsdale, NJ, 2 edition, 1988.
+
+\bibitem[{Cou}26]{cefr}
+{Council of Europe}.
+\newblock Common european framework of reference for languages: Level
+  descriptions.
+\newblock
+  \url{https://www.coe.int/en/web/common-european-framework-reference-languages/level-descriptions},
+  2026.
+\newblock Látogatás dátuma: 2026-06-13.
+
+\bibitem[CS63]{campbell1963experimental}
+Donald~T. Campbell and Julian~C. Stanley.
+\newblock {\em Experimental and Quasi-Experimental Designs for Research}.
+\newblock Rand McNally, Chicago, 1963.
+
+\bibitem[{Dar}26]{dio}
+{Dart Tools}.
+\newblock Dio package.
+\newblock \url{https://pub.dev/packages/dio}, 2026.
+\newblock Látogatás dátuma: 2026-06-13.
+
+\bibitem[DSN{\etalchar{+}}11]{deterding2011gamification}
+Sebastian Deterding, Miguel Sicart, Lennart Nacke, Kenton O'Hara, and Dan
+  Dixon.
+\newblock Gamification: Using game design elements in non-gaming contexts.
+\newblock In {\em Proceedings of the 2011 Annual Conference Extended Abstracts
+  on Human Factors in Computing Systems}, pages 2425--2428. ACM, 2011.
+
+\bibitem[{Duo}23]{duolingoMax}
+{Duolingo}.
+\newblock Duolingo max uses openai's gpt-4 for new learning features.
+\newblock \url{https://blog.duolingo.com/duolingo-max/}, 2023.
+\newblock Látogatás dátuma: 2026-06-13.
+
+\bibitem[{Exc}26]{excalidraw}
+{Excalidraw}.
+\newblock Excalidraw whiteboard.
+\newblock \url{https://excalidraw.com/}, 2026.
+\newblock Látogatás dátuma: 2026-06-13.
+
+\bibitem[Fie13]{field2013statistics}
+Andy Field.
+\newblock {\em Discovering Statistics Using IBM SPSS Statistics}.
+\newblock SAGE Publications, London, 4 edition, 2013.
+
+\bibitem[{Flu}26a]{flutterdotenv}
+{Flutter Community}.
+\newblock flutter\_dotenv package.
+\newblock \url{https://pub.dev/packages/flutter_dotenv}, 2026.
+\newblock Látogatás dátuma: 2026-06-13.
+
+\bibitem[{Flu}26b]{pathprovider}
+{Flutter Team}.
+\newblock path\_provider package.
+\newblock \url{https://pub.dev/packages/path_provider}, 2026.
+\newblock Látogatás dátuma: 2026-06-13.
+
+\bibitem[{Git}26a]{gitVersionControl}
+{Git}.
+\newblock About version control.
+\newblock
+  \url{https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control},
+  2026.
+\newblock Látogatás dátuma: 2026-06-13.
+
+\bibitem[{Git}26b]{githubIssues}
+{GitHub}.
+\newblock About issues.
+\newblock \url{https://docs.github.com/articles/about-issues}, 2026.
+\newblock Látogatás dátuma: 2026-06-13.
+
+\bibitem[{Goo}26]{flutter}
+{Google LLC}.
+\newblock Flutter documentation.
+\newblock \url{https://docs.flutter.dev/}, 2026.
+\newblock Látogatás dátuma: 2026-06-13.
+
+\bibitem[JBS15]{jwt}
+Michael~B. Jones, John Bradley, and Nat Sakimura.
+\newblock Json web token (jwt).
+\newblock \url{https://datatracker.ietf.org/doc/html/rfc7519}, 2015.
+\newblock RFC 7519. Látogatás dátuma: 2026-06-13.
+
+\bibitem[LF14]{fowlerMicroservices}
+James Lewis and Martin Fowler.
+\newblock Microservices: A definition of this new architectural term.
+\newblock \url{https://martinfowler.com/articles/microservices.html}, 2014.
+\newblock Látogatás dátuma: 2026-06-13.
+
+\bibitem[{llf}26]{record}
+{llfbandit}.
+\newblock record package.
+\newblock \url{https://pub.dev/packages/record}, 2026.
+\newblock Látogatás dátuma: 2026-06-13.
+
+\bibitem[Lon96]{long1996role}
+Michael~H. Long.
+\newblock The role of the linguistic environment in second language
+  acquisition.
+\newblock In William~C. Ritchie and Tej~K. Bhatia, editors, {\em Handbook of
+  Second Language Acquisition}, pages 413--468. Academic Press, New York, 1996.
+
+\bibitem[LSS13]{lyster2013oral}
+Roy Lyster, Kazuya Saito, and Masatoshi Sato.
+\newblock Oral corrective feedback in second language classrooms.
+\newblock {\em Language Teaching}, 46(1):1--40, 2013.
+
+\bibitem[Mar17]{martin2017cleanarchitecture}
+Robert~C. Martin.
+\newblock {\em Clean Architecture: A Craftsman's Guide to Software Structure
+  and Design}.
+\newblock Prentice Hall, Boston, 2017.
+
+\bibitem[{Mic}23]{efcoreMigrations}
+{Microsoft Corporation}.
+\newblock Migrations overview -- entity framework core.
+\newblock
+  \url{https://learn.microsoft.com/en-us/ef/core/managing-schemas/migrations/},
+  2023.
+\newblock Látogatás dátuma: 2026-06-13.
+
+\bibitem[{Mic}26a]{aspnetcoreMiddleware}
+{Microsoft Corporation}.
+\newblock Asp.net core middleware.
+\newblock
+  \url{https://learn.microsoft.com/en-us/aspnet/core/fundamentals/middleware/},
+  2026.
+\newblock Látogatás dátuma: 2026-06-13.
+
+\bibitem[{Mic}26b]{dotnetDI}
+{Microsoft Corporation}.
+\newblock Dependency injection in .net.
+\newblock
+  \url{https://learn.microsoft.com/en-us/dotnet/core/extensions/dependency-injection},
+  2026.
+\newblock Látogatás dátuma: 2026-06-13.
+
+\bibitem[{Mic}26c]{aspnetcore}
+{Microsoft Corporation}.
+\newblock Overview of asp.net core.
+\newblock \url{https://learn.microsoft.com/en-us/aspnet/core/overview}, 2026.
+\newblock Látogatás dátuma: 2026-06-13.
+
+\bibitem[{Mic}26d]{mssql}
+{Microsoft Corporation}.
+\newblock Sql server technical documentation.
+\newblock \url{https://learn.microsoft.com/en-us/sql/sql-server/}, 2026.
+\newblock Látogatás dátuma: 2026-06-13.
+
+\bibitem[{OWA}26]{owaspPasswordStorage}
+{OWASP Foundation}.
+\newblock Password storage cheat sheet.
+\newblock
+  \url{https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html},
+  2026.
+\newblock Látogatás dátuma: 2026-06-13.
+
+\bibitem[{Pra}26a]{praktikaGooglePlay}
+{Praktika}.
+\newblock Praktika -- ai language tutor.
+\newblock
+  \url{https://play.google.com/store/apps/details?id=ai.praktika.android},
+  2026.
+\newblock Látogatás dátuma: 2026-06-13.
+
+\bibitem[{Pra}26b]{praktika}
+{Praktika}.
+\newblock Praktika - learn and speak new languages with ai tutors.
+\newblock \url{https://praktika.ai/}, 2026.
+\newblock Látogatás dátuma: 2026-06-13.
+
+\bibitem[{Pyt}26]{python}
+{Python Software Foundation}.
+\newblock The python tutorial.
+\newblock \url{https://docs.python.org/3/tutorial/}, 2026.
+\newblock Látogatás dátuma: 2026-06-13.
+
+\bibitem[{Rha}26]{piper}
+{Rhasspy}.
+\newblock Piper: A fast, local neural text to speech system.
+\newblock \url{https://github.com/rhasspy/piper}, 2026.
+\newblock Látogatás dátuma: 2026-06-13.
+
+\bibitem[{Riv}26]{riverpod}
+{Riverpod}.
+\newblock Riverpod documentation.
+\newblock \url{https://riverpod.dev/}, 2026.
+\newblock Látogatás dátuma: 2026-06-13.
+
+\bibitem[RKX{\etalchar{+}}22]{whisper}
+Alec Radford, Jong~Wook Kim, Tao Xu, Greg Brockman, Christine McLeavey, and
+  Ilya Sutskever.
+\newblock Robust speech recognition via large-scale weak supervision.
+\newblock {\em arXiv preprint arXiv:2212.04356}, 2022.
+
+\bibitem[SL12]{sato2012peer}
+Masatoshi Sato and Roy Lyster.
+\newblock Peer interaction and corrective feedback for accuracy and fluency
+  development.
+\newblock {\em Studies in Second Language Acquisition}, 34(4):591--626, 2012.
+
+\bibitem[{Spe}26a]{speak}
+{Speak}.
+\newblock Speak - the language learning app that gets you speaking.
+\newblock \url{https://www.speak.com/}, 2026.
+\newblock Látogatás dátuma: 2026-06-13.
+
+\bibitem[{Spe}26b]{speakAppStore}
+{Speak}.
+\newblock Speak: Language learning.
+\newblock
+  \url{https://apps.apple.com/us/app/speak-language-learning/id1286609883},
+  2026.
+\newblock Látogatás dátuma: 2026-06-13.
+
+\bibitem[Swa85]{swain1985communicative}
+Merrill Swain.
+\newblock Communicative competence: Some roles of comprehensible input and
+  comprehensible output in its development.
+\newblock In Susan~M. Gass and Carolyn~G. Madden, editors, {\em Input in Second
+  Language Acquisition}, pages 235--253. Newbury House, Rowley, MA, 1985.
+
+\bibitem[{SYS}26]{fasterwhisper}
+{SYSTRAN}.
+\newblock Faster-whisper: Faster whisper transcription with ctranslate2.
+\newblock \url{https://github.com/SYSTRAN/faster-whisper}, 2026.
+\newblock Látogatás dátuma: 2026-06-13.
+
+\bibitem[VTH01]{vanTeijlingen2001pilot}
+Edwin~R. Van~Teijlingen and Vanora Hundley.
+\newblock The importance of pilot studies.
+\newblock {\em Social Research Update}, 2001.
+\newblock Látogatás dátuma: 2026-06-13.
+
+\bibitem[XZS{\etalchar{+}}24]{xiao2024conversational}
+Feiwen Xiao, Priscilla Zhao, Hanyue Sha, Dandan Yang, and Mark Warschauer.
+\newblock Conversational agents in language learning.
+\newblock {\em Journal of China Computer-Assisted Language Learning},
+  4(2):300--325, 2024.
+
+\end{thebibliography}

@@ -1,0 +1,245 @@
+%----------------------------------------------------------------------------
+\chapter{Felhasználói felület}
+%----------------------------------------------------------------------------
+
+Felhasználói felületet tekintve, igyekeztem egy letisztult, nem túl zsúfolt, egyszerű és átlátható felületet biztosítani. Az alkalmazás meghatározó színe a narancssárga. A DineEase alkalmazásban két szerepkörbe tartozó felhasználó létezik: étterem és átlag felhasználó. Ezeknek két különböző felület jött létre, viszont egy dolog megegyezik, a bejelentkezés és regisztráció képernyők.
+
+
+\section{Belépés és regisztráció}
+
+Ahogy megnyitja az alkalmazást a felhasználó, egy splash screen megjelenése után, ha nem volt előzőleg bejelentkezve még, vagy lejárt a bejelentkezési ideje (tokenje), következik az a képernyő, ahol kiválaszthatja, hogy bejelentkezni szeretne vagy új fiókot szeretne létrehozni.
+
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.32\linewidth]{Diplomadolgozat//images/bej.png}
+    \caption{Bejelentkezés oldal}
+    \label{fig:bej}
+\end{figure}
+
+\newpage
+
+
+A Login gombra kattintva, elvezeti a bejelentkezéshez a felhasználót, ahol megadhatja adatait. Ha még nincs fiókja, átnavigálhat a Register now szövegre kattintva a regisztrációs felületre. Itt bármelyik szerepkörbe tartozó felhasználó be tud jelentkezni, ugyanis felismeri az alkalmazás, hogy milyen típusú felhasználó szeretne bejelentkezni. Ez látható a \ref{fig:bej} ábrán.
+
+A Sign up gombot választva a regisztrációs oldallal találkozik a felhasználó. Itt kiválaszthatja, milyen szerepkörbe tartozó fiókot szeretne létrehozni, és aszerint tölti ki a szükséges adatokkal a mezőket. A mezők ellenőzik, hogy megfelelő formátumú adatot adott-e meg a regisztráló. Természetesen itt is van olyan opció, hogy átlépjenek a bejelentkezéshez, egy szövegre kattintva. A regisztrációs oldalak a \ref{fig:reg} ábrán láthatóak 
+
+\begin{figure}[h]
+    \centering
+    \subfigure{
+        \includegraphics[width=0.35\textwidth]{Diplomadolgozat//images/reg1.png}%
+        \label{fig:reg1}%
+    }
+    \subfigure{
+        \includegraphics[width=0.35\textwidth]{Diplomadolgozat//images/reg2.png}%
+        \label{fig:reg2}
+    }
+    \caption{Regisztrációs oldalak}
+    \label{fig:reg}
+\end{figure}
+
+\section{Felhasználó}
+
+A \ref{fig:foryou} ábrán észrevehető, hogy egy navigációs sáv segítségével lehet váltogatni a négy oldal között: \textit{For You, Restaurants, Events, Restaurants for Events}. Itt használatba vehető a \textit{keresés} funkció is, illetve az ember ikonra kattintva a felhasználó a \textit{profil} oldalára is navigálhat.
+
+\subsection{For you oldal}
+
+A bejelentkezett felhasználó először a \textit{For You} nevű oldallal találkozhat, amelyet a \ref{fig:foryou} ábrán lehet látni. Itt ajánlásokkal találkozhat a felhasználó, négy szekcióra felosztva. A \textit{Trending} címszó alatt jelenik meg az a három étterem, amely az utóbbi hét napban a legtöbb foglalással rendelkezett. A \textit{You may also like} címszó alatt jelenik meg a három legnagyobb értékeléssel rendelkező étterem. A \textit{Recommended events} alatt olyan eseményeket ajánl az alkalmazás a felhasználónak, amelyeket olyan éttermek szerveznek, amiket kedvencnek jelölt be a felhasználó, ha nincs kedvence bejelölve, akkor egyszerűen néhány random eseményt ajánl. A \textit{Did you like} címszó nem mindenkinek jelenik meg, itt olyan éttermek láthatóak, amelyeket már meglátogatott a felhasználó, azaz a foglalásai szerint vannak listázva. 
+
+Az éttermek megjelenítésénél látható egy \textit{kép}, a \textit{neve}, \textit{értékelése} és egy szív alakú ikon, amely megnyomásával lehet az adott éttermet \textit{kedvenc}nek megjelölni, vagy épp kitörölni a kedvencek közül.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.4\linewidth]{Diplomadolgozat//images/foryou.png}
+    \caption{For you oldal}
+    \label{fig:foryou}
+\end{figure}
+
+\subsection{Keresés}
+
+A \ref{fig:foryou} ábrán látható felül a kereső, ahol lehetőség van rákeresni éttermekre és eseményekre a beírt karakterek alapján. A kereső az éttermek és események nevében és leírásukban keresi a karaktereket és küldi vissza azok listáját.
+
+
+\subsection{Restaurant és Event oldal}
+
+A \ref{fig:resev} ábrán látható a Restaurant és Event oldal, ahol ki van listázva az összes étterem és az összes elkövetkező esemény, amelyeket szerveznek az éttermekben. Ugyanígy néz ki a Restaurants for Events oldal is, ahol azok az éttermek vannak kilistázva, ahol nagyobb eseményeket lehet szervezni. A Restaurants oldalnak a jobb felső sarkában található egy ikon, amely segítségével szűrhetjük különböző tulajdonság szerint az éttermeket.
+
+
+\begin{figure}[h]
+    \centering
+    \subfigure{
+        \includegraphics[width=0.4\textwidth]{Diplomadolgozat//images/res.png}%
+        \label{fig:res}%
+    }
+    \subfigure{
+        \includegraphics[width=0.4\textwidth]{Diplomadolgozat//images/ev.png}%
+        \label{fig:ev}
+    }
+    \caption{Restaurant és Event oldalak}
+    \label{fig:resev}
+\end{figure}
+
+\newpage
+
+\subsection{Éttermekhez és eseményekhez kapcsolódó funkciók}
+
+Ha kiválaszt egy éttermet, megtekintheti annak részletes információit, ez látható a \ref{fig:details} ábrán. Itt több funkció is elérhető. A szív alakú ikonra kattintva \textit{kedvencnek jelölheti} be az éttermet. A Rating címszó alatt \textit{értékelheti} az éttermet, vagy törölheti értékelését a felhasználó. \textit{Visszajelzést} is írhat az étteremről a felhasználó, vagy épp törölheti is a saját megjegyzését, és megtekintheti itt másokét is. A Show menu gomb lenyomásával megtekinthető az étterem által kínált menüsor.
+
+Az események is hasonlóképpen jelennek meg, ott csak a részleteit lehet megtekinteni és ilyen funkcionalitásokkal nem rendelkeznek, viszont ott is megjelenik a Reserve a table gomb, amellyel asztalt lehet foglalni az esemény dátumára. 
+
+
+\begin{figure}[h]
+    \centering
+    \subfigure{
+        \includegraphics[width=0.4\textwidth]{Diplomadolgozat//images/details1.png}%
+        \label{fig:det1}%
+    }
+    \subfigure{
+        \includegraphics[width=0.4\textwidth]{Diplomadolgozat//images/details2.png}%
+        \label{fig:det2}
+    }
+    \caption{Étterem részleteinek oldala}
+    \label{fig:details}
+\end{figure}
+
+\newpage
+
+\subsection{Foglalás és meeting programálás}
+
+Mivel két fajta étterem kategóriát különböztetünk meg az alkalmazásban, így két különböző funkcionalitást is lehet elérni. 
+
+A Restaurant for Event kategóriából kiválasztott éttermekbe meetinget lehet szervezni, ez a \ref{fig:foglmeet} ábrának a jobb oldalán látható, ahogyan különböző adatok megadásával egy személyes meetinget szervez a részletek megbeszélésére az étterem tulajdonosával. 
+
+A Restaurants kategóriából választott étterembe foglalást lehet letenni, ami a \ref{fig:foglmeet} ábra bal oldalán tekinthető meg. Itt lehet a Menu gombra kattintva előrendelni az ételt a foglaláshoz, ezek a megrendelt ételek megjelennek a foglalás oldalán is, ahol az összeget is írja, amennyit fizetnie kell majd, viszont ha úgy dönt, hogy mégsem szeretné azt a menüt választani, kitörölheti egy gomb lenyomásával.
+
+
+\begin{figure}[h]
+    \centering
+    \subfigure{
+        \includegraphics[width=0.41\textwidth]{Diplomadolgozat//images/fogl.png}%
+        \label{fig:fogl}%
+    }
+    \subfigure{
+        \includegraphics[width=0.4\textwidth]{Diplomadolgozat//images/meet.png}%
+        \label{fig:meet}
+    }
+    \caption{Foglalás és meeting programálás oldalak}
+    \label{fig:foglmeet}
+\end{figure}
+
+\newpage
+
+\subsection{Profil oldal}
+
+A \ref{fig:foryou} ábrán látható a jobb felső sarokban egy profil ikon, erre kattintva érhető el a Profil oldal, amelyen a felhasználóval kapcsolatos információk érehetőek el, ezeknek a választéka a \ref{fig:profil} ábrán látható.
+
+Az \textit{Edit profile} gombra kattintva a felhasználó a saját adatait szerkesztheti.
+
+A \textit{Favorits} gombra kattintva megjelenik az összes étterem listája, amelyet a felhasználó kedvencnek jelölt, itt ki is lehet őket törölni a kedvencek közül.
+
+A \textit{Reservations} gombbal megtekintheti azokat a foglalásait, amelyekre kapott választ az éttermektől, hogy elfogadták őket vagy sem. Itt elsősorban az elkövetkező foglalások jelennek meg, utána pedig egy History a régi foglalások listájával.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.4\linewidth]{Diplomadolgozat//images/profil.png}
+    \caption{Profil oldal}
+    \label{fig:profil}
+\end{figure}
+
+\newpage
+
+\section{Étterem}
+
+Az éttermek mivel két kategóriába sorolhatók, így néhány eltérő funkció is látható, de összességében nagyon hasonlóak.
+
+\subsection{Foglalás és Meeting oldal}
+
+A \ref{fig:rfoglalas} ábrán látható, hogyan jelennek meg az étterem foglalásai . Itt az elfogadott foglalásai láthatóak. Három különféle nézetben tudja megtekinteni ezeket: havi, heti és napi. A napi nézetben, ha rákattint egy adott foglalásra, akkor láthatja a foglalás részleteit. Ha rendelt is a foglaló személy, akkor a \textit{See orders} gombra kattintva meg lehet tekinteni a rendeléseit is. Hasonlóképpen jelennek meg a meetingek is.
+
+\begin{figure}[h]
+    \centering
+    \subfigure{
+        \includegraphics[width=0.4\textwidth]{Diplomadolgozat//images/rres1.png}%
+        \label{fig:foglalas1}
+    }
+    \hspace{0.05\textwidth}
+    \subfigure{
+        \includegraphics[width=0.4\textwidth]{Diplomadolgozat//images/rres2.png}
+        \label{fig:foglalas2}
+    }
+    \caption{Foglalások megtekintése}
+    \label{fig:rfoglalas}
+\end{figure}
+
+\newpage
+
+\subsection{Waitinglist oldal}
+
+A waitinglist-be a válaszra váró foglalások és meetingek kerülnek be. Itt átnézheti őket az étterem és elfogadhatja vagy éppen elutasíthatja őket az Accept és Reject gombokkal. Ez látható a \ref{fig:rwaiting} ábrán.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.4\linewidth]{Diplomadolgozat//images/rwaiting.png}
+    \caption{Waitinglist oldal}
+    \label{fig:rwaiting}
+\end{figure}
+
+\newpage
+
+\subsection{Your Events oldal}
+
+Az eseményeket, amelyeket már megszerveztek az étteremben vagy éppen szerveznek, a menüsor \textit{Your events} gombjára kattintva érheti el. Itt a régi eseményekre kattintva megtekinthetőek a részleteik, az elkövetkező eseményekre kattintva pedig szerkeszteni is lehet őket. Ezen az oldalon lehet új eseményeket is meghirdetni a plusz gombra kattintva. Ez látható a \ref{fig:revent} ábrán.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.4\linewidth]{Diplomadolgozat//images/revent.png}
+    \caption{Your events oldal}
+    \label{fig:revent}
+\end{figure}
+
+
+\subsection{Your Menu oldal}
+
+Az étteremnek lehetősége van menüket is hozzáadni, ehhez létrejött az az oldal, amelyet a menüsor \textit{Your Menu} gombjára kattintva érhet el. Itt hozzáadhat új menüket és szerkesztheti a meglévőket, illetve törölheti is őket.
+
+\newpage
+
+\subsection{Restaurant oldal}
+
+Az étterem a saját információit szerkesztheti a \textit{Restaurant} gombra kattintva a menüből. Ez az oldal látható a \ref{fig:rprofil} ábrán. Itt megadhat frissebb információkat az étteremről és képeket tölthet fel vagy törölhet.
+
+\begin{figure}[h]
+    \centering
+    \subfigure{
+        \includegraphics[width=0.4\textwidth]{Diplomadolgozat//images/rprof.png}%
+        \label{fig:rprof1}
+    }
+    \hspace{0.05\textwidth}
+    \subfigure{
+        \includegraphics[width=0.4\textwidth]{Diplomadolgozat//images/rprof2.png}
+        \label{fig:rprof2}
+    }
+    \caption{Étterem profil oldal}
+    \label{fig:rprofil}
+\end{figure}
+
+\newpage
+
+\subsection{Statistics oldal}
+
+Az étteremről készül néhány statisztikai mérés is, ami ezen az oldalon érhető el. Ha a \textit{for event} kategóriába sorolandó étterem információit vizsgáljuk, akkor ezen az oldalon jelenik meg az átlag napi meetingek statisztikája, az elmúlt hónap meetingjeinek statisztikája, egy statisztika arról, hogy melyik órában a legforgalmasabb az étterem, és az elmúlt öt hét eseményeinek száma oszlopdiagrammal. Az átlag éttermek annyiba különböznek ettől, hogy mérve van a rendelések száma is foglalásonként, illetve az előzőekben felsoroltakban nem a meetinget, hanem a foglalásokat méri. Ugyanakkor itt látható az étterem értékelése is és megtekinthetőek a visszajelzések is. Ezeket a visszajelzéseket itt törölni is lehet, ha nem tetszene a tartalma.
+
+\begin{figure}[h]
+    \centering
+    \subfigure{
+        \includegraphics[width=0.4\textwidth]{Diplomadolgozat//images/rstat.png}%
+        \label{fig:stat1}
+    }
+    \hspace{0.05\textwidth}
+    \subfigure{
+        \includegraphics[width=0.4\textwidth]{Diplomadolgozat//images/rstat2.png}
+        \label{fig:stat2}
+    }
+    \caption{Statisztikák oldal}
+    \label{fig:stat}
+\end{figure}

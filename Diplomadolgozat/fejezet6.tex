@@ -1,0 +1,102 @@
+%----------------------------------------------------------------------------
+\chapter{Megvalósítás}
+%----------------------------------------------------------------------------
+
+\section{Az alkalmazás architektúrája}
+Az alkalmazás fejlesztése során fontos szempont volt egy jól struktúrált, könnyen bővíthető és karbantartható architektúra létrehozása. A rendszert három fő komponensből építettem fel: frontend réteg, backend réteg és AI service réteg. Ezek a komponensek mind egymástól elkülönítve működnek, kommunikációjuk HTTP alapú API hívásokon keresztül történik.
+
+
+
+\section{Frontend megvalósítása}
+
+Az alkalmazás kliensoldali része Flutter keretrendszer használatával készült. \cite{flutter} Ez lehetőséget biztosít modern, platformfüggetlen mobil vagy akár web és desktop alkalmazások fejlesztésére. A Flutter előnye nem más, mint hogy egyetlen kódbázisból több platformra is készíthető alkalmazás. Az Echo alkalmazásban a frontend réteg biztosítja a kapcsolatot a felhasználó és a rendszer többi komponense között, ezen keresztül történik minden fontos funkció elérése, mint a regisztráció, beszélgetés, gyakorlás, hibák és szókincs megtekintése.
+
+A projekt felépítésénél első számú szempont az átláthatóság volt, ezért a fájlokat különböző mappákba csoportosítottuk, funkcionális egységek szerint elrendezve. A \textit{lib} mappában három fontos rész különíthető el: \textit{core}, \textit{features}, \textit{shared} mappa. Ez a szerkezett hozzájárult ahhoz, hogy az alkalmazás részei jól elkülönüljenek, ugyanakkor könnyen bővíthetők legyenek újabb funkcionalitásokkal.
+
+A \textit{core} mappa tartalmazza az egész alakalmazás működéséhez szükséges elemeket. Ide tartoznak a konstans értékek, globális providerek, téma beállítások. A hálózati kommunikáció megvalósításához Dio csomagot  \cite{dio} használtam, amellyel HTTP kéréseket tudtunk küldeni a backend felé. Az API végpontok elérhetősége .env fájlban van eltárolva flutter dotenv csomag segítségével. \cite{flutterdotenv}
+
+A \textit{features} mappa tartalmazza az alkalmazás fő funkcióit. Minden feature külön mappába került. Ez a feature alapú felépítés nagyon hasznos, mivel minden funckionalitás saját egységként kezelhető. A fejlesztés során nagyon megkönnyíti így a dologt, mivel könnyebben átlátható az, hogy melyik működéshez melyik fájl tartozik.
+
+Például, a \textit{conversation} modul külön \textit{data} és \textit{presentation} rétegre oszlik. A \textit{data} réteg az API kommunikációhoz és adatmodellekhez kapcsolódó fájlokat tartalmazza. Ezek felelősek a backenddel való kommunikációért, mint például az üzenetek kezeléséért, valamint hangalapú beszélgetések válaszainak feldolgozásáért. A \textit{presentation} réteg viszont a felhasználói felülethez kapcsolódó komponenseket tartalmazza.  
+
+Állapotkezelés szempontjából a \textit{flutter riverpod} \cite{riverpod} csomagot vettem használatba. Ez a csomag hozzájárul ahhoz, hogy az alkalmazás különböző részei könnyen elérjék és frissítsék a szükséges adatokat, például a bejelentkezett felhasználó adatait, a beszélgetések állapotát vagy a betöltési folyamatokat. Ennek az előnye az, hogy jól illeszkedik a moduláris felépítéshez, és hozzájárul az állapotkezeléshez.
+
+Az alkalmazásban az egyik fontos funkcionalitás a hangalapú kommunikáció. Erre három különböző csomagot használtam fel. A \textit{record} segítségével a felhasználó hangot tud rögzíteni, amelyet később továbbíthatják a backend felé, feldolgozásra. Az \textit{audioplayers} csomag a hangválaszok lejátszására szolgálnak, míg a \textit{path provider} a fájlok ideiglenes vagy helyi tárolásában nyújt segítséget. \cite{record,audioplayers,pathprovider}
+
+Mégegy fontos mappa a \textit{shared} mappa. Itt olyan újrafelhasználható elemeket tárolunk, amelyeket több képernyőn is megjeleníthetünk. Ide tartoznak a közös widgetek, amelyekkel egységessé varázsoljuk a felületet. Ennek a mappának segítségével csökkentettem a kódismétlést és megkönnyítette a későbbi módosításokat.
+
+Összességében a frontend megvalósítása során egy jól struktúrált, funkcionalitás alapú Flutter alkalmazás jött létre, amely jól kezelhető, képes kommunikálni megfelelően az APIval, valamint támogatni a szöveges és hangalapú nyelvtanulási folyamatokat.
+
+\newpage
+
+\section{Backend megvalósítása}
+
+Az alkalmazás szerveroldali komponensét ASP.NET Core Web API hasnzálatával készítettem. \cite{aspnetcore} Itt valósul meg a felhasználói hitelesítés, üzleti logika, adatbázissal való kommunikáció, illetve a mesterséges intelligenciát biztosító szolgáltatásokkal való kapcsolat fenntartása. A fejlesztés során fontos szempont volt a kód átláthatósága, karbantarthatósága, így esett a választás a Clean architektúrára. \cite{martin2017cleanarchitecture}
+
+A projekt négy fő rétegre bontható: API, Application, Core és Infrastructure. Ezek a rétegek mind elkülönült felelősséggel rendelkeznek, kevés függőséggel, így egyszerű, hosszútávú fejlesztéséhez járul hozzá.
+
+\begin{itemize}
+    \item \textbf{API réteg:}
+    
+    Az API réteg felelős a kliens alkalmazás és a backend közötti kapcsolat létesítésében. Itt HTTP kérések segítségével kommunikálhatnak egymással.
+
+    Különböző mappák találhatóak ebben a rétegben, mindegyiknek különböző, de nagyon fontos szerepe van a projekben.
+
+    A Controller mappában különböző végpontok tárolódnak el. Ez a mappa ezeknek a végpontok kezeléséért, tárolásáért, rendszerezéséért felelős. Többek között ezek a végpontok biztosítják a felhasználói hitelesítést, beszélgetés kezelést, beállításokat, és még sok egyebet.
+
+    A DTO mappában szerepelnek azok az osztályok, amelyek az adatátvitelt szolgálják a kliens és szerver között. Ezek az osztályok nagyon fontos szerepet játszanak a projektben, mivel hozzájárulnak ahhoz, hogy csak a szükséges adatokat továbbítsuk a kliens számára. Ezáltal növeljük a rendszer biztonságát és rugalmasságát.
+
+    A Mappings mappa tartalmazza az AutoMapper  \cite{automapper} konfigurációit. Itt automatikusan átalakítjuk az entitásokat DTO objektumokká és ugyanúgy fordítva. Ez olyan szempontból hasznos, hogy leredukálja a manuális konvertálások számát, egyszerűsíti a fejlesztést, így időt spórol ugyanakkor van egy központi helye ezeknek az átalakításoknak.
+
+    Van egy Middleware \cite{aspnetcoreMiddleware} is a rendszerben, amelyben a globális hibakezelést valósítottam meg. Ennek feladata, hogy központilag kezelje az előforduló hibákat és egységes formátumú válaszokat küldjön a kliens számára.
+
+    \item \textbf{Application réteg}
+
+    Ez a réteg tartalmazza az alkalmazás üzleti logikáját. Itt olyan szolgáltatásokkal találkozhatunk, amelyek a különböző folyamatok működését valósítják meg.
+
+    Itt történik például a felhasználók kezelése, hibák eltárolása, AI szolgáltatásokkal kapcsolatos implementációk. Itt nem szabad adatbázis specifikus megvalósításokat tárolni, kizárólag üzleti logikát, és interfészek segítségével valósul meg a kommunikáció a külső komponensekkel.
+
+    \item \textbf{Core réteg}
+
+    Ez az a réteg, amely a rendszer legbelső része. Itt vannak az alkalmazás alapvető elemei, domain logikái.
+
+    Az Entities mappa az adatbázis entitásait tárolja, ezek az üzleti objektumok. Ezeknek segítségével és az Entity Framework segítségével jöttek létre code first módon az adatbázis táblái.
+
+    Az Enums mappában tároljuk a felsorolásokat, ennek segítségével egységes kezelési módot alakítunk ki az különböző állapotok és kategóriák között.
+
+    Az Interfaces mappa egy nagyon fontos hely, mivel ezek határozzák meg a szolgáltatások működését. A dependency injection ennek segítségével valósul meg, amely lehetővé teszi azt implementációk egyszerű cseréjét és a rendszer jobb tesztelhetőségét. \cite{dotnetDI}
+
+    \item \textbf{Infrastructure réteg}
+
+    Itt a külső szolgáltatások és adatbázis eléréseket valósítom meg.
+
+    A Data mappa szolgál az adatbázis kapcsolat konfigurációjában, a DbContext osztály pedig a táblák beállításait és a kapcsolatok kezeléseit biztosítja.
+
+    A Repositories mappa olyan osztályokat tartalmaz, amelyek az adatbázisműveletek implementációit tartalmazza. Ezek az osztályok lekérdezéséért, módosításáért, létrehozásáért és törléséért felelősek. A repository minta lett itt alkalmazva, amely elkülöníti az adatkezelést az üzleti logikától.
+
+    A Services mappában olyan szolgáltatások vannak, amelyek külső rendszerekkel kommunikálnak. Itt leginkább a repository osztályokat hívjuk, illetve itt valósul meg az AI szolgáltatások hívása is.
+
+    Nem utolsó sorban a Utils mappát is megtalálhatjuk itt, amely különböző segédosztályokat tartalmaz, amelyeket bárhol a programban felhasználhatunk.
+
+    \item \textbf{Program konfiguráció}
+
+    A rendszer indulásakor a Program.cs fájl központi szerepet játszik. Ez végzi el az alkalmazás konfigurációját. Itt állítódik be az adatbázis kapcsolat, dependency injection konfigurálása, jwt hitelesítés beállítása, middlewarek regisztrációja. \cite{jwt}
+\end{itemize}
+
+% \newpage
+
+\section{AI service megvalósítása}
+
+A mesterséges intelligenciához kapcsolodó funkciók külön Python alapú mikroszolgáltatásokként lettek megvalósítva. \cite{fowlerMicroservices} Ez a felépítés nagyon előnyös, mivel így elkülönül a .NET backend az AI funkcióktól. Ezzel külön fejleszthetővé válik minden rész, szükség esetén könnyen módosítani lehet minden részt, vagy akár cserélni is. 
+
+Az AI réteg három fő szolgáltatásból áll össze: beszédfelismeréshez a Whisper service járul hozzá, a nyelni modell a Phi3 service , a szövegfelolvasást pedig a Piper service végzi. 
+
+Mindhárom szerviz hasonló projektstruktúrával rendelkezik. Mindhárom mappában külön mappa van az API útvonalaknak, konfigurációs fájloknak, adatmodelleknek és a logikát tartalmazó osztályoknak. Az api mappa endpointokat tartalmaz, a core konfigurációkat, models a kérés és válaszmodelleket, és a service az adott AI funkció tényleges megvalósítását.
+
+Elsőszámú AI service a Whisper, amely azért felelős, hogy a beszédet szöveggé alakítsa. Itt faster whispert használtam, amely egy gyors változata a modellnek. \cite{whisper,fasterwhisper} Az alkalmazásban ez lesz az a komponens, ami elsőként hívódik meg, amikor a felhasználó a mesterséges intelligenciához beszél, ez pedig szöveges formátummá fogja átalakítani a következő lépéshez.
+
+A Phi3 service a nyelvi intelligenciát biztosítja. Ez beszélgetésre és utasításkövetésre optimalizált nyelvi modell. Feladata az, hogy a megadott szövegre utasítás szerinti válaszokat generáljon, felismerje és kijavítsa a nyelvi hibákat a visszaadott szövegben. \cite{phi3}
+
+A Piper service a harmadik fázishoz járul hozzá a válaszadásban, amikor a szöveges választ, amelyet a Phi3 generált, beszéddé alakítja. Ez azért fontos, mert egy valós beszélgetést szerettem volna leszimulálni, hogy a felhasználó könnyebben memorizálja és hozzászokjon, milyen a valódi kommunikáció. \cite{piper}
+
+A backend API HTTP kéréseken keresztül kommunikál ezekkel a mikroszolgáltatásokkal.

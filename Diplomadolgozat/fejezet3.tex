@@ -1,0 +1,60 @@
+%----------------------------------------------------------------------------
+\chapter{Hasonló alkalmazások, felhasznált technológiák} \label{fejezet3}
+%----------------------------------------------------------------------------
+
+\section {Hasonló alkalmazások}
+
+Dolgozatom ezen részében először megvizsgálunk néhány olyan alkalmazást, amelyek hasonló feladatot végeznek, mint az általam megvalósított alkalmazásunk.
+
+A piacon található néhány nyelvtanuló alkalmazás, amelyek hasonló funkcionalitásokkal vannak ellátva, mint az Echo alkalmazás. Dolgozatom során megvizsgáltam több alkalmazást is, és elmondható róluk hogy felépítésük hasonló, ugyanakkor az Echo alkalmazás egyedisége e beszéd fókuszú tanulásban rejlik.
+
+A vizsgált alkalmazások között szerepelnek a következők: 
+
+\href{https://play.google.com/store/apps/details?id=com.selabs.speak}{Speak: Language Learning} \cite{speak}, \href{https://play.google.com/store/apps/details?id=ai.praktika.android&hl=en}{Praktika: AI learning tutor} \cite{praktika}, \href{https://play.google.com/store/apps/details?id=com.duolingo&hl=en}{Duolingo}\cite{duolingoMax}.
+
+Ezek az alkalmazások mind nyelvoktatással foglalkoznak, különböző megközelítésben. A Speak és a Praktika leginkább beszédfejlesztésre fókuszál, különböző szituációs beszélgetéseket ad a felhasználónak, amellyel támogatja a kommunikációs készségét az idegen nyelven. A Duolingonak is van egy hasonló funkciója, amelyben kommunikációt lehet fejleszteni, viszont ez az alkalmazás inkább szókics bővítésre, nyelvtani szabályok elsajátítására használatos.
+
+A Speak alkalmazás AIal való beszélgetést támogat, különböző témakörökben. Ez képes elemezni a beszédet, visszajelzést ad a kiejtésről, javaslatokat ad mondatszerkesztésre. \cite{speakAppStore} Ez az alkalmazás a leghasonlóbb az általunk fejlesztett alkalmazáshoz.
+
+A Praktika ugyanúgy a mesterséges intelligencia segítségét hívja segítségül a nyelvtanulásban, viszont ebben az alkalmazásban különböző avatarokkal beszélgethetük, így még személyesebbé és még reálisabbá téve a kommunikációt a felhasználó számára.\cite{praktikaGooglePlay}
+
+A Duolingo a legelterjedtebb alkalmazás, amely elsősorban szókincs bővítésére hasznos.\cite{duolingoMax} Játékos felülete vonzóvá teszi a felhasználónak az alkalmazás használát. A beszélgető mód a fizetős verzióban érvényes, itt is mesterséges intelligencia használatával, viszont a hangsúlya az alkalmazásnak nem feltétlenül ezen van.
+
+A vizsgált alkalmazások közös jellemzője természetesen az, hogy mindegyik a nyelvtanulást támogatja és van nekik AIal támogatott verizójuk is. Legtöbbüknél ez a funkció fizetős. Ezekben az alkalmazásokban ugyanúgy lehet profilt készíteni, támogatják azt, hogy nap mint nap gyakorolja a felhasználó az adott nyelvet, illetve statisztikákat is megtekinthetnek a fejlődésükről.
+
+Ezekben az alkalmazásokban fellelhető a jól ismert gamifikáció is. Ennek célja az, hogy a felhasználó játszva tanuljon, jól érezze magát, jutalmazva érezze magát tanulás közben. \cite{deterding2011gamification} Ezzel a módszerrel könnyebben meggyőzhetik a fejlesztők a felhasználókat, hogy szívesebben használják az alkalmazást, ezzel motiválva őket a fejlődésre.
+
+Összességében elmondható hogy ezek az alkalmazások különböző igényekhez mérten, hatékony megoldásokat kínálnak a nyelvtanulásra. A legtöbb alkalmazás vagy gamifikációra vagy előre meghatározott feladatokkal segíti a tanulást. A megvalósított alkalmazás célja ezzel szemben az, hogy a felhasználók számára egy olyan platformot biztosítson, ahol a hangsúly elsősorban a valós idejű beszélgetésen és kommunikációs készsegek fejlesztéseén van mesterséges intelligencia segítségével.
+
+\section{Felhasznált technológiák}
+
+Az előzőleg felsorolt alkalmazások nagyrészt hasonló technológiákat használnak. Mobil frontendnek a React Native nyelvet használják, cloud infrastructure, illetve NLP modelleket használnak valósidejű hangfeldolgozás és generálás céljából. Egyetlen eltérés a Duolingo alkalmazásnál van. Lévén, hogy egy régebbi alkalmazásról beszélünk, inkább az akkori trendeket követve másfajta technológiákat használt, ellenben az előzőleg felsorolt alkalmazásokkal, amelyek nem olyan rég készültek. A Duolingo Kotlint használ modern Android fejlesztés céljából, a backend technológiája pedig a népszerű Python nyelven íródott, amely könnyen használható machine learninghez. AI szempontjából vizsgálva GPT 4 integrációt használtak fel az alkalmazásban, amivel biztosítják az interaktívabb feladatokat és valósidejű beszélgetésekhez használják.
+
+A következő alfejezetekben röviden bemutatom az általam felhasznált technológiákat.
+
+\subsection{Flutter}
+
+A Flutter Google által fejlesztett nyílt forráskódú keretrendszer, amelyet UI fejlesztésére használnak. Ez lehetővé teszi a keresztplatformos alkalmazások fejlesztését egyetlen kódbázisból. A projekt frontendje ebben a keretrendszerben valósult meg, mivel modern felhasználói felületet biztosít különböző csomagok segítségével, illetve jól integrálható backend szolgáltatással. \cite{flutter}
+
+
+\subsection{ASP.NET Core}
+
+Az ASP.NET Core nyílt forráskódú webes keretrendszer, amelyet a Microsoft hozott létre. A keretrendszer segítségével komplex alkalmazások backendjét hozhatjuk létre, amelyek gyorsak és skálázhatók. Ez olyan API tervezéséhez és elkészítéséhez járul hozzá, amely segít hatékonyan adatáramlást elérni az adatbázis vagy az AI modell és a kliensalkalmazás között. \cite{aspnetcore}
+
+\subsection{Microsoft SQL Server}
+
+A Microsoft SQL Server (MSSQL) relációs adatbáziskezelő rendszer, amely nagy mennyiségű adatok tárolását és kezelését teszi lehetővé. Ez az adatbáziskezelő nagyon egyszerűen integrálható a .NET keretrendszerrel, lévén hogy Microsoft által fejlesztették őket.\cite{mssql}
+
+\subsection{Python}
+A Python magasszintű programozási nyelv, amely széles körben elterjedt, leginkább mesterséges intelligencia és gépi tanulás területén. Az alkalmazás AI funkciói külön Python alapú mikroszolgáltatásokként kerültek megvalósításra. \cite{python}
+
+A felhasznált AI-ok a következőkben lesznek bemutatva
+
+\subsubsection{Faster-Whisper}
+A Whisper beszédfelismerő modell optimizált változata ez. Ez hozzájárul az alkalmazásban a felhasználó hangüzeneteinek szöveggé alakítására, amikor konverszációt kezdeményez a felhasználó, az ő beszédét alakítja át írásos formába.\cite{fasterwhisper,whisper}
+
+\subsubsection{Phi3-Mini}
+A Phi3 egy kisméretű nyelvi modell, amely természetes nyelvű válaszok generálására és szövegfeldolgozásra alkalmas. A rendszerben ez végzi a beszélgetések kezelését, valamint nyelvi hibák felismerését és javítását. \cite{phi3}
+
+\subsubsection{Piper TTS}
+A Piper egy nyílt forráskódú text to speech rendszer, amely képes a szöveget beszéddé alakítani. Az alkalmazásban az AI által generált válaszok hangos felolvasására szolgál. \cite{piper}

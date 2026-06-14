@@ -1,0 +1,93 @@
+\documentclass[12pt,a4paper,oneside]{report}             % Single-side
+%\documentclass[11pt,a4paper,twoside,openright]{report}  % Duplex
+
+\input{content/packages}
+
+%--------------------------------------------------------------------------------------
+% Language configuration -- choose one
+%--------------------------------------------------------------------------------------
+\input{content/thesis-hu}  % Beállítások magyar nyelvű dolgozathoz
+
+%--------------------------------------------------------------------------------------
+% Main variables
+%--------------------------------------------------------------------------------------
+
+
+
+% Szak alapkepzes vagy mesteri
+\newcommand{\szakHU}{SZOFTVERFEJLESZTÉS SZAK}
+\newcommand{\szakRO}{SPECIALIZAREA DEZVOLTAREA APLICAȚIILOR SOFTWARE}
+\newcommand{\szakEN}{SOFTWARE ENGINEERING SPECIALIZATION} 
+
+
+\newcommand{\dolgozattipusHU}{DIPLOMADOLGOZAT} 
+\newcommand{\dolgozattipusRO}{LUCRARE DE DIPLOM\v A} 
+\newcommand{\dolgozattipusEN}{BACHELOR THESIS} 
+
+\newcommand{\szerzo}{Suciu Aksza}
+\newcommand{\temavezetoA}{Dr. Buza Krisztián} 
+
+
+\newcommand{\temavezetoAfokozat}{Egyetemi docens}
+\newcommand{\temavezetoAfokozatRo}{Lector universitar}
+\newcommand{\temavezetoAfokozatEn}{Lecturer}
+\newcommand{\temavezetoB}{} 
+\newcommand{\cimHu}{Echo: AI-alapú nyelvtanuló alkalmazás fejlesztése és oktatási célú értékelése}
+\newcommand{\cimRO}{Echo: Development and Educational Evaluation of an AI-Based Language Learning Application}
+\newcommand{\cimEN}{Echo: Dezvoltarea și evaluarea educațională a unei aplicații de învățare a limbilor stăine bazate pe inteligență artificială}
+\newcommand{\ev}{2026}
+
+\input{content/preamble.tex}
+
+
+
+
+%--------------------------------------------------------------------------------------
+% Table of contents and the main text
+%--------------------------------------------------------------------------------------
+\begin{document}
+	
+% CIMOLDALAK
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	\include{content/titlepage}
+	\include{content/titlepage-ro}
+	\include{content/titlepage-en}
+
+        \includepdf[pages={1}]{content/SuciuAksza.pdf}
+	\includepdf[pages={1}]{content/Declaratie.pdf}
+	\include{abstract}
+ 
+% Tartalomjegyzek
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	\pagenumbering{arabic}
+	\setcounter{page}{9}
+	\tableofcontents\vfill
+
+% A diplomadolgozat lenyegi resze
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+	\include{bevezeto}
+
+	\include{fejezet3}
+	\include{fejezet4}
+	\include{fejezet5}
+	\include{fejezet6}
+    %\include{fejezet7}
+    \include{fejezet8}
+    \include{fejezet9}
+	\include{fejezet10}
+
+
+	% \include{osszefoglalo}
+
+	\listoffigures\addcontentsline{toc}{chapter}{\abrakjegyzeke}
+
+% Bibliography
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	\bibliographystyle{alpha}
+	\bibliography{mybib}
+	\addcontentsline{toc}{chapter}{\irodalomjegyzek}
+
+\label{page:last}
+\end{document}
