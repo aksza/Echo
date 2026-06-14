@@ -2,6 +2,7 @@ import 'package:echo_app/features/conversation/presentation/conversation_page.da
 import 'package:echo_app/features/mistakes/presentation/mistakes_page.dart';
 import 'package:echo_app/features/practice/presentation/practice_page.dart';
 import 'package:echo_app/features/vocabulary/presentation/vocabulary_page.dart';
+import 'package:echo_app/features/lesson/presentation/lesson_page.dart';
 import 'package:flutter/material.dart';
 
 class AppShell extends StatefulWidget {
@@ -19,6 +20,11 @@ class _AppShellState extends State<AppShell> {
       label: 'Home',
       icon: Icons.home,
       page: const HomePage(),
+    ),
+    _NavigationItem(
+      label: 'Lesson',
+      icon: Icons.school,
+      page: const LessonPage(),
     ),
     _NavigationItem(
       label: 'Practice',
