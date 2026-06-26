@@ -25,13 +25,16 @@
 \newcommand{\dolgozattipusEN}{BACHELOR THESIS} 
 
 \newcommand{\szerzo}{Suciu Aksza}
-\newcommand{\temavezetoA}{Dr. Buza Krisztián} 
+\newcommand{\temavezetoA}{Dr. Buza Krisztián, egyetemi docens} 
+\newcommand{\temavezetoAfokozatRo}{Conf. univ. dr. Buza Krisztián}
+\newcommand{\temavezetoAfokozatEn}{Assoc. Prof. Dr. Buza Krisztián}
 
 
-\newcommand{\temavezetoAfokozat}{Egyetemi docens}
-\newcommand{\temavezetoAfokozatRo}{Lector universitar}
-\newcommand{\temavezetoAfokozatEn}{Lecturer}
-\newcommand{\temavezetoB}{} 
+
+% \newcommand{\temavezetoAfokozat}{Egyetemi docens}
+\newcommand{\temavezetoBfokozatRo}{Conf. univ. dr. Kupán Pál}
+\newcommand{\temavezetoBfokozatEn}{Assoc. Prof. Dr. Kupán Pál}
+\newcommand{\temavezetoB}{Dr Kupán Pál, egyetemi docens} 
 \newcommand{\cimHu}{Echo: AI-alapú nyelvtanuló alkalmazás fejlesztése és oktatási célú értékelése}
 \newcommand{\cimRO}{Echo: Development and Educational Evaluation of an AI-Based Language Learning Application}
 \newcommand{\cimEN}{Echo: Dezvoltarea și evaluarea educațională a unei aplicații de învățare a limbilor stăine bazate pe inteligență artificială}
@@ -53,8 +56,8 @@
 	\include{content/titlepage-ro}
 	\include{content/titlepage-en}
 
-        \includepdf[pages={1}]{content/SuciuAksza.pdf}
-	\includepdf[pages={1}]{content/Declaratie.pdf}
+        \includepdf[pages={1}]{content/FPSuciu_Aksza alairt.pdf}
+	\includepdf[pages={1}]{content/Suciu_Aksza_Declaratie_Student.pdf}
 	\include{abstract}
  
 % Tartalomjegyzek
@@ -73,7 +76,7 @@
 	\include{fejezet4}
 	\include{fejezet5}
 	\include{fejezet6}
-    %\include{fejezet7}
+    \include{fejezet7}
     \include{fejezet8}
     \include{fejezet9}
 	\include{fejezet10}
@@ -82,7 +85,8 @@
 	% \include{osszefoglalo}
 
 	\listoffigures\addcontentsline{toc}{chapter}{\abrakjegyzeke}
-
+	\listoftables\addcontentsline{toc}{chapter}{\tablazatokjegyzeke}
+	
 % Bibliography
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	\bibliographystyle{alpha}

@@ -20,6 +20,8 @@ A level-1 auxiliary file: fejezet5.aux
 Reallocating 'name_of_file' (item size: 1) to 13 items.
 A level-1 auxiliary file: fejezet6.aux
 Reallocating 'name_of_file' (item size: 1) to 13 items.
+A level-1 auxiliary file: fejezet7.aux
+Reallocating 'name_of_file' (item size: 1) to 13 items.
 A level-1 auxiliary file: fejezet8.aux
 Reallocating 'name_of_file' (item size: 1) to 13 items.
 A level-1 auxiliary file: fejezet9.aux
@@ -31,7 +33,7 @@ Reallocating 'name_of_file' (item size: 1) to 6 items.
 Database file #1: mybib.bib
 You've used 41 entries,
             2543 wiz_defined-function locations,
-            777 strings with 10408 characters,
+            778 strings with 10420 characters,
 and the built_in function-call counts, 13582 in all, are:
 = -- 1353
 > -- 565

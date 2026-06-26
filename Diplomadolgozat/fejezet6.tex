@@ -27,6 +27,15 @@ Mégegy fontos mappa a \textit{shared} mappa. Itt olyan újrafelhasználható el
 
 Összességében a frontend megvalósítása során egy jól struktúrált, funkcionalitás alapú Flutter alkalmazás jött létre, amely jól kezelhető, képes kommunikálni megfelelően az APIval, valamint támogatni a szöveges és hangalapú nyelvtanulási folyamatokat.
 
+A mappastruktúrát a következő \ref{frontend} ábrán szemléltetem.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.3\linewidth]{images/frontend_mappa.png}
+    \caption{Az alkalmazás frontend mappastruktúrája}
+    \label{fig:frontend}
+\end{figure}
+
 \newpage
 
 \section{Backend megvalósítása}
@@ -83,7 +92,16 @@ A projekt négy fő rétegre bontható: API, Application, Core és Infrastructur
     A rendszer indulásakor a Program.cs fájl központi szerepet játszik. Ez végzi el az alkalmazás konfigurációját. Itt állítódik be az adatbázis kapcsolat, dependency injection konfigurálása, jwt hitelesítés beállítása, middlewarek regisztrációja. \cite{jwt}
 \end{itemize}
 
-% \newpage
+A backend mappastruktúráját a következő \ref{fig:net} ábrán szemléltetem.
+
+\newpage
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.4\linewidth]{images/net.png}
+    \caption{Backend réteg mappastruktúrája}
+    \label{fig:net}
+\end{figure}
 
 \section{AI service megvalósítása}
 
@@ -100,3 +118,12 @@ A Phi3 service a nyelvi intelligenciát biztosítja. Ez beszélgetésre és utas
 A Piper service a harmadik fázishoz járul hozzá a válaszadásban, amikor a szöveges választ, amelyet a Phi3 generált, beszéddé alakítja. Ez azért fontos, mert egy valós beszélgetést szerettem volna leszimulálni, hogy a felhasználó könnyebben memorizálja és hozzászokjon, milyen a valódi kommunikáció. \cite{piper}
 
 A backend API HTTP kéréseken keresztül kommunikál ezekkel a mikroszolgáltatásokkal.
+
+A mappastruktúrát a következő \ref{fig:ai} ábrán szemléltetem.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\linewidth]{images/ai_service.png}
+    \caption{AI service réteg mappastruktúrája}
+    \label{fig:ai}
+\end{figure}
