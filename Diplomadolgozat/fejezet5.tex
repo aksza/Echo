@@ -35,10 +35,10 @@ Az alábbiakban néhány lényeges folyamatot mutatok be, hogy hogyan viselkedne
     \item \textbf{Hangalapú beszélgetés}
     \begin{itemize}
         \item A felhasználó hangüzenetet küld az alkalmazás számára
-        \item A hangfájlt elküldjük az APIn keresztül az AI szolgáltatáshoz
+        \item A hangfájlt elküldjük az API-n keresztül az AI szolgáltatáshoz
         \item A továbbítás után speech to text AI modell szöveggé alakítja a beszédet
-        \item Az AI feldolgozza a szöveges üzenetet, ehhez választ generál és megállapítja a hibákat, amelyeket json formátumban küld vissza az endpointban
-        \item A generált választ text to speech AI áltat hanggá alakítjuk, ezt eltároljuk egy mappába
+        \item Az AI feldolgozza a szöveges üzenetet, ehhez választ generál és megállapítja a hibákat, amelyeket JSON formátumban küld vissza az endpointban
+        \item A generált választ text to speech AI által hanggá alakítjuk, ezt eltároljuk egy mappába
         \item Az elkészült válasz visszakerül a felhasználói felületre és a hang megszólal, de újrajátszható is lesz a hang egy gomb segítségével, és a szavakat is fel lehet mondatni az AI segítségével egy kattintással.
     \end{itemize}
     \item \textbf{Hibák felismerése és eltárolása}
@@ -74,7 +74,7 @@ Az alábbiakban néhány lényeges folyamatot mutatok be, hogy hogyan viselkedne
     \caption{Adatbázis terv}
     \label{fig:database}
 \end{figure}
-Az adatbázist relációs adatbázisként terveztem meg, amely mindössze 9 táblával rendelkezik. Ezekben a táblákban tárolom el a felhasználó adatait, gyakorlatait. Ezek hozzájárulnak az aplikáció megfelelő működéséhez.
+Az adatbázist relációs adatbázisként terveztem meg, amely mindössze 9 táblával rendelkezik. Ezekben a táblákban tárolom el a felhasználó adatait, gyakorlatait. Ezek hozzájárulnak az applikáció megfelelő működéséhez.
 
 Ezekben a táblákban a legnagyobb a felhasználó adatait tartalmazó tábla, ez egy nagyon fontos hely, amiben sok lényeges adat van eltárolva, ezek mind hozzásegítenek a fejlődés méréséhez és magához a fejlődéshez is, mivel az AI ehhez mérten válaszol neki.
 
@@ -84,9 +84,9 @@ A VocabularyPracticeHistory tábla a Vocabulary-ba eltárolt kifejezések tanul�
 A Mistakes tábla az azok a szókapcsolatok vagy mondatok tárhelye és azoknak javított verziója, amelyeket a felhasználó elhibázott beszélgetés közben. Mindez úgy tárolódik el ebbe a táblába, hogy beszélgetés közben a mesterséges intelligencia figyeli, milyen hibákat vét a felhasználó és mindezt elmenti kijavított verziójával együtt és magyarázattal. 
 Ezeket a hibákat nem hiába mentjük el, ugyanis gyakorló feladatokkal megtanítjuk a helyes verzióját ezeknek. A PracticeSessions és PracticeSessionItems ezért is kapcsolódik a Mistake táblához, mivel a felhasználó gyakorlását ide tároljuk el, minden egyes adatot róla.
 
-A Sessions tábla a mesterséges intelligenciával való beszélgetésről tárol összefoglaló címet, mivelhogy a felhaszálók biztonsága érdekében nem tároljuk a teljes beszélgetést. Ezen kívül még néhány alapvető adat kerül itt tárolásra, mint a beszélgetés kezdete vagy vége.
+A Sessions tábla a mesterséges intelligenciával való beszélgetésről tárol összefoglaló címet, mivelhogy a felhasználók biztonsága érdekében nem tároljuk a teljes beszélgetést. Ezen kívül még néhány alapvető adat kerül itt tárolásra, mint a beszélgetés kezdete vagy vége.
 
-Az adatbázis MSSQL segítségével íródott. \cite{mssql} Ennek kiválasztásakor a teljesítmény, skálázhatóság és könnyen integrálhatóság volt a szempont. A .NET keretrendszerrel és a Visual Sturdioval nagyon jól integrálható ez, így mindenképp a legjobb választásnak bizonyult.
+Az adatbázis MSSQL segítségével íródott. \cite{mssql} Ennek kiválasztásakor a teljesítmény, skálázhatóság és könnyen integrálhatóság volt a szempont. A .NET keretrendszerrel és a Visual Studioval nagyon jól integrálható ez, így mindenképp a legjobb választásnak bizonyult.
 
 Az adatbázisterv a \ref{fig:database} ábrán látható.
 
@@ -99,7 +99,7 @@ Az adatbázisterv a \ref{fig:database} ábrán látható.
     \label{fig:fft}
 \end{figure}
 
-A felhasználói felületet tervezéséhez egy egyszerű digitális eszközt használtam. Mivel első sorban nem a felhasználói felület volt számomra a szempont, így inkább egy egyszerűbb tervet készítettem az Excalidraw \cite{excalidraw} alkalmazás használatával. Az alkalmazás fejlesztésénél ezeket vettem elő, ezek biztosították az irányt, amerre haladt a projekt. Néhol újabb dolgokat is beillesztettem fejlesztés közben, nem ragaszkodtam a kezdetleges terveimhez mindig.
+A felhasználói felületet tervezéséhez egy egyszerű digitális eszközt használtam. Mivel elsősorban nem a felhasználói felület volt számomra a szempont, így inkább egy egyszerűbb tervet készítettem az Excalidraw \cite{excalidraw} alkalmazás használatával. Az alkalmazás fejlesztésénél ezeket vettem elő, ezek biztosították az irányt, amerre haladt a projekt. Néhol újabb dolgokat is beillesztettem fejlesztés közben, nem ragaszkodtam a kezdetleges terveimhez mindig.
 
 A felület tervezésénél nem volt pontos irány, hogy merre rakjuk a gombokat, vagy milyen színeket használjunk, inkább egy átfogó képet szerettem volna kapni az alkalmazásról. Arra fektettem a hangsúlyt a tervben, hogy milyen oldalak, képernyők legyenek az applikációban és a többi részével fejlesztés közben foglalkoztam.
 
@@ -121,7 +121,7 @@ Egy repository segítségével kezeltem a projektet, amelyben három nagy kompon
     \label{fig:github}
 \end{figure}
 
-A hatékony programozáshoz készítettem egy branchet is, hogy a main branch tisztán maradhasson mindig, és a csak a működő feature komponensek legyenek itt, ne a félkészek. A dev branchen fejlesztettem mindent. Itt több commit is volt készítve minden featurehöz. Amikor sikerült elkészíteni egyet, pull request lett nyitva, itt mégegyszer megvizsgáltam a kódot, ha találok benne hibát. Amikor jónak tűnt, máris befésültem a mainre.Ezzel a megközelítéssel könnyedén és tisztán ment a fejlesztés. A branch ábrája a \ref{fig:branch} megtekinthető.
+A hatékony programozáshoz készítettem egy branchet is, hogy a main branch tisztán maradhasson mindig, és a csak a működő feature komponensek legyenek itt, ne a félkészek. A dev branchen fejlesztettem mindent. Itt több commit is volt készítve minden featurehöz. Amikor sikerült elkészíteni egyet, pull request lett nyitva, itt még egyszer megvizsgáltam a kódot, ha találok benne hibát. Amikor jónak tűnt, máris befésültem a mainre. Ezzel a megközelítéssel könnyedén és tisztán ment a fejlesztés. A branch ábrája a \ref{fig:branch} megtekinthető.
 
 
 \begin{figure}[ht]
@@ -139,7 +139,7 @@ Ez számomra azért volt a legkézenfekvőbb, mivel egy platformon elérhetem a 
 
 A flow az volt, hogy a tervezés résznél megírtam itt, issue formájában minden egyes feature-t, amelyet le kell implementálni. Ekkor meg lehetett itt adni, hogy ki kell elkészítse ezt - ez nagyobb csapat esetében nagyon hasznos lehet, de nálam értelemszerűen én voltam megjelölve itt. Ezután labelt, milestone-t is lehetett hozzáadni, viszont én az egyszerűség kedvéért ezeket a részleteket hanyagoltam. Miután elkészült a tervezés részben az összes issue, kezdődött a fejlesztés. Kiválasztott feature-t leimplementáltam, ezután pedig pull requestet nyitottam. Itt méginkább bebizonyosodott, hogy jó választás volt az, hogy ugyanazon a platformon verziózok és menedzselem a projektet is, ugyanis van egy olyan funkció, hogy a pull request leírásában ha hivatkozunk az adott issue-ra, akkor a pull request merge végrehajtása után automatikusan lezárja az issue-t. Így nem kellett manuálisan lezárnom minden elkészített feature-höz tartozó issue-t.
 
-Az Github oldalán pedig bármikor megtekinthetőek voltak a nyitott vagy már lezárt issue-k. Ezeket bármikor újra lehetett nyitni, vagy akár a nyitottakat lezárni, duplikáltnak jelölni. Úgy gondolom, hogy ez egy olyan projekthez, amit egy személy készít, bőven elegendő projektmenedzsment eszköznek, mivel minden szükséges kellék megvan benne.
+Az GitHub oldalán pedig bármikor megtekinthetőek voltak a nyitott vagy már lezárt issue-k. Ezeket bármikor újra lehetett nyitni, vagy akár a nyitottakat lezárni, duplikáltnak jelölni. Úgy gondolom, hogy ez egy olyan projekthez, amit egy személy készít, bőven elegendő projektmenedzsment eszköznek, mivel minden szükséges kellék megvan benne.
 
 \newpage
 

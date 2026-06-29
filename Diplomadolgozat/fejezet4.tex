@@ -9,7 +9,7 @@ Egyetlen felhasználói típusunk van az applikációban: a tanuló, amely nyelv
 \begin{itemize}
     \item \textbf{Platform}
     
-    Egy mobilalkamazás formájában a tanulni vágyó felhasználók mesterséges intelligencia segítségével gyakorolhatják a célnyelvet, ahol fejlődésüket tudják követni, különböző gyakorló feladatokat végezni és a beszédkészségükön dolgozni.
+    Egy mobilalkalmazás formájában a tanulni vágyó felhasználók mesterséges intelligencia segítségével gyakorolhatják a célnyelvet, ahol fejlődésüket tudják követni, különböző gyakorló feladatokat végezni és a beszédkészségükön dolgozni.
 
     \item \textbf{Regisztráció oldal}
 
@@ -46,7 +46,7 @@ Egyetlen felhasználói típusunk van az applikációban: a tanuló, amely nyelv
 
     \item \textbf{Gyakorlás oldal}
 
-    Több fajta gyakorlásból választhat a felhasználó, amely segíti úgy a beszédkészségét mint az írás- olvasás készségeit is. Flashcard vagy Pronounciation card funckióval a felhasználó megtanulhatja különböző szavak kiejtését és jelentését is. Correct the sentence vagy Fill in the gap funkcióval gyakorolhatja a helyes beszédet, ezen az oldalon felhasználva vannak a tanuló hibái is, ahhoz hasonló mondatokat kell kijavítania. 
+    Több fajta gyakorlásból választhat a felhasználó, amely segíti úgy a beszédkészségét mint az írás- olvasás készségeit is. Flashcard vagy Pronunciation card funkcióval a felhasználó megtanulhatja különböző szavak kiejtését és jelentését is. Correct the sentence vagy Fill in the gap funkcióval gyakorolhatja a helyes beszédet, ezen az oldalon felhasználva vannak a tanuló hibái is, ahhoz hasonló mondatokat kell kijavítania. 
 
     \item \textbf{Profil}
 
@@ -62,7 +62,7 @@ Egyetlen felhasználói típusunk van az applikációban: a tanuló, amely nyelv
     
 \end{itemize}
 
-A következő \ref{fig:usecase} ábrán bemuttatom egy diagram segítségével a felhasználói use case-eket, amelyek az alkalmazásban elérhetőek.
+A következő \ref{fig:usecase} ábrán bemutatom egy diagram segítségével a felhasználói use case-eket, amelyek az alkalmazásban elérhetőek.
 
 \begin{figure}[ht]
     \centering
@@ -77,14 +77,14 @@ A következő \ref{fig:usecase} ábrán bemuttatom egy diagram segítségével a
 
 \section {Rendszerkövetelmények}
 
-\subsection{Funckionális követelmények}
+\subsection{Funkcionális követelmények}
 
 Az alábbiakban bemutatok minden fontos funkciót az alkalmazásból.
 
 \begin{itemize}
     \item \textbf{Regisztráció}
 
-    A rendszer lehetőséget biztosít a felhasználó számára egy új fiók létrhozására. A regisztráció során a felhasználónak meg kell adnia a szükséges adatait. A rendszer ellenőrzni az adatokat, és hogy ki van e töltve minden mező, formátumot ellenőriz. Ezek után ha hibát észlel a rendszer, akkor hibaüzenetet jelenít meg. A sikeres regisztráció esetén a felhasználó adatai biztonságosan eltárolásra kerülnek az adatbázísban, titkosított formában.\cite{owaspPasswordStorage}
+    A rendszer lehetőséget biztosít a felhasználó számára egy új fiók létrehozására. A regisztráció során a felhasználónak meg kell adnia a szükséges adatait. A rendszer ellenőrzni az adatokat, és hogy ki van-e töltve minden mező, formátumot ellenőriz. Ezek után ha hibát észlel a rendszer, akkor hibaüzenetet jelenít meg. A sikeres regisztráció esetén a felhasználó adatai biztonságosan eltárolásra kerülnek az adatbázisban, titkosított formában.\cite{owaspPasswordStorage}
 
     \item \textbf{Bejelentkezés}
 
@@ -126,7 +126,7 @@ Az alábbiakban bemutatok minden fontos funkciót az alkalmazásból.
 \newpage
 \subsection{Nem funkcionális követelmények}
 
- Az aplikáció mobil alkalmazásnak lett elkészítve, ugyanakkor a Flutter \cite{flutter} keretrendszernek köszönhetően márs platformokon is használható. Gyors és stabil nyelvtanulási környezet biztosítása a cél, amely támogatja a mesterséges intelligenciával történő kommunikációt és beszédfejlesztést.
+ Az applikáció mobil alkalmazásnak lett elkészítve, ugyanakkor a Flutter \cite{flutter} keretrendszernek köszönhetően más platformokon is használható. Gyors és stabil nyelvtanulási környezet biztosítása a cél, amely támogatja a mesterséges intelligenciával történő kommunikációt és beszédfejlesztést.
 
 \begin{itemize}
     \item \textbf{Operációs rendszer}
@@ -147,14 +147,14 @@ Az alábbiakban bemutatok minden fontos funkciót az alkalmazásból.
 
     \item \textbf{Teljesítmény}
 
-    Egy nagyon fontos követelmény a gyors válaszidő. Különösen fontos szempont ez a beszélgetések során, ahol a felhasználó valós idejű kommunikációs élményt vár el. Az AI válaszgenerálásának, a beszédfeldolgozásnak és az adatbázislekérdezéseknek optimizált módon kell működnie, azért hogy az alkalmazás folyamatos és gördülékeny felhasználói élményt biztosítson.
+    Egy nagyon fontos követelmény a gyors válaszidő. Különösen fontos szempont ez a beszélgetések során, ahol a felhasználó valós idejű kommunikációs élményt vár el. Az AI válaszgenerálásának, a beszédfeldolgozásnak és az adatbázislekérdezéseknek optimalizált módon kell működnie, azért hogy az alkalmazás folyamatos és gördülékeny felhasználói élményt biztosítson.
 
     \item \textbf{Megbízhatóság}
 
-    A fejlesztés során fontos szempont volt a stabil működés és a hibák megfelelő kezelése.Különböző hibakezelési mechanizmusokat alkalmazunk annak érdekében, hogy egy esetleges hiba ne okozza az alkalmazás leállását. A backend oldalo központi hibakezelés került kialakításra, amely lehetőséget nyújt megfelelő válaszok visszaküldését a kliens számára.
+    A fejlesztés során fontos szempont volt a stabil működés és a hibák megfelelő kezelése. Különböző hibakezelési mechanizmusokat alkalmazunk annak érdekében, hogy egy esetleges hiba ne okozza az alkalmazás leállását. A backend oldalon központi hibakezelés került kialakításra, amely lehetőséget nyújt megfelelő válaszok visszaküldését a kliens számára.
 
     \item \textbf{Skálázhatóság}
-    A rendszer úgy lett kialakítva, hogy lehetővé tehesse a további funkciók és szolgáltatások későbbi integrálását. Az AI szolgáltatások külön microserviceként lettek elkészítve, így a rendszer könnyen bővíthetővé és fejleszthetővé vált. \cite{fowlerMicroservices} Ez lehetőség az új modellek, nyelvek, tanulási funkciók hozzáadására, anélkül hogy a teljes rendszer architektúráján modosítani kellene.
+    A rendszer úgy lett kialakítva, hogy lehetővé tehesse a további funkciók és szolgáltatások későbbi integrálását. Az AI szolgáltatások külön microszervizekként lettek elkészítve, így a rendszer könnyen bővíthetővé és fejleszthetővé vált. \cite{fowlerMicroservices} Ez lehetőség az új modellek, nyelvek, tanulási funkciók hozzáadására, anélkül hogy a teljes rendszer architektúráján módosítani kellene.
 
     \item \textbf{Modularitás}
     Az alkalmazás, köszönhetően a funkciók egymástól elkülönítésének, moduláris felépítést alkalmaz. Ez megkönnyíti a komponensek fejlesztését, tesztelését, cseréjét. A frontend, backend, AI szolgáltatások mind különálló részekként működnek a rendszerben.
