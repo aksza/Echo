@@ -6,6 +6,8 @@
 
         public int TotalSessions { get; set; }
         public int ConversationSessions { get; set; }
+        public int DailyStreak { get; set; }
+
         public DateTime? LastSessionAt { get; set; }
 
         public int VocabularyCount { get; set; }

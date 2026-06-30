@@ -1,4 +1,5 @@
 ﻿using EchoAPI.Api.DTOs.Response;
+using EchoAPI.Core.Entities;
 using EchoAPI.Core.Enums;
 using EchoAPI.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -55,8 +56,9 @@ namespace EchoAPI.Application.Services
 
             var lastPracticeAccuracy = CalculateLastPracticeAccuracy(lastPracticeSession);
 
-            var vocabularyPracticeSuccessRate =
-                CalculateSuccessRate(vocabularyPracticeHistory.Count, vocabularyPracticeHistory.Count(h => h.Success));
+            var vocabularyPracticeSuccessRate = CalculateSuccessRate(
+                vocabularyPracticeHistory.Count,
+                vocabularyPracticeHistory.Count(h => h.Success));
 
             return new LearningSummaryResponse
             {
@@ -64,6 +66,7 @@ namespace EchoAPI.Application.Services
 
                 TotalSessions = sessions.Count,
                 ConversationSessions = sessions.Count(s => s.SessionType == SessionType.Conversation),
+                DailyStreak = CalculateDailyStreak(sessions),
                 LastSessionAt = sessions
                     .OrderByDescending(s => s.EndedAt ?? s.StartedAt)
                     .Select(s => (DateTime?)(s.EndedAt ?? s.StartedAt))
@@ -85,7 +88,7 @@ namespace EchoAPI.Application.Services
         }
 
         private static int CountMistakesByCategory(
-            List<Core.Entities.Mistake> mistakes,
+            List<Mistake> mistakes,
             string category)
         {
             return mistakes.Count(m =>
@@ -109,7 +112,7 @@ namespace EchoAPI.Application.Services
         }
 
         private static double CalculateLastPracticeAccuracy(
-            Core.Entities.PracticeSession? session)
+            PracticeSession? session)
         {
             if (session == null || session.Items.Count == 0)
             {
@@ -120,6 +123,46 @@ namespace EchoAPI.Application.Services
             var correct = session.Items.Count(item => item.IsCorrect ?? false);
 
             return Math.Round((double)correct / total * 100, 1);
+        }
+
+        private static int CalculateDailyStreak(List<Session> sessions)
+        {
+            if (sessions.Count == 0)
+            {
+                return 0;
+            }
+
+            var activeDays = sessions
+                .Select(s => (s.EndedAt ?? s.StartedAt).Date)
+                .Distinct()
+                .OrderByDescending(date => date)
+                .ToList();
+
+            if (activeDays.Count == 0)
+            {
+                return 0;
+            }
+
+            var today = DateTime.UtcNow.Date;
+            var yesterday = today.AddDays(-1);
+
+            var latestActiveDay = activeDays.First();
+
+            if (latestActiveDay != today && latestActiveDay != yesterday)
+            {
+                return 0;
+            }
+
+            var streak = 0;
+            var currentDay = latestActiveDay;
+
+            while (activeDays.Contains(currentDay))
+            {
+                streak++;
+                currentDay = currentDay.AddDays(-1);
+            }
+
+            return streak;
         }
     }
 }
