@@ -1,0 +1,142 @@
+%----------------------------------------------------------------------------
+\chapter{Felhasználói felület}
+%----------------------------------------------------------------------------
+
+A felhasználói felület szempontjából szerettem volna egy átlátható, minimalista design létrehozására törekedni. Így a felhasználó könnyen eligazodik az alkalmazásban, megtalál minden olyan oldalt amit keres, és nincs felesleges információ előtte.
+
+\section{Belépés és regisztráció}
+
+Az alkalmazás megnyitásakor egy olyan oldal található, amelyen a felhasználó választhat regisztráció és bejelentkezés között.
+
+A regisztrációra kattintva a felhasználó kitöltheti adataival a kérdőívet (\ref{fig:reg_assessment_start}). Ezután a regisztrációs folyamat után elkezdődik a \ref{fig:assessment_pages} ábrákon látható, hogy a felhasználónak a nyelvi szintjét írásban és olvasásban méri fel az AI néhány kérdéssel és a felhasználó által adott válaszokkal. Végül a felhasználó megkapja az AI által kiértékelt eredményét, ezt az oldalt a \ref{fig:assessment_result} ábrán lehet megtekinteni. Itt leírja, hogy milyen szinten van írásban és olvasásban, és egy rövid kiértékelőt ír.
+
+Miután a felhasználó sikeresen regisztrált és elvégezte az assessmentet, a bejelentkezés következik, amelyet a \ref{fig:login} ábrán lehet megtekinteni. Itt a felhasználó beírja email címét és jelszavát, majd a Login gombra kattintva máris bejelentkezhet az alkalmazásba.
+
+\begin{figure}[h]
+    \centering
+    \subfigure{
+        \includegraphics[width=0.17\textwidth]{images/reg.jpeg}%
+        \label{fig:reg}%
+    }
+     \subfigure{
+        \includegraphics[width=0.17\textwidth]{images/login.jpeg}%
+        \label{fig:login}%
+    }
+    \subfigure{
+        \includegraphics[width=0.17\textwidth]{images/assesment_start.jpeg}%
+        \label{fig:assessment_start}
+    }
+    \caption{Regisztrációs, Bejelentkezés és Assessment indítása oldalak}
+    \label{fig:reg_assessment_start}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \subfigure{
+        \includegraphics[width=0.25\textwidth]{images/writing_assessment.jpeg}%
+        \label{fig:writing_assessment}%
+    }
+    \subfigure{
+        \includegraphics[width=0.25\textwidth]{images/speaking_assessment.jpeg}%
+        \label{fig:speaking_assessment}
+    }
+    \subfigure{
+        \includegraphics[width=0.25\textwidth]{images/assessment_res.jpeg}%
+        \label{fig:assessment_result}%
+    }
+    \caption{Írásbeli és beszéd értékelés, valamint az értékelés eredménye oldalak}
+    \label{fig:assessment_pages}
+\end{figure}
+
+\newpage
+
+\section{Főoldal}
+
+Az alábbi ábrán a \ref{fig:home} megtekinthető a főoldal, amely az alkalmazás lelke. Innen minden fontos dolgot el lehet érni, látható hogy az AI beszélgetést egy kattintással el lehet érni és egyéb beszélgetéstémákat is. a navigációs menüben szerepel a profil, a hibák listájának oldala, illetve a szótár oldala is, ezek egy kattintásra elérhetők és máris gyakorolhat, tanulhat a felhasználó.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.4\textwidth]{images/fooldal.jpeg}%
+    \caption{Főoldal}
+    \label{fig:home}
+\end{figure}
+
+\newpage
+
+\section{Beszélgetés oldal}
+
+A beszélgetés oldal a \ref{fig:conversation} ábrán látható, itt a felhasználó beszédben kommunikálhat az AI-val, amely válaszokat küld neki írásban is és szóban is. Itt több különböző funkció is van. Meg lehet ismételtetni az AI válaszát, illetve a szavakra is lehet kattintani. A szavakra kattintás után a \ref{fig:word_info} ábrán látható, milyen opciók közül válogathat a felhasználó. Fel lehet olvastatni az AI-val a szót egy gombnyomásra, vagy ha nem értette a szót, akkor le is fordíthatja vele, a lefordított szót pedig egy gombnyomás segítségével hozzáadhatja a szótárához, így később könnyen megtalálhatja és gyakorolhatja az ismeretlen szavakat.
+
+\begin{figure}[h]
+    \centering
+    \subfigure{
+        \includegraphics[width=0.25\textwidth]{images/chat.jpeg}%
+        \label{fig:conversation}%
+    }
+    \subfigure{
+        \includegraphics[width=0.25\textwidth]{images/word_selection.jpeg}%
+        \label{fig:word_info}
+    }
+    \caption{Beszélgetés és szavakra kattintás oldalak}
+    \label{fig:conversation_pages}
+\end{figure}
+
+\newpage
+
+\section{Hibák oldala}
+
+Ezen az oldalon a felhasználó egy olyan helyet látogathat meg, ahol a korábbi beszélgetésekből kiszűrt hibákat gyűjtheti össze. Ezen az oldalon a felhasználó elkezdhet egy gyakorlást is, ahol a hibákat kijavíthatja szóban vagy írásban is. Ezek az oldalak megtekinthetőek a \ref{fig:mistake_pages} ábrán.
+
+\begin{figure}[h]
+    \centering
+    \subfigure{
+        \includegraphics[width=0.25\textwidth]{images/mistake_practice.jpeg}%
+        \label{fig:mistake_practice}%
+    }
+    \subfigure{
+        \includegraphics[width=0.25\textwidth]{images/practice_text.jpeg}%
+        \label{fig:practice_text}
+    }
+    \subfigure{
+        \includegraphics[width=0.25\textwidth]{images/practice_complete.jpeg}%
+        \label{fig:practice_result}%
+    }
+    \caption{Hibák gyakorlása és az eredmények oldalak}
+    \label{fig:mistake_pages}
+\end{figure}
+
+\section{Szótár oldal}
+
+A szótár oldal a \ref{fig:vocabulary_pages} ábrán látható. Itt a felhasználó megtekintheti az összes szót vagy kifejezést amelyeket elmentett, és ezeknek a jelentését is. A szótárba elmentheti a szavakat az AI-val való beszélgetés alatt is, a szavakat kijelölve, valamint ha belépik az oldalra, ő is beírhat új szavakat, amiket épp hallott valahol és lefordította.
+
+A szótárba való mentés után egy gombra kattintva elkezdhet egy gyakorlást is, ahol flashcardok segítségével gyakorolhatja a szavak jelentését. A gyakorlás után a felhasználó megtekintheti az eredményét, hogy hány szót tudott helyesen lefordítani. Ezek az oldalak a \ref{fig:flashcard_pages} ábrán láthatóak.
+
+\newpage
+
+\begin{figure}[h]
+    \centering
+    \subfigure{
+        \includegraphics[width=0.21\textwidth]{images/vocabulary.jpeg}%
+        \label{fig:vocabulary}
+    }
+    \subfigure{
+        \includegraphics[width=0.21\textwidth]{images/add_vocabulary.jpeg}%
+        \label{fig:add_vocabulary}
+    }
+    \caption{Szótár oldal}
+    \label{fig:vocabulary_pages}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \subfigure{
+        \includegraphics[width=0.21\textwidth]{images/flashcard.jpeg}%
+        \label{fig:flashcard}
+    }
+    \subfigure{
+        \includegraphics[width=0.21\textwidth]{images/flashcard_complete.jpeg}%
+        \label{fig:flashcard_complete}
+    }
+    \caption{Flashcard oldal}
+    \label{fig:flashcard_pages}
+\end{figure}

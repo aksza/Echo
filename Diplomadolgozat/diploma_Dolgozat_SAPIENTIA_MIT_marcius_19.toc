@@ -1,0 +1,55 @@
+\select@language {magyar} \contentsline {chapter}{\numberline {1}Bevezető}{11}{chapter.1}%
+\select@language {magyar} \contentsline {chapter}{\numberline {2}Hasonló alkalmazások, felhasznált technológiák}{12}{chapter.2}%
+\select@language {magyar} \contentsline {section}{\numberline {2.1}Hasonló alkalmazások}{12}{section.2.1}%
+\select@language {magyar} \contentsline {section}{\numberline {2.2}Felhasznált technológiák}{13}{section.2.2}%
+\select@language {magyar} \contentsline {subsection}{\numberline {2.2.1}Flutter}{13}{subsection.2.2.1}%
+\select@language {magyar} \contentsline {subsection}{\numberline {2.2.2}ASP.NET Core}{13}{subsection.2.2.2}%
+\select@language {magyar} \contentsline {subsection}{\numberline {2.2.3}Microsoft SQL Server}{14}{subsection.2.2.3}%
+\select@language {magyar} \contentsline {subsection}{\numberline {2.2.4}Python}{14}{subsection.2.2.4}%
+\select@language {magyar} \contentsline {subsubsection}{Faster-Whisper}{14}{section*.5}%
+\select@language {magyar} \contentsline {subsubsection}{Phi3-Mini}{14}{section*.6}%
+\select@language {magyar} \contentsline {subsubsection}{Piper TTS}{14}{section*.7}%
+\select@language {magyar} \contentsline {chapter}{\numberline {3}Rendszer specifikációja}{15}{chapter.3}%
+\select@language {magyar} \contentsline {section}{\numberline {3.1}Felhasználói követelmények}{15}{section.3.1}%
+\select@language {magyar} \contentsline {section}{\numberline {3.2}Rendszerkövetelmények}{17}{section.3.2}%
+\select@language {magyar} \contentsline {subsection}{\numberline {3.2.1}Funkcionális követelmények}{17}{subsection.3.2.1}%
+\select@language {magyar} \contentsline {subsection}{\numberline {3.2.2}Nem funkcionális követelmények}{19}{subsection.3.2.2}%
+\select@language {magyar} \contentsline {chapter}{\numberline {4}Tervezés}{21}{chapter.4}%
+\select@language {magyar} \contentsline {section}{\numberline {4.1}Szoftver terv}{21}{section.4.1}%
+\select@language {magyar} \contentsline {subsection}{\numberline {4.1.1}Logikai nézet}{22}{subsection.4.1.1}%
+\select@language {magyar} \contentsline {subsection}{\numberline {4.1.2}Folyamat nézet}{22}{subsection.4.1.2}%
+\select@language {magyar} \contentsline {section}{\numberline {4.2}Adatbázis terv}{24}{section.4.2}%
+\select@language {magyar} \contentsline {section}{\numberline {4.3}Felhasználói felület terv}{25}{section.4.3}%
+\select@language {magyar} \contentsline {section}{\numberline {4.4}Verziókövetés}{26}{section.4.4}%
+\select@language {magyar} \contentsline {section}{\numberline {4.5}Projektmenedzsment}{27}{section.4.5}%
+\select@language {magyar} \contentsline {chapter}{\numberline {5}Megvalósítás}{29}{chapter.5}%
+\select@language {magyar} \contentsline {section}{\numberline {5.1}Az alkalmazás architektúrája}{29}{section.5.1}%
+\select@language {magyar} \contentsline {section}{\numberline {5.2}Frontend megvalósítása}{29}{section.5.2}%
+\select@language {magyar} \contentsline {section}{\numberline {5.3}Backend megvalósítása}{31}{section.5.3}%
+\select@language {magyar} \contentsline {section}{\numberline {5.4}AI service megvalósítása}{33}{section.5.4}%
+\select@language {magyar} \contentsline {chapter}{\numberline {6}Felhasználói felület}{35}{chapter.6}%
+\select@language {magyar} \contentsline {section}{\numberline {6.1}Belépés és regisztráció}{35}{section.6.1}%
+\select@language {magyar} \contentsline {section}{\numberline {6.2}Főoldal}{37}{section.6.2}%
+\select@language {magyar} \contentsline {section}{\numberline {6.3}Beszélgetés oldal}{38}{section.6.3}%
+\select@language {magyar} \contentsline {section}{\numberline {6.4}Hibák oldala}{39}{section.6.4}%
+\select@language {magyar} \contentsline {section}{\numberline {6.5}Szótár oldal}{39}{section.6.5}%
+\select@language {magyar} \contentsline {chapter}{\numberline {7}Kutatási terv és értékelési módszertan}{41}{chapter.7}%
+\select@language {magyar} \contentsline {section}{\numberline {7.1}A kutatás célja}{41}{section.7.1}%
+\select@language {magyar} \contentsline {section}{\numberline {7.2}Kutatási kérdések és hipotézisek}{42}{section.7.2}%
+\select@language {magyar} \contentsline {section}{\numberline {7.3}A tanóra témája és menete}{42}{section.7.3}%
+\select@language {magyar} \contentsline {section}{\numberline {7.4}Mérőeszközök}{43}{section.7.4}%
+\select@language {magyar} \contentsline {section}{\numberline {7.5}Adatelemzési módszerek}{43}{section.7.5}%
+\select@language {magyar} \contentsline {section}{\numberline {7.6}Etikai szempontok}{44}{section.7.6}%
+\select@language {magyar} \contentsline {chapter}{\numberline {8}Kutatási eredmények és kiértékelés}{45}{chapter.8}%
+\select@language {magyar} \contentsline {section}{\numberline {8.1}A vizsgálat lebonyolítása}{45}{section.8.1}%
+\select@language {magyar} \contentsline {section}{\numberline {8.2}A csoportok előteszt eredményeinek összehasonlítása}{46}{section.8.2}%
+\select@language {magyar} \contentsline {section}{\numberline {8.3}Előteszt és utóteszt eredményei csoporton belül}{46}{section.8.3}%
+\select@language {magyar} \contentsline {section}{\numberline {8.4}A két csoport fejlődésének összehasonlítása}{48}{section.8.4}%
+\select@language {magyar} \contentsline {section}{\numberline {8.5}A kérdőíves visszajelzések összefoglalása}{49}{section.8.5}%
+\select@language {magyar} \contentsline {section}{\numberline {8.6}Hipotézisek értékelése}{49}{section.8.6}%
+\select@language {magyar} \contentsline {chapter}{\numberline {9}Következtetések és továbbfejlesztési lehetőségek}{51}{chapter.9}%
+\select@language {magyar} \contentsline {section}{\numberline {9.1}Eredmények, következtetések és korlátok}{52}{section.9.1}%
+\select@language {magyar} \contentsline {section}{\numberline {9.2}Továbbfejlesztési lehetőségek}{52}{section.9.2}%
+\select@language {magyar} \contentsline {chapter}{Ábrák jegyzéke}{53}{chapter*.33}%
+\select@language {magyar} \contentsline {chapter}{Táblázatok jegyzéke}{54}{chapter*.34}%
+\select@language {magyar} \contentsline {chapter}{Irodalomjegyzék}{57}{chapter*.35}%
