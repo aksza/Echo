@@ -8,6 +8,7 @@ import 'package:echo_app/features/summary/presentation/learning_summary_page.dar
 import 'package:echo_app/features/vocabulary/presentation/vocabulary_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:echo_app/features/history/presentation/session_history_page.dart';
 
 class AppShell extends StatefulWidget {
   const AppShell({super.key});
@@ -297,7 +298,7 @@ class _QuickActions extends StatelessWidget {
       children: [
         _ActionButton(
           icon: Icons.mic,
-          label: 'Start free conversation',
+          label: 'Start new conversation',
           onPressed: () {
             Navigator.push(
               context,
@@ -329,6 +330,19 @@ class _QuickActions extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (_) => const MistakesPage(),
+              ),
+            );
+          },
+        ),
+        const SizedBox(height: 10),
+        _ActionButton(
+          icon: Icons.history,
+          label: 'View learning history',
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => const SessionHistoryPage(),
               ),
             );
           },
