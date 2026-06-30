@@ -33,23 +33,25 @@
 \select@language {magyar} \contentsline {section}{\numberline {6.3}Beszélgetés oldal}{38}{section.6.3}%
 \select@language {magyar} \contentsline {section}{\numberline {6.4}Hibák oldala}{39}{section.6.4}%
 \select@language {magyar} \contentsline {section}{\numberline {6.5}Szótár oldal}{39}{section.6.5}%
-\select@language {magyar} \contentsline {chapter}{\numberline {7}Kutatási terv és értékelési módszertan}{41}{chapter.7}%
-\select@language {magyar} \contentsline {section}{\numberline {7.1}A kutatás célja}{41}{section.7.1}%
-\select@language {magyar} \contentsline {section}{\numberline {7.2}Kutatási kérdések és hipotézisek}{42}{section.7.2}%
-\select@language {magyar} \contentsline {section}{\numberline {7.3}A tanóra témája és menete}{42}{section.7.3}%
-\select@language {magyar} \contentsline {section}{\numberline {7.4}Mérőeszközök}{43}{section.7.4}%
-\select@language {magyar} \contentsline {section}{\numberline {7.5}Adatelemzési módszerek}{43}{section.7.5}%
-\select@language {magyar} \contentsline {section}{\numberline {7.6}Etikai szempontok}{44}{section.7.6}%
-\select@language {magyar} \contentsline {chapter}{\numberline {8}Kutatási eredmények és kiértékelés}{45}{chapter.8}%
-\select@language {magyar} \contentsline {section}{\numberline {8.1}A vizsgálat lebonyolítása}{45}{section.8.1}%
-\select@language {magyar} \contentsline {section}{\numberline {8.2}A csoportok előteszt eredményeinek összehasonlítása}{46}{section.8.2}%
-\select@language {magyar} \contentsline {section}{\numberline {8.3}Előteszt és utóteszt eredményei csoporton belül}{46}{section.8.3}%
-\select@language {magyar} \contentsline {section}{\numberline {8.4}A két csoport fejlődésének összehasonlítása}{48}{section.8.4}%
-\select@language {magyar} \contentsline {section}{\numberline {8.5}A kérdőíves visszajelzések összefoglalása}{49}{section.8.5}%
-\select@language {magyar} \contentsline {section}{\numberline {8.6}Hipotézisek értékelése}{49}{section.8.6}%
-\select@language {magyar} \contentsline {chapter}{\numberline {9}Következtetések és továbbfejlesztési lehetőségek}{51}{chapter.9}%
-\select@language {magyar} \contentsline {section}{\numberline {9.1}Eredmények, következtetések és korlátok}{52}{section.9.1}%
-\select@language {magyar} \contentsline {section}{\numberline {9.2}Továbbfejlesztési lehetőségek}{52}{section.9.2}%
-\select@language {magyar} \contentsline {chapter}{Ábrák jegyzéke}{53}{chapter*.33}%
-\select@language {magyar} \contentsline {chapter}{Táblázatok jegyzéke}{54}{chapter*.34}%
-\select@language {magyar} \contentsline {chapter}{Irodalomjegyzék}{57}{chapter*.35}%
+\select@language {magyar} \contentsline {section}{\numberline {6.6}Beszélgetési előzmények oldal}{41}{section.6.6}%
+\select@language {magyar} \contentsline {section}{\numberline {6.7}Profil oldal}{42}{section.6.7}%
+\select@language {magyar} \contentsline {chapter}{\numberline {7}Kutatási terv és értékelési módszertan}{43}{chapter.7}%
+\select@language {magyar} \contentsline {section}{\numberline {7.1}A kutatás célja}{43}{section.7.1}%
+\select@language {magyar} \contentsline {section}{\numberline {7.2}Kutatási kérdések és hipotézisek}{44}{section.7.2}%
+\select@language {magyar} \contentsline {section}{\numberline {7.3}A tanóra témája és menete}{44}{section.7.3}%
+\select@language {magyar} \contentsline {section}{\numberline {7.4}Mérőeszközök}{45}{section.7.4}%
+\select@language {magyar} \contentsline {section}{\numberline {7.5}Adatelemzési módszerek}{45}{section.7.5}%
+\select@language {magyar} \contentsline {section}{\numberline {7.6}Etikai szempontok}{46}{section.7.6}%
+\select@language {magyar} \contentsline {chapter}{\numberline {8}Kutatási eredmények és kiértékelés}{47}{chapter.8}%
+\select@language {magyar} \contentsline {section}{\numberline {8.1}A vizsgálat lebonyolítása}{47}{section.8.1}%
+\select@language {magyar} \contentsline {section}{\numberline {8.2}A csoportok előteszt eredményeinek összehasonlítása}{48}{section.8.2}%
+\select@language {magyar} \contentsline {section}{\numberline {8.3}Előteszt és utóteszt eredményei csoporton belül}{48}{section.8.3}%
+\select@language {magyar} \contentsline {section}{\numberline {8.4}A két csoport fejlődésének összehasonlítása}{50}{section.8.4}%
+\select@language {magyar} \contentsline {section}{\numberline {8.5}A kérdőíves visszajelzések összefoglalása}{51}{section.8.5}%
+\select@language {magyar} \contentsline {section}{\numberline {8.6}Hipotézisek értékelése}{51}{section.8.6}%
+\select@language {magyar} \contentsline {chapter}{\numberline {9}Következtetések és továbbfejlesztési lehetőségek}{53}{chapter.9}%
+\select@language {magyar} \contentsline {section}{\numberline {9.1}Eredmények, következtetések és korlátok}{54}{section.9.1}%
+\select@language {magyar} \contentsline {section}{\numberline {9.2}Továbbfejlesztési lehetőségek}{54}{section.9.2}%
+\select@language {magyar} \contentsline {chapter}{Ábrák jegyzéke}{55}{chapter*.35}%
+\select@language {magyar} \contentsline {chapter}{Táblázatok jegyzéke}{56}{chapter*.36}%
+\select@language {magyar} \contentsline {chapter}{Irodalomjegyzék}{59}{chapter*.37}%

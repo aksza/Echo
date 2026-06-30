@@ -52,13 +52,20 @@ Miután a felhasználó sikeresen regisztrált és elvégezte az assessmentet, a
 
 \section{Főoldal}
 
-Az alábbi ábrán a \ref{fig:home} megtekinthető a főoldal, amely az alkalmazás lelke. Innen minden fontos dolgot el lehet érni, látható hogy az AI beszélgetést egy kattintással el lehet érni és egyéb beszélgetéstémákat is. a navigációs menüben szerepel a profil, a hibák listájának oldala, illetve a szótár oldala is, ezek egy kattintásra elérhetők és máris gyakorolhat, tanulhat a felhasználó.
+Az alábbi ábrán a \ref{fig:home_pages} megtekinthető a főoldal. Innen minden fontos dolgot el lehet érni, alul láthatóak a navigációs gombok. Először egy köszöntő szöveggel találkozik a felhasználó, majd kilistázódik néhány statisztika az aktivitásáról. Ezek után a Gyors elérésnél több gomb elérhető, amelyben az elsővel egy beszélgetést lehet kezdeményezni a mesterséges intelligenciával, a második gomb a kutatásomhoz szolgáló tananyag elérésére szolgál. A harmadik gombbal a hibákat újra át lehet nézni, és a negyedikkel pedig a beszélgetési előzmények címei tekinthetők meg. Ezek alatt pedig elérhető néhány ajánlott beszélgetési téma, ezeket megnyitva csak és kizárólag a témán belül lehet beszélgetést folytatni.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.4\textwidth]{images/fooldal.jpeg}%
+    \subfigure{
+        \includegraphics[width=0.4\textwidth]{images/ujfooldal.jpeg}%
+        \label{fig:home1}
+    }
+    \subfigure{
+        \includegraphics[width=0.4\textwidth]{images/ujfooldal2.jpeg}%
+        \label{fig:home2}
+    }
     \caption{Főoldal}
-    \label{fig:home}
+    \label{fig:home_pages}
 \end{figure}
 
 \newpage
@@ -139,4 +146,37 @@ A szótárba való mentés után egy gombra kattintva elkezdhet egy gyakorlást 
     }
     \caption{Flashcard oldal}
     \label{fig:flashcard_pages}
+\end{figure}
+
+\newpage
+
+\section{Beszélgetési előzmények oldal}
+
+A főoldali Learning history gombra kattintva a felhasználó megtekintheti a korábbi beszélgetéseinek témáját. Itt biztonsági okokból a beszélgetést nem tároltam el. Ez az oldal megtakinthető a \ref{fig:history} ábrán.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.3\linewidth]{images/learninghistory.jpeg}
+    \caption{Beszélgetési előzmények}
+    \label{fig:history}
+\end{figure}
+
+\newpage
+
+\section{Profil oldal}
+
+A profil oldal a \ref{fig:profil_oldalak} ábrán látható. Itt kilistázza a felhasználó fontosabb adatait, mint például hogy mikor hozta létre a felhasználó a fiókját, az aktivitási adatokat, gyakorlási adatokat és a hibáinak kategóriáit.
+
+\begin{figure}[h]
+    \centering
+    \subfigure{
+        \includegraphics[width=0.3\textwidth]{images/profile.jpeg}%
+        \label{fig:profile}
+    }
+    \subfigure{
+        \includegraphics[width=0.3\textwidth]{images/profile2.jpeg}%
+        \label{fig:profile2}
+    }
+    \caption{Profil oldal}
+    \label{fig:profil_oldalak}
 \end{figure}

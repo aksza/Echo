@@ -13,13 +13,13 @@ Marah Abdin, Sam~Ade Jacobs, Ammar~Ahmad Awan, Jyoti Aneja, Ahmed Awadallah,
 {AutoMapper}.
 \newblock Automapper documentation.
 \newblock \url{https://docs.automapper.io/}, 2026.
-\newblock Látogatás dátuma: 2026-06-13.
+\newblock Látogatás dátuma: 2026-04-12.
 
 \bibitem[{Blu}26]{audioplayers}
 {Blue Fire}.
 \newblock audioplayers package.
 \newblock \url{https://pub.dev/packages/audioplayers}, 2026.
-\newblock Látogatás dátuma: 2026-06-13.
+\newblock Látogatás dátuma: 2026-04-12.
 
 \bibitem[Coh88]{cohen1988statistical}
 Jacob Cohen.
@@ -35,7 +35,7 @@ Donald~T. Campbell and Julian~C. Stanley.
 {Dart Tools}.
 \newblock Dio package.
 \newblock \url{https://pub.dev/packages/dio}, 2026.
-\newblock Látogatás dátuma: 2026-06-13.
+\newblock Látogatás dátuma: 2026-04-12.
 
 \bibitem[DSN{\etalchar{+}}11]{deterding2011gamification}
 Sebastian Deterding, Miguel Sicart, Lennart Nacke, Kenton O'Hara, and Dan
@@ -48,13 +48,13 @@ Sebastian Deterding, Miguel Sicart, Lennart Nacke, Kenton O'Hara, and Dan
 {Duolingo}.
 \newblock Duolingo max uses openai's gpt-4 for new learning features.
 \newblock \url{https://blog.duolingo.com/duolingo-max/}, 2023.
-\newblock Látogatás dátuma: 2026-06-13.
+\newblock Látogatás dátuma: 2026-04-30.
 
 \bibitem[{Exc}26]{excalidraw}
 {Excalidraw}.
 \newblock Excalidraw whiteboard.
 \newblock \url{https://excalidraw.com/}, 2026.
-\newblock Látogatás dátuma: 2026-06-13.
+\newblock Látogatás dátuma: 2026-05-03.
 
 \bibitem[Fie13]{field2013statistics}
 Andy Field.
@@ -65,13 +65,13 @@ Andy Field.
 {Flutter Community}.
 \newblock flutter\_dotenv package.
 \newblock \url{https://pub.dev/packages/flutter_dotenv}, 2026.
-\newblock Látogatás dátuma: 2026-06-13.
+\newblock Látogatás dátuma: 2026-05-05.
 
 \bibitem[{Flu}26b]{pathprovider}
 {Flutter Team}.
 \newblock path\_provider package.
 \newblock \url{https://pub.dev/packages/path_provider}, 2026.
-\newblock Látogatás dátuma: 2026-06-13.
+\newblock Látogatás dátuma: 2026-04-30.
 
 \bibitem[{Git}26a]{gitVersionControl}
 {Git}.
@@ -79,37 +79,37 @@ Andy Field.
 \newblock
   \url{https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control},
   2026.
-\newblock Látogatás dátuma: 2026-06-13.
+\newblock Látogatás dátuma: 2026-04-23.
 
 \bibitem[{Git}26b]{githubIssues}
 {GitHub}.
 \newblock About issues.
 \newblock \url{https://docs.github.com/articles/about-issues}, 2026.
-\newblock Látogatás dátuma: 2026-06-13.
+\newblock Látogatás dátuma: 2026-04-23.
 
 \bibitem[{Goo}26]{flutter}
 {Google LLC}.
 \newblock Flutter documentation.
 \newblock \url{https://docs.flutter.dev/}, 2026.
-\newblock Látogatás dátuma: 2026-06-13.
+\newblock Látogatás dátuma: 2026-05-05.
 
 \bibitem[JBS15]{jwt}
 Michael~B. Jones, John Bradley, and Nat Sakimura.
 \newblock Json web token (jwt).
 \newblock \url{https://datatracker.ietf.org/doc/html/rfc7519}, 2015.
-\newblock RFC 7519. Látogatás dátuma: 2026-06-13.
+\newblock RFC 7519. Látogatás dátuma: 2026-05-05.
 
 \bibitem[LF14]{fowlerMicroservices}
 James Lewis and Martin Fowler.
 \newblock Microservices: A definition of this new architectural term.
 \newblock \url{https://martinfowler.com/articles/microservices.html}, 2014.
-\newblock Látogatás dátuma: 2026-06-13.
+\newblock Látogatás dátuma: 2026-05-05.
 
 \bibitem[{llf}26]{record}
 {llfbandit}.
 \newblock record package.
 \newblock \url{https://pub.dev/packages/record}, 2026.
-\newblock Látogatás dátuma: 2026-06-13.
+\newblock Látogatás dátuma: 2026-05-05.
 
 \bibitem[Lon96]{long1996role}
 Michael~H. Long.
@@ -135,7 +135,7 @@ Robert~C. Martin.
 \newblock
   \url{https://learn.microsoft.com/en-us/ef/core/managing-schemas/migrations/},
   2023.
-\newblock Látogatás dátuma: 2026-06-13.
+\newblock Látogatás dátuma: 2026-04-23.
 
 \bibitem[{Mic}26a]{aspnetcoreMiddleware}
 {Microsoft Corporation}.
@@ -143,7 +143,7 @@ Robert~C. Martin.
 \newblock
   \url{https://learn.microsoft.com/en-us/aspnet/core/fundamentals/middleware/},
   2026.
-\newblock Látogatás dátuma: 2026-06-13.
+\newblock Látogatás dátuma: 2026-04-23.
 
 \bibitem[{Mic}26b]{dotnetDI}
 {Microsoft Corporation}.
@@ -151,19 +151,19 @@ Robert~C. Martin.
 \newblock
   \url{https://learn.microsoft.com/en-us/dotnet/core/extensions/dependency-injection},
   2026.
-\newblock Látogatás dátuma: 2026-06-13.
+\newblock Látogatás dátuma: 2026-04-23.
 
 \bibitem[{Mic}26c]{aspnetcore}
 {Microsoft Corporation}.
 \newblock Overview of asp.net core.
 \newblock \url{https://learn.microsoft.com/en-us/aspnet/core/overview}, 2026.
-\newblock Látogatás dátuma: 2026-06-13.
+\newblock Látogatás dátuma: 2026-04-23.
 
 \bibitem[{Mic}26d]{mssql}
 {Microsoft Corporation}.
 \newblock Sql server technical documentation.
 \newblock \url{https://learn.microsoft.com/en-us/sql/sql-server/}, 2026.
-\newblock Látogatás dátuma: 2026-06-13.
+\newblock Látogatás dátuma: 2026-04-23.
 
 \bibitem[{OWA}26]{owaspPasswordStorage}
 {OWASP Foundation}.
@@ -171,7 +171,7 @@ Robert~C. Martin.
 \newblock
   \url{https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html},
   2026.
-\newblock Látogatás dátuma: 2026-06-13.
+\newblock Látogatás dátuma: 2026-04-23.
 
 \bibitem[{Pra}26a]{praktikaGooglePlay}
 {Praktika}.
@@ -179,31 +179,31 @@ Robert~C. Martin.
 \newblock
   \url{https://play.google.com/store/apps/details?id=ai.praktika.android},
   2026.
-\newblock Látogatás dátuma: 2026-06-13.
+\newblock Látogatás dátuma: 2026-05-05.
 
 \bibitem[{Pra}26b]{praktika}
 {Praktika}.
 \newblock Praktika - learn and speak new languages with ai tutors.
 \newblock \url{https://praktika.ai/}, 2026.
-\newblock Látogatás dátuma: 2026-06-13.
+\newblock Látogatás dátuma: 2026-05-05.
 
 \bibitem[{Pyt}26]{python}
 {Python Software Foundation}.
 \newblock The python tutorial.
 \newblock \url{https://docs.python.org/3/tutorial/}, 2026.
-\newblock Látogatás dátuma: 2026-06-13.
+\newblock Látogatás dátuma: 2026-04-23.
 
 \bibitem[{Rha}26]{piper}
 {Rhasspy}.
 \newblock Piper: A fast, local neural text to speech system.
 \newblock \url{https://github.com/rhasspy/piper}, 2026.
-\newblock Látogatás dátuma: 2026-06-13.
+\newblock Látogatás dátuma: 2026-04-23.
 
 \bibitem[{Riv}26]{riverpod}
 {Riverpod}.
 \newblock Riverpod documentation.
 \newblock \url{https://riverpod.dev/}, 2026.
-\newblock Látogatás dátuma: 2026-06-13.
+\newblock Látogatás dátuma: 2026-04-23.
 
 \bibitem[RKX{\etalchar{+}}22]{whisper}
 Alec Radford, Jong~Wook Kim, Tao Xu, Greg Brockman, Christine McLeavey, and
@@ -221,7 +221,7 @@ Masatoshi Sato and Roy Lyster.
 {Speak}.
 \newblock Speak - the language learning app that gets you speaking.
 \newblock \url{https://www.speak.com/}, 2026.
-\newblock Látogatás dátuma: 2026-06-13.
+\newblock Látogatás dátuma: 2026-04-23.
 
 \bibitem[{Spe}26b]{speakAppStore}
 {Speak}.
@@ -229,7 +229,7 @@ Masatoshi Sato and Roy Lyster.
 \newblock
   \url{https://apps.apple.com/us/app/speak-language-learning/id1286609883},
   2026.
-\newblock Látogatás dátuma: 2026-06-13.
+\newblock Látogatás dátuma: 2026-04-23.
 
 \bibitem[Swa85]{swain1985communicative}
 Merrill Swain.
@@ -242,13 +242,13 @@ Merrill Swain.
 {SYSTRAN}.
 \newblock Faster-whisper: Faster whisper transcription with ctranslate2.
 \newblock \url{https://github.com/SYSTRAN/faster-whisper}, 2026.
-\newblock Látogatás dátuma: 2026-06-13.
+\newblock Látogatás dátuma: 2026-04-23.
 
 \bibitem[VTH01]{vanTeijlingen2001pilot}
 Edwin~R. Van~Teijlingen and Vanora Hundley.
 \newblock The importance of pilot studies.
 \newblock {\em Social Research Update}, 2001.
-\newblock Látogatás dátuma: 2026-06-13.
+\newblock Látogatás dátuma: 2026-05-23.
 
 \bibitem[XZS{\etalchar{+}}24]{xiao2024conversational}
 Feiwen Xiao, Priscilla Zhao, Hanyue Sha, Dandan Yang, and Mark Warschauer.
