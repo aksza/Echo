@@ -3,6 +3,7 @@ class LearningSummaryModel {
 
   final int totalSessions;
   final int conversationSessions;
+  final int dailyStreak;
   final DateTime? lastSessionAt;
 
   final int vocabularyCount;
@@ -22,6 +23,7 @@ class LearningSummaryModel {
     required this.accountCreatedAt,
     required this.totalSessions,
     required this.conversationSessions,
+    required this.dailyStreak,
     required this.lastSessionAt,
     required this.vocabularyCount,
     required this.vocabularyPracticeCount,
@@ -42,6 +44,7 @@ class LearningSummaryModel {
       ),
       totalSessions: _toInt(json['totalSessions']),
       conversationSessions: _toInt(json['conversationSessions']),
+      dailyStreak: _toInt(json['dailyStreak']),
       lastSessionAt: DateTime.tryParse(
         json['lastSessionAt']?.toString() ?? '',
       ),
